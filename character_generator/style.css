@@ -1,0 +1,295 @@
+/* Grundlayout und Typografie */
+:root {
+  --bg: #0f1420;
+  --card: #182032;
+  --text: #e6edf7;
+  --muted: #a8b3c7;
+  --accent: #4da3ff;
+  --border: #2a3550;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  font-size: 12x;
+  line-height: 1.4;
+}
+h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 0.1em;
+    margin-block-end: 0.1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+header {
+  padding: 2px 2px;
+  max-width: 1600px;
+  background: var(--card);
+  margin: 0 auto;
+}
+main {
+  padding: 2px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+/* Stats optisch wie eine Karte und gleiche Breite */
+.stats {
+  max-width: 1200px;
+  margin: 0 auto 12px auto;
+}
+
+
+/* Toolbar & Stats */
+.toolbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+button {
+  padding: 2px 2px;
+  border: 1px solid #bbb;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+button:hover { background: #f2f2f2; }
+input[type="file"] { padding: 2px; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 8px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2px;
+}
+
+/* Karten und typografische Elemente */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 2px;
+  margin-bottom: 12px;
+}
+.card h2 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+.group-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.hint {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.table-grid {
+  display: grid;
+  grid-template-columns: var(--cols, repeat(1, minmax(0,1fr)));
+  gap: 6px;
+}
+/* Generische Tabellenzellen: kleine Schrift, normaler Zeilenumbruch */
+.table-grid > div {
+  font-size: 0.9rem;         /* kleiner als Standard; gern 0.85rem, wenn nötig */
+  line-height: 1.2;          /* kompaktere Zeilen */
+  white-space: normal;       /* erlaubt Umbruch innerhalb der Zelle */
+  word-wrap: break-word;     /* lange Wörter umbrechen */
+  overflow-wrap: anywhere;   /* bricht auch sehr lange Tokens (IDs) */
+}
+
+/* Header etwas größer, aber weiterhin bruchfähig */
+.table-grid .header {
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Inputs passen sich an die Spaltenbreite an */
+.table-grid input[type="text"],
+.table-grid input[type="number"],
+.table-grid input {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+/* Optional: maximale Zeilenhöhe mit Ellipsis, falls du harte Kürzung willst */
+.table-grid .truncate-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;     /* maximal 2 Zeilen */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Verpacke die gesamte Tabelle in einen Wrapper mit 2 Spalten und auto-flow */
+.eig-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;  /* zwei Spalten */
+  column-gap: 12px;
+  row-gap: 8px;
+}
+
+/* Jede "Mini-Tabelle-Zeile" (Name+Input) wird als grid in .table-2 dargestellt */
+.eig-row {
+  display: contents; /* erlaubt, dass die .table-2 Zellen direkt im eig-wrap-grid sitzen */
+}
+
+.header {
+  font-weight: 600;
+}
+
+/* Eingaben */
+input.num, input.ap {
+  padding: 2px 2px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  background: #fff;
+}
+input.ap { width: 5.5rem; }
+input.num { width: 3rem; }
+
+/* Kopfzeilen-Grid (Header-Sektion aus YAML) */
+.char-head-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(160px, 1fr));
+  gap: 8px;
+}
+.char-head-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.char-head-row input[type="text"] {
+  padding: 2px 2px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+}
+
+/* Gruppen-Paar-Layout (Talente/Zauber) */
+.group-rows {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+
+.group-grid {
+  display: grid;
+  grid-template-columns: var(--group-cols, repeat(2, minmax(0,1fr)));
+  gap: 8px;
+}
+
+.group-card {
+  /* dein bestehendes Styling */
+  width: 100%;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 2px;
+}
+
+/* Bereichsbreite – Steuerung über Parent-Layout/Spalten via data-attributes optional */
+.area-wide  { width: 100%; }
+.area-narrow{ width: 100%; }
+
+/* Seitencontainer */
+.page { margin-bottom: 16px; }
+
+/* Seite als Grid: zwei Spalten für halbe Bereiche */
+.page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;  /* zwei Spalten */
+  gap: 12px;
+}
+
+/* Volle Breite: über beide Spalten */
+.area-wide {
+  grid-column: 1 / -1;  /* nimmt beide Spalten ein */
+}
+
+/* Halbe Breite bleibt Standard (eine Spalte) */
+.area-narrow {
+  /* keine spezielle Anweisung nötig; steht in einer Spalte */
+}
+
+.split-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* wird im JS dynamisch überschrieben */
+  gap: 12px;
+}
+
+/* Seiten-Grid – per CSS-Variablen steuerbar */
+.page-grid {
+  display: grid;
+  grid-template-columns: var(--grid-columns, repeat(2, minmax(0,1fr))); /* fallback 2 Spalten */
+  grid-auto-rows: var(--grid-row-height, auto);
+  gap: var(--grid-gap, 12px);
+}
+
+/* Karten verhalten sich als Grid-Items */
+.card {
+  /* dein bestehendes Styling */
+  width: 100%; /* nimmt die zugewiesene Grid-Spalte komplett ein */
+}
+
+/* Optional: Visuelle Kontrolle bei Debug */
+.page-grid.debug .card { outline: 1px dashed rgba(255,255,255,0.15); }
+
+
+/* Druck */
+@media print {
+  @page { size: A4 portrait; margin: 2mm; }
+  body { background: #fff; color: #000; font-size: 6pt; line-height: 1.2; }
+  header { padding: 2px 2px; border-bottom: 1px solid #ddd; }
+  main { padding: 0; }
+
+  .toolbar, input[type="file"] { display: none !important; }
+  .card, .group-card { page-break-inside: auto; box-shadow: none; }
+  .print-page-break-before { page-break-before: always; }
+  .print-page-break-after  { page-break-after: always; }
+  .print-hide { display: none !important; }
+
+  .stats {
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+    gap: 2px;
+    margin-bottom: 2px;
+  }
+  .card { margin-bottom: 2px; padding: 2px; }
+  .card h2 { font-size: 8pt; margin-bottom: 2px; }
+  .table-grid { gap: 2px; }
+  .table-grid > div,
+  .table-grid input {
+    font-size: 0.7rem;
+  }
+  .table-grid .header {
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+  .group-rows { gap: 2px; }
+  .hint { margin-bottom: 2px; }
+  .char-head-row { grid-template-columns: repeat(4, minmax(140px, 1fr)); gap: 2px; }
+  .char-head-row input[type="text"] { padding: 2px 2px; font-size: 6pt; }
+  input.num, input.ap { padding: 2px 2px; font-size: 6pt; }
+}
