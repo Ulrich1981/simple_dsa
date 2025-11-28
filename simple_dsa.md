@@ -4,11 +4,15 @@
 
 [II. Charaktererschaffung](#charaktererschaffung)
 
-[III. Probenmechanik](#probenmechanik)
+[III. Talente] (#talente)
 
-[IV. Kampf & Ausrüstung](#kampf--ausrüstung)
+[IV. Probenmechanik](#probenmechanik)
 
-[V. Magie](#magie)
+[V. Kampf & Ausrüstung](#kampf--ausrüstung)
+
+[VI. Regeneration & Heilung](#regeneration--heilung)
+
+[VII. Magie](#magie)
 
 # Vorwort
 
@@ -269,6 +273,172 @@ Liturgien (1300 AP):
 Gesamt: 4000 AP
 
 Dieser Charakter ist ein kompetenter Kämpfer mit soliden geweihten Fähigkeiten und sozialen Kompetenzen – perfekt für einen Rondra-Geweihten, der sowohl im Kampf als auch bei diplomatischen Missionen bestehen kann.
+
+# Talente
+
+Die Talente sind in verschiedene Kategorien unterteilt und repräsentieren die erlernten Fähigkeiten eines Charakters. Jedes Talent hat eine Basis aus drei Eigenschaften und kann durch Übung und Erfahrung gesteigert werden.
+
+## Kampftalente (Basis: MU, GE, KK)
+
+### Waffenlos
+Der unbewaffnete Nahkampf mit Fäusten, Füßen und anderen Körperteilen.
+
+**Anwendungen:** Faustkampf, Ringen, Martial Arts, Selbstverteidigung ohne Waffen
+
+### Bewaffnet
+Der Umgang mit Nahkampfwaffen aller Art.
+
+**Anwendungen:** Schwertkampf, Axtkampf, Speerkampf, Dolchkampf, Waffenparaden
+
+### Wurfwaffen
+Das Werfen von Projektilen und speziellen Wurfwaffen.
+
+**Anwendungen:** Messerwerfen, Speerwurf, Steinschleuder, Wurfäxte
+
+### Schusswaffen
+Der Umgang mit Fernkampfwaffen.
+
+**Anwendungen:** Bogenschießen, Armbrustschießen, Blasrohr, Zielschießen
+
+## Körperliche Talente (Basis: GE, KK, KO)
+
+### Akrobatik
+Körperbeherrschung und akrobatische Kunststücke.
+
+**Anwendungen:** Körperbeherrschung, Balancieren, Saltos, Klettern an schwierigen Stellen, Fallen abfangen
+
+### Reiten
+Der Umgang mit Reittieren.
+
+**Anwendungen:** Pferde reiten, Kampf zu Pferd, Reittiere beruhigen, schwieriges Gelände
+
+### Schwimmen
+Fortbewegung im Wasser.
+
+**Anwendungen:** Schwimmen, Tauchen, Rettung Ertrinkender, Unterwasserkämpfe
+
+## Gesellschaftliche Talente (Basis: IN, CH, CH)
+
+### Etikette
+Kenntnis gesellschaftlicher Umgangsformen.
+
+**Anwendungen:** Hofzeremoniell, Benehmen bei Adel, formelle Anlässe, Protokoll
+
+### Gassenwissen
+Kenntnis der Straße und des einfachen Volkes.
+
+**Anwendungen:** Informationen sammeln, Schwarzmarkt, Unterschicht verstehen, Gerüchte
+
+### Lehren
+Wissen und Fähigkeiten an andere weitergeben.
+
+**Anwendungen:** Unterrichten, Ausbilden, Erklären, Mentoring
+
+### Menschenkenntnis
+Menschen und ihre Absichten einschätzen.
+
+**Anwendungen:** Lügen erkennen, Charaktere beurteilen, Absichten durchschauen, Vertrauen einschätzen
+
+### Schätzen
+Den Wert von Gegenständen bestimmen.
+
+**Anwendungen:** Handelswaren bewerten, Kunstgegenstände, Edelsteine, Antiquitäten
+
+### Überzeugen
+Andere von der eigenen Meinung überzeugen.
+
+**Anwendungen:** Verhandeln, Argumentieren, Überreden, Diplomatie
+
+### Vortrag
+Vor Publikum sprechen und auftreten.
+
+**Anwendungen:** Reden halten, Geschichten erzählen, Auftritte, Präsentationen
+
+## Wissenstalente (Basis: KL, KL, IN)
+
+### Alchemie
+Kenntnis der Verwandlung von Stoffen.
+
+**Anwendungen:** Tränke brauen, Gifte herstellen, Materialien analysieren, Experimente
+
+### Götter und Kulte
+Wissen über Religionen und Glaubenssysteme.
+
+**Anwendungen:** Rituale verstehen, Götter identifizieren, religiöse Symbole, Zeremonien
+
+### Kriegskunst
+Strategisches und taktisches Wissen.
+
+**Anwendungen:** Schlachten planen, Taktiken entwickeln, Befestigungen beurteilen, Truppenbewegungen
+
+### Magiekunde
+Verständnis magischer Phänomene.
+
+**Anwendungen:** Zauber identifizieren, magische Gegenstände, Rituale verstehen, Magieschulen
+
+### Gelehrsamkeit
+Allgemeinwissen und wissenschaftliche Kenntnisse.
+
+**Anwendungen:** Forschung, Bibliotheksarbeit, historisches Wissen, Naturwissenschaften
+
+### Prophezeihen
+Deutung von Zeichen und Vorhersagen.
+
+**Anwendungen:** Wahrsagen, Omina deuten, Zukunft vorhersagen, Träume interpretieren
+
+### Heilkunde
+Medizinisches Wissen und Behandlung.
+
+**Anwendungen:** Wunden versorgen, Krankheiten behandeln, Anatomie, Kräuterkunde
+
+## Naturtalente (Basis: IN, GE, KO)
+
+### Jagen
+Wildtiere aufspüren und erlegen.
+
+**Anwendungen:** Spurenlesen, Fallen stellen, Wildtiere verfolgen, Nahrung beschaffen
+
+### Fesseln
+Knoten und Fesseltechniken.
+
+**Anwendungen:** Gefangene fesseln, Seile knüpfen, Knoten lösen, Kletterausrüstung
+
+### Sinnesschärfe
+Aufmerksamkeit und Wahrnehmung.
+
+**Anwendungen:** Gefahren erkennen, Verstecktes entdecken, Geräusche identifizieren, Beobachten
+
+### Wildnisleben
+Überleben in der Natur.
+
+**Anwendungen:** Orientierung, Wetter vorhersagen, Unterschlupf bauen, essbare Pflanzen
+
+## Gaunertalente (Basis: MU, IN, GE)
+
+### Heimlichkeit
+Unbemerkt bleiben und sich verstecken.
+
+**Anwendungen:** Schleichen, Verstecken, Verkleiden, Tarnen
+
+### Imitieren
+Andere Personen oder Stimmen nachahmen.
+
+**Anwendungen:** Stimmen imitieren, Verhalten kopieren, Akzente nachahmen, Täuschung
+
+### Glücksspiel
+Geschick bei Spielen und Wetten.
+
+**Anwendungen:** Kartenspiele, Würfelspiele, Wetten, Betrug beim Spiel
+
+### Diebstahl
+Gegenstände unbemerkt entwenden.
+
+**Anwendungen:** Taschendiebstahl, Einbruch, Gegenstände stehlen, Fingerfertigkeiten
+
+### Schlösser knacken
+Verschlüsse ohne Schlüssel öffnen.
+
+**Anwendungen:** Türschlösser öffnen, Truhen aufbrechen, Mechanismen manipulieren, Dietriche verwenden
 
 # Probenmechanik
 
@@ -741,6 +911,108 @@ Rondriane gewinnt automatisch (nur ihre Probe gelang) und richtet Schaden an:
 Schaden = 5÷2 + Waffenschaden = 3 + 1W6+2 = 1W6+5
 
 Der Ork trägt Lederrüstung (RS 1), erleidet also 1W6+4 Schaden.
+
+# Regeneration & Heilung
+
+## Natürliche Regeneration
+
+Charaktere regenerieren ihre Ressourcen auf natürliche Weise über Zeit. Die Regenerationsrate hängt vom jeweiligen Talentwert ab.
+
+### Lebensenergie (LE)
+**Regeneration:** Talentwert pro Tag
+**Bedingungen:** Ausreichend Ruhe und Nahrung
+
+### Astralenergie (AE)
+**Regeneration:** Talentwert pro Tag
+**Bedingungen:** Meditation oder Ruhe
+
+### Karmaenergie (KE)
+**Regeneration:** Talentwert pro Tag
+**Bedingungen:** Gebet oder spirituelle Einkehr
+
+## Heilung durch Heilkunde
+
+Heilkundige können Verletzungen behandeln und die Regeneration beschleunigen.
+
+### Normale Heilkundeprobe (mit Verbandszeug)
+**Probe:** Heilkunde-Talent
+**Heilung:** Qualität ÷ 2 (aufgerundet) LE über Nacht
+**Dauer:** 10 Minuten pro Behandlung
+**Häufigkeit:** Einmal pro Tag pro Patient
+**Voraussetzungen:** Verbandszeug oder ähnliche Materialien
+
+**Beispiel:** Ein Heilkundiger mit Heilkunde 6 würfelt eine 8 bei Schwelle 13. Die Qualität beträgt 5, der Patient erhält 3 LE zurück.
+
+## Heilung durch Tränke
+
+Heiltränke bieten schnelle, aber teure Heilung. Um einen HEiltrank zu brauen, werden magische Heilkräuter benötigt (Wirselkraut etc.).
+
+### Heiltrank-Wirkung
+**Heilung:** Qualität des Tranks LE
+**Dauer:** Sofortige Wirkung
+**Kosten:** Variabel je nach Qualität
+
+### Trank-Qualitäten
+- **Einfacher Heiltrank (Qualität 4):** 4 LE, günstig
+- **Guter Heiltrank (Qualität 8):** 8 LE, teuer  
+- **Meisterlicher Heiltrank (Qualität 12):** 12 LE, sehr teuer
+
+## Magische Heilung
+
+Zauber bieten die mächtigste Form der Heilung.
+
+### Heilzauber-Wirkung
+**Heilung:** Qualität des Zaubers in LE
+**Dauer:** Sofortige Wirkung
+**Kosten:** Astralenergie je nach Zauber
+
+**Beispiel:** Ein Magier wirkt einen Heilzauber mit Qualität 7. Der Patient erhält 7 LE zurück.
+
+### Besondere Eigenschaften magischer Heilung
+- **Vollständige Heilung:** Zauber können auch schwere Verletzungen vollständig heilen
+- **Keine Nebenwirkungen:** Magische Heilung kann beliebig oft angewendet werden
+
+## Regeneration verschiedener Ressourcen
+
+### Lebensenergie (LE)
+- **Natürlich:** LE-Talentwert pro Tag
+- **Heilkunde:** Qualität ÷ 2 über Nacht
+- **Trank:** Qualität sofort  
+- **Zauber:** Qualität sofort
+
+### Astralenergie (AE)
+- **Natürlich:** AE-Talentwert pro Tag
+- **Trank:** Qualität sofort
+
+### Karmaenergie (KE)
+- **Natürlich:** KE-Talentwert pro Tag
+
+## Schwere Verletzungen
+
+Manche Verletzungen heilen nicht von selbst und benötigen besondere Behandlung.
+
+### Kritische Verletzungen
+Bei besonders schwerem Schaden (mehr als die Hälfte der maximalen LE auf einmal) können kritische Verletzungen entstehen:
+
+- **Gebrochene Knochen:** -2 auf körperliche Proben bis zur Heilung
+- **Tiefe Wunden:** Täglicher LE-Verlust bis zur Behandlung
+- **Innere Verletzungen:** Reduzierte maximale LE bis zur Heilung
+
+### Behandlung kritischer Verletzungen
+- **Heilkunde-Probe erschwert um -5**
+- **Erfolgreiche Behandlung:** Kritische Verletzung wird zu normaler Verletzung
+- **Magische Heilung:** Hebt kritische Verletzungen automatisch auf (bei Qualität 10+)
+
+## Beispiele
+
+### Beispiel 1: Natürliche Regeneration
+Alrik der Krieger hat LE-Talentwert 3 und ist auf 5 LE gesunken. Er regeneriert 2 LE pro Tag (3 ÷ 2 = 1,5, aufgerundet 2).
+
+### Beispiel 2: Heilkunde-Behandlung  
+Mirhiban die Heilerin (Heilkunde 8, Basiswert 6, Schwelle 14) behandelt Alrik. Sie würfelt eine 7, erreicht Qualität 7 und heilt 4 LE (7 ÷ 2 = 3,5, aufgerundet 4).
+
+### Beispiel 3: Magische Heilung
+Xeraan der Magier wirkt einen Heilzauber mit Qualität 9 auf Alrik. Dieser erhält sofort 9 LE zurück.
 
 # Magie
 
@@ -1374,7 +1646,7 @@ Metamagie verändert Zauber selbst: kehrt Wirkungen um, speichert oder überträ
 
 Wirkung: Kehrt Zielrichtung/Parameter eines Zaubers um (z. B. Schutz → Verwundbarkeit, Wärme → Kälte), oder hebt einen konkreten Effekt auf. Vergleichende Probe gegen ursprüngliche Qualität.
 
-#### Artefaktbindung
+#### Artefaktbindung 
 
 Wirkung: Bindet eine Formel an einen Gegenstand; Qualität bestimmt Ladungen, Stabilität und Aktivierungsart. Auch Zaubertränke werden so gebraut.
 
