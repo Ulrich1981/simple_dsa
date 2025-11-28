@@ -4,15 +4,13 @@
 
 [II. Charaktererschaffung](#charaktererschaffung)
 
-[III. Talente] (#talente)
+[III. Probenmechanik](#probenmechanik)
 
-[IV. Probenmechanik](#probenmechanik)
+[IV. Kampf & Ausrüstung](#kampf--ausrüstung)
 
-[V. Kampf & Ausrüstung](#kampf--ausrüstung)
+[V. Regeneration & Heilung](#regeneration--heilung)
 
-[VI. Regeneration & Heilung](#regeneration--heilung)
-
-[VII. Magie](#magie)
+[VI. Magie](#magie)
 
 # Vorwort
 
@@ -273,172 +271,6 @@ Liturgien (1300 AP):
 Gesamt: 4000 AP
 
 Dieser Charakter ist ein kompetenter Kämpfer mit soliden geweihten Fähigkeiten und sozialen Kompetenzen – perfekt für einen Rondra-Geweihten, der sowohl im Kampf als auch bei diplomatischen Missionen bestehen kann.
-
-# Talente
-
-Die Talente sind in verschiedene Kategorien unterteilt und repräsentieren die erlernten Fähigkeiten eines Charakters. Jedes Talent hat eine Basis aus drei Eigenschaften und kann durch Übung und Erfahrung gesteigert werden.
-
-## Kampftalente (Basis: MU, GE, KK)
-
-### Waffenlos
-Der unbewaffnete Nahkampf mit Fäusten, Füßen und anderen Körperteilen.
-
-**Anwendungen:** Faustkampf, Ringen, Martial Arts, Selbstverteidigung ohne Waffen
-
-### Bewaffnet
-Der Umgang mit Nahkampfwaffen aller Art.
-
-**Anwendungen:** Schwertkampf, Axtkampf, Speerkampf, Dolchkampf, Waffenparaden
-
-### Wurfwaffen
-Das Werfen von Projektilen und speziellen Wurfwaffen.
-
-**Anwendungen:** Messerwerfen, Speerwurf, Steinschleuder, Wurfäxte
-
-### Schusswaffen
-Der Umgang mit Fernkampfwaffen.
-
-**Anwendungen:** Bogenschießen, Armbrustschießen, Blasrohr, Zielschießen
-
-## Körperliche Talente (Basis: GE, KK, KO)
-
-### Akrobatik
-Körperbeherrschung und akrobatische Kunststücke.
-
-**Anwendungen:** Körperbeherrschung, Balancieren, Saltos, Klettern an schwierigen Stellen, Fallen abfangen
-
-### Reiten
-Der Umgang mit Reittieren.
-
-**Anwendungen:** Pferde reiten, Kampf zu Pferd, Reittiere beruhigen, schwieriges Gelände
-
-### Schwimmen
-Fortbewegung im Wasser.
-
-**Anwendungen:** Schwimmen, Tauchen, Rettung Ertrinkender, Unterwasserkämpfe
-
-## Gesellschaftliche Talente (Basis: IN, CH, CH)
-
-### Etikette
-Kenntnis gesellschaftlicher Umgangsformen.
-
-**Anwendungen:** Hofzeremoniell, Benehmen bei Adel, formelle Anlässe, Protokoll
-
-### Gassenwissen
-Kenntnis der Straße und des einfachen Volkes.
-
-**Anwendungen:** Informationen sammeln, Schwarzmarkt, Unterschicht verstehen, Gerüchte
-
-### Lehren
-Wissen und Fähigkeiten an andere weitergeben.
-
-**Anwendungen:** Unterrichten, Ausbilden, Erklären, Mentoring
-
-### Menschenkenntnis
-Menschen und ihre Absichten einschätzen.
-
-**Anwendungen:** Lügen erkennen, Charaktere beurteilen, Absichten durchschauen, Vertrauen einschätzen
-
-### Schätzen
-Den Wert von Gegenständen bestimmen.
-
-**Anwendungen:** Handelswaren bewerten, Kunstgegenstände, Edelsteine, Antiquitäten
-
-### Überzeugen
-Andere von der eigenen Meinung überzeugen.
-
-**Anwendungen:** Verhandeln, Argumentieren, Überreden, Diplomatie
-
-### Vortrag
-Vor Publikum sprechen und auftreten.
-
-**Anwendungen:** Reden halten, Geschichten erzählen, Auftritte, Präsentationen
-
-## Wissenstalente (Basis: KL, KL, IN)
-
-### Alchemie
-Kenntnis der Verwandlung von Stoffen.
-
-**Anwendungen:** Tränke brauen, Gifte herstellen, Materialien analysieren, Experimente
-
-### Götter und Kulte
-Wissen über Religionen und Glaubenssysteme.
-
-**Anwendungen:** Rituale verstehen, Götter identifizieren, religiöse Symbole, Zeremonien
-
-### Kriegskunst
-Strategisches und taktisches Wissen.
-
-**Anwendungen:** Schlachten planen, Taktiken entwickeln, Befestigungen beurteilen, Truppenbewegungen
-
-### Magiekunde
-Verständnis magischer Phänomene.
-
-**Anwendungen:** Zauber identifizieren, magische Gegenstände, Rituale verstehen, Magieschulen
-
-### Gelehrsamkeit
-Allgemeinwissen und wissenschaftliche Kenntnisse.
-
-**Anwendungen:** Forschung, Bibliotheksarbeit, historisches Wissen, Naturwissenschaften
-
-### Prophezeihen
-Deutung von Zeichen und Vorhersagen.
-
-**Anwendungen:** Wahrsagen, Omina deuten, Zukunft vorhersagen, Träume interpretieren
-
-### Heilkunde
-Medizinisches Wissen und Behandlung.
-
-**Anwendungen:** Wunden versorgen, Krankheiten behandeln, Anatomie, Kräuterkunde
-
-## Naturtalente (Basis: IN, GE, KO)
-
-### Jagen
-Wildtiere aufspüren und erlegen.
-
-**Anwendungen:** Spurenlesen, Fallen stellen, Wildtiere verfolgen, Nahrung beschaffen
-
-### Fesseln
-Knoten und Fesseltechniken.
-
-**Anwendungen:** Gefangene fesseln, Seile knüpfen, Knoten lösen, Kletterausrüstung
-
-### Sinnesschärfe
-Aufmerksamkeit und Wahrnehmung.
-
-**Anwendungen:** Gefahren erkennen, Verstecktes entdecken, Geräusche identifizieren, Beobachten
-
-### Wildnisleben
-Überleben in der Natur.
-
-**Anwendungen:** Orientierung, Wetter vorhersagen, Unterschlupf bauen, essbare Pflanzen
-
-## Gaunertalente (Basis: MU, IN, GE)
-
-### Heimlichkeit
-Unbemerkt bleiben und sich verstecken.
-
-**Anwendungen:** Schleichen, Verstecken, Verkleiden, Tarnen
-
-### Imitieren
-Andere Personen oder Stimmen nachahmen.
-
-**Anwendungen:** Stimmen imitieren, Verhalten kopieren, Akzente nachahmen, Täuschung
-
-### Glücksspiel
-Geschick bei Spielen und Wetten.
-
-**Anwendungen:** Kartenspiele, Würfelspiele, Wetten, Betrug beim Spiel
-
-### Diebstahl
-Gegenstände unbemerkt entwenden.
-
-**Anwendungen:** Taschendiebstahl, Einbruch, Gegenstände stehlen, Fingerfertigkeiten
-
-### Schlösser knacken
-Verschlüsse ohne Schlüssel öffnen.
-
-**Anwendungen:** Türschlösser öffnen, Truhen aufbrechen, Mechanismen manipulieren, Dietriche verwenden
 
 # Probenmechanik
 
@@ -1110,7 +942,7 @@ Mögliche Verteilungen:
 
 ## Antimagie
 
-Antimagie-Zauber schützen vor magischen Einflüssen, heben bestehende Zauber auf oder stören die Wirkung von Magie.
+Antimagie-Zauber schützen vor magischen Einflüssen, heben bestehende Zauber auf oder stören die Wirkung von Magie. Sie sind die klassische Antwort auf feindliche Zauberei und bilden das Rückgrat magischer Verteidigung.
 
 ### Grundzauber der Antimagie
 
@@ -1124,19 +956,36 @@ Antimagie-Zauber schützen vor magischen Einflüssen, heben bestehende Zauber au
 
 #### Magischer Schutz
 
-Wirkung: Verleiht dem Ziel magische Rüstung in Höhe der Qualitätspunkte. Reduziert auch magischen Schaden.
+**Wirkung:** Verleiht dem Ziel magische Rüstung in Höhe von QP/2 (aufgerundet). Reduziert sowohl direkten magischen Schaden als auch physischen Schaden von verzauberten Waffen.
+
+**Qualitätsauswirkung:** RS gegen Magie = QP/2 (aufgerundet)
+
+**Modifikatoren:**
+- **Reflektierend (+2 Kategorien):** Zauber können zum Wirker zurückprallen
+- **Elementarschutz (+1 Kategorie):** Zusätzlicher Schutz vor einem spezifischen Element
+- **Unsichtbar (+1 Kategorie):** Der magische Schutz ist nicht sichtbar
 
 #### Zauberbann
 
-Wirkung: Hebt einen aktiven Zauber auf. Vergleichende Probe: Qualität des Zauberbann gegen ursprüngliche Qualität des Zaubers. Bei Erfolg wird der Zauber beendet.
+**Wirkung:** Hebt einen aktiven Zauber auf. Vergleichende Probe: Qualität des Zauberbann gegen ursprüngliche Qualität des Zaubers. Bei Erfolg wird der Zauber beendet.
+
+**Qualitätsauswirkung:** Kann Zauber mit ursprünglicher Qualität ≤ QP des Zauberbann bannen
+
+**Modifikatoren:**
+- **Flächenbann (+2 Kategorien):** Bannt alle Zauber in einem Bereich
+- **Selektiv (+1 Kategorie):** Bannt nur bestimmte Zauberarten
+- **Permanent (+3 Kategorien):** Erschafft eine antimagische Zone
 
 #### Magieresistenz
 
-Wirkung: Das Ziel erhält Magieresistenz in Höhe der Qualitätspunkte. Alle Zauber gegen das Ziel werden um diesen Wert erschwert.
+**Wirkung:** Das Ziel erhält Magieresistenz in Höhe von QP/2 (aufgerundet). Alle Zauber gegen das Ziel werden um diesen Wert erschwert.
 
-Modifikatoren:
+**Qualitätsauswirkung:** Erschwernis für gegnerische Zauber = QP/2 (aufgerundet)
 
-• +Reflektierend (+2 Kategorien): Zauber können zum Wirker zurückprallen
+**Modifikatoren:**
+- **Reflektierend (+2 Kategorien):** Zauber können zum Wirker zurückprallen
+- **Selektiv (+1 Kategorie):** Nur gegen bestimmte Zauberarten wirksam
+- **Absorption (+3 Kategorien):** Absorbiert Zauberenergie und wandelt sie in AsP um
 
 ## Beherrschung
 
@@ -1159,41 +1008,64 @@ Beherrschungs-Zauber beeinflussen den Willen, die Emotionen und Handlungen eines
 
 #### Geisteskontrolle
 
-Wirkung: Das Ziel folgt einfachen, klaren Befehlen. Keine komplexen Strategien oder selbstgefährdenden Handlungen.
+**Wirkung:** Das Ziel folgt einfachen, klaren Befehlen. Keine komplexen Strategien oder selbstgefährdenden Handlungen.
 
-Modifikatoren:
+**Qualitätsauswirkung:** Anzahl der Befehle = QP/2
 
-• +Verstärkt (+2 Kategorie): Komplexere Befehle möglich;
+**Modifikatoren:**
+- **Verstärkt (+2 Kategorien):** Komplexere Befehle möglich, auch selbstgefährdende Handlungen
+- **Subtil (+1 Kategorie):** Befehle wirken wie eigene Ideen des Ziels
+- **Mehrfachziel (+1 Kategorie pro zusätzlichem Ziel):** Kontrolliert mehrere Personen gleichzeitig
 
 #### Gefühle kontrollieren
 
-Wirkung: Ziel erleidet Angst – Proben und Kampfhandlungen können erschwert werden
+**Wirkung:** Erzeugt ein starkes Gefühl beim Ziel (Angst, Wut, Liebe, Hass, Schmerz). Kampfhandlungen und Proben können erschwert werden.
+
+**Qualitätsauswirkung:** Intensität des Gefühls = QP, Erschwernis für Zielaktionen = QP/2
 
 #### Verwirrung
 
-Wirkung: Stört Konzentration und Zielklarheit – Handlungen und Zauberproben werden erschwert.
+**Wirkung:** Stört Konzentration und Zielklarheit. Handlungen und Zauberproben werden erschwert.
+
+**Qualitätsauswirkung:** Erschwernis für alle Proben des Ziels = QP/2
+
+**Modifikatoren:**
+- **Desorientierung (+1 Kategorie):** Ziel verliert Orientierung im Raum
+- **Gedächtnislücken (+2 Kategorien):** Ziel vergisst kurzzeitig wichtige Informationen
+- **Flächenwirkung (+2 Kategorien):** Betrifft alle in einem Bereich
 
 #### Lähmung
 
-Wirkung: Ziel kann (nahezu) keine Handlungen ausführen; minimale Bewegungen möglich.
+**Wirkung:** Ziel kann (nahezu) keine Handlungen ausführen; minimale Bewegungen möglich.
 
-Modifikatoren:
+**Qualitätsauswirkung:** Vollständigkeit der Lähmung steigt mit QP (bei QP 1-2 noch Sprechen möglich, ab QP 6+ totale Lähmung)
 
-• +Selektiv (-1 Kategorie): Nur Sprache, Hände oder Beine gelähmt
-
-• +Verstärkt (+1 Kategorie): Vollständige Bewegungsunfähigkeit
+**Modifikatoren:**
+- **Selektiv (-1 Kategorie):** Nur Sprache, Hände oder Beine gelähmt
+- **Verstärkt (+1 Kategorie):** Vollständige Bewegungsunfähigkeit inklusive Sprechen
+- **Schmerzlos (+1 Kategorie):** Lähmung ohne Angst oder Panik
 
 #### Schlaf
 
-Wirkung: Ziel fällt in tiefen Schlaf; harte Einflüsse oder Schmerz können wecken.
+**Wirkung:** Ziel fällt in tiefen Schlaf; harte Einflüsse oder Schmerz können wecken.
+
+**Qualitätsauswirkung:** Tiefe des Schlafs = QP, Schwierigkeit des Aufweckens = QP
+
+**Modifikatoren:**
+- **Traumkontrolle (+2 Kategorien):** Bestimmt den Inhalt der Träume
+- **Unaufweckbar (+3 Kategorien):** Schlaf kann nur durch Zauberbruch beendet werden
+- **Flächenschlaf (+2 Kategorien):** Betrifft alle in einem Bereich
 
 #### Wahrheitszwang
 
-Wirkung: Ziel muss auf eine konkrete Frage wahrheitsgemäß antworten (kurze Wirkung)
+**Wirkung:** Ziel muss auf eine konkrete Frage wahrheitsgemäß antworten (kurze Wirkung).
 
-Modifikatoren:
+**Qualitätsauswirkung:** Anzahl der Fragen = QP/2, Detailtiefe der Antworten steigt mit QP
 
-• +Erhöhte Wirkungsdauer: Mehrere Fragen nacheinander möglich
+**Modifikatoren:**
+- **Vollständige Wahrheit (+1 Kategorie):** Ziel kann nicht durch Auslassungen täuschen
+- **Subtil (+2 Kategorien):** Ziel bemerkt den Zwang nicht
+
 
 ## Beschwörung dämonischer Mächte
 
@@ -1646,7 +1518,7 @@ Metamagie verändert Zauber selbst: kehrt Wirkungen um, speichert oder überträ
 
 Wirkung: Kehrt Zielrichtung/Parameter eines Zaubers um (z. B. Schutz → Verwundbarkeit, Wärme → Kälte), oder hebt einen konkreten Effekt auf. Vergleichende Probe gegen ursprüngliche Qualität.
 
-#### Artefaktbindung 
+#### Artefaktbindung
 
 Wirkung: Bindet eine Formel an einen Gegenstand; Qualität bestimmt Ladungen, Stabilität und Aktivierungsart. Auch Zaubertränke werden so gebraut.
 
