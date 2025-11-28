@@ -6,7 +6,7 @@
 
 [III. Probenmechanik](#probenmechanik)
 
-[IV. Kampf & Ausrüstung](#kampf-ausrüstung)
+[IV. Kampf & Ausrüstung](#kampf--ausrüstung)
 
 [V. Magie](#magie)
 
