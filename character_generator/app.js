@@ -625,8 +625,6 @@ rebuilt.globals.ap_total = state.ap_total;
 
 // Boot
 document.addEventListener('DOMContentLoaded', ()=>{
-  const defText = document.getElementById('definitions-yaml')?.textContent || '';
-  const layText = document.getElementById('layout-yaml')?.textContent || '';
   init(defText, layText);
   render();                     // baut DOM
   recalc();                     // berechnet AP/Basis/Gesamt
