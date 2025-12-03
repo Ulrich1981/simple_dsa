@@ -890,11 +890,12 @@ Modifikatoren verändern einen Grundzauber und kosten zusätzliche Kategorien. D
 
 Folgende Modifikationen sind möglich:
 
-*   Bereich (5 Schritt Radius): +2 Kategorien
-*   Mehrere Ziele: +1 Kategorie pro weiterem Ziel
-*   Erhöhte Reichweite: +1 Kategorie pro Reichweitenkategorie
-*   Erhöhte Wirkungsdauer: +1 Kategorie pro Wirkungsdauerkategorie
-*   Erschwernis/Kosten/Zauberdauer verringern: +1 Kategorie pro verringerte Kategorie
+- **Bereich (+2 Kategorien):** Betrifft einen Bereich von etwa 5 Schritt Radius
+- **Selektiver Bereich (+3 Kategorien):** Wie Bereich; Der Zauberer kann wählen, wer betroffen sein soll
+- **Mehrere Ziele (+1 Kategorie pro weiterem Ziel)**
+- **Erhöhte Reichweite (+1 Kategorie pro Reichweitenkategorie)**
+- **Erhöhte Wirkungsdauer (+1 Kategorie pro Wirkungsdauerkategorie)**
+- **Erschwernis/Kosten/Zauberdauer verringern (+1 Kategorie pro verringerte Kategorie)**
 
 **Es dürfen höchstens Modifikationen im Wert von Talentwert/3 (abgerundet) Kategorien hinzugefügt werden!**
 
@@ -961,8 +962,6 @@ Antimagie-Zauber schützen vor magischen Einflüssen, heben bestehende Zauber au
 **Qualitätsauswirkung:** RS gegen Magie = QP/2 (aufgerundet)
 
 **Modifikatoren:**
-- **Reflektierend (+2 Kategorien):** Zauber können zum Wirker zurückprallen
-- **Elementarschutz (+1 Kategorie):** Zusätzlicher Schutz vor einem spezifischen Element
 - **Unsichtbar (+1 Kategorie):** Der magische Schutz ist nicht sichtbar
 
 #### Zauberbann
@@ -970,11 +969,6 @@ Antimagie-Zauber schützen vor magischen Einflüssen, heben bestehende Zauber au
 **Wirkung:** Hebt einen aktiven Zauber auf. Vergleichende Probe: Qualität des Zauberbann gegen ursprüngliche Qualität des Zaubers. Bei Erfolg wird der Zauber beendet.
 
 **Qualitätsauswirkung:** Kann Zauber mit ursprünglicher Qualität ≤ QP des Zauberbann bannen
-
-**Modifikatoren:**
-- **Flächenbann (+2 Kategorien):** Bannt alle Zauber in einem Bereich
-- **Selektiv (+1 Kategorie):** Bannt nur bestimmte Zauberarten
-- **Permanent (+3 Kategorien):** Erschafft eine antimagische Zone
 
 #### Magieresistenz
 
@@ -984,7 +978,6 @@ Antimagie-Zauber schützen vor magischen Einflüssen, heben bestehende Zauber au
 
 **Modifikatoren:**
 - **Reflektierend (+2 Kategorien):** Zauber können zum Wirker zurückprallen
-- **Selektiv (+1 Kategorie):** Nur gegen bestimmte Zauberarten wirksam
 - **Absorption (+3 Kategorien):** Absorbiert Zauberenergie und wandelt sie in AsP um
 
 ## Beherrschung
@@ -1015,7 +1008,6 @@ Beherrschungs-Zauber beeinflussen den Willen, die Emotionen und Handlungen eines
 **Modifikatoren:**
 - **Verstärkt (+2 Kategorien):** Komplexere Befehle möglich, auch selbstgefährdende Handlungen
 - **Subtil (+1 Kategorie):** Befehle wirken wie eigene Ideen des Ziels
-- **Mehrfachziel (+1 Kategorie pro zusätzlichem Ziel):** Kontrolliert mehrere Personen gleichzeitig
 
 #### Gefühle kontrollieren
 
@@ -1030,9 +1022,7 @@ Beherrschungs-Zauber beeinflussen den Willen, die Emotionen und Handlungen eines
 **Qualitätsauswirkung:** Erschwernis für alle Proben des Ziels = QP/2
 
 **Modifikatoren:**
-- **Desorientierung (+1 Kategorie):** Ziel verliert Orientierung im Raum
 - **Gedächtnislücken (+2 Kategorien):** Ziel vergisst kurzzeitig wichtige Informationen
-- **Flächenwirkung (+2 Kategorien):** Betrifft alle in einem Bereich
 
 #### Lähmung
 
@@ -1054,7 +1044,6 @@ Beherrschungs-Zauber beeinflussen den Willen, die Emotionen und Handlungen eines
 **Modifikatoren:**
 - **Traumkontrolle (+2 Kategorien):** Bestimmt den Inhalt der Träume
 - **Unaufweckbar (+3 Kategorien):** Schlaf kann nur durch Zauberbruch beendet werden
-- **Flächenschlaf (+2 Kategorien):** Betrifft alle in einem Bereich
 
 #### Wahrheitszwang
 
@@ -1071,6 +1060,8 @@ Beherrschungs-Zauber beeinflussen den Willen, die Emotionen und Handlungen eines
 
 Dämonenbeschwörungen rufen oder beeinflussen dämonische Wesen und Kräfte. Sie sind riskant, verlangen sorgfältige Vorbereitung und klare Grenzen im Regeltext.
 
+**WARNUNG:** Dämonenbeschwörungen sind extrem gefährlich. Fehlschläge können zu Korruption, Besessenheit oder dem Verlust der Seele führen. Jeder Zauber dieser Schule sollte einen Ritualkreis und entsprechende Schutzmaßnahmen verwenden.
+
 ### Grundzauber der Beschwörung dämonischer Mächte
 
 | Zauber | Erschw. | Kosten | Zauberdauer | Reichweite | Wirkungsdauer | Beschreibung |
@@ -1085,37 +1076,84 @@ Dämonenbeschwörungen rufen oder beeinflussen dämonische Wesen und Kräfte. Si
 
 #### Dämonenbeschwörung
 
-Wirkung: Ruft einen niederen Dämon in den Ritualkreis. Qualität bestimmt Verpflichtungen, Dauer und Kontrolle.
+**Wirkung:** Ruft einen niederen Dämon in den Ritualkreis. Der Dämon ist zunächst nicht kontrolliert und muss durch Verhandlung, Zwang oder Pakte zur Kooperation bewegt werden.
 
-Modifikatoren:
+**Qualitätsauswirkung:** Macht des beschworenen Dämons = QP, Kontrolle über den Dämon = QP/2, Dauer der Bindung = QP Stunden
 
-• +Verstärkt (+3 Kategorien/Horn): Mächtigeres Wesen / bessere Kontrolle
+**Modifikatoren:**
+- **Verstärkt (+3 Kategorien/Horn):** Mächtigeres Wesen
+- **Bindung (+2 Kategorien):** Dämon ist sofort an den Beschwörer gebunden
+- **Pakt (+4 Kategorien):** Langfristiger Vertrag mit dem Dämon (Monate bis Jahre)
+- **Schutzkreis (-1 Kategorie):** Dämon kann den Ritualkreis nicht verlassen
 
 #### Geisterbann
 
-Wirkung: Treibt einen Geist aus oder verhindert sein Wirken am Ort.
+**Wirkung:** Treibt einen Geist aus oder verhindert sein Wirken am Ort. Wirkt auch gegen andere unkörperliche Wesen.
+
+**Qualitätsauswirkung:** Macht der bannbaren Geister = QP, Dauer des Banns = QP Stunden
+
+**Modifikatoren:**
+- **Vernichtung (+4 Kategorien):** Zerstört den Geist vollständig
 
 #### Geisterbeschwörung
 
-Wirkung: Ruft einen Geist oder Kobold; Qualität legt Art, Stimmung und hilfreiche Dienste fest.
+**Wirkung:** Ruft einen Geist oder Kobold herbei. Anders als Dämonenbeschwörung meist weniger gefährlich, aber auch weniger mächtig.
+
+**Qualitätsauswirkung:** Macht des Geistes + Bereitschaft zur Kooperation = QP
+
+**Modifikatoren:**
+- **Spezifischer Geist (+1 Kategorie):** Ruft einen bestimmten, bekannten Geist
+- **Mehrfachbeschwörung (+2 Kategorien):** Ruft mehrere schwächere Geister gleichzeitig
+- **Bindung (+2 Kategorien):** Geist ist sofort an den Beschwörer gebunden
+- **Unsichtbar (+1 Kategorie):** Geist bleibt für andere unsichtbar
 
 #### Untotenbeschwörung
 
-Wirkung: Erhebt einfache Untote (z. B. Skelette) aus Leichnamen oder Knochen.
+**Wirkung:** Erhebt einfache Untote (z.B. Skelette, Zombies) aus Leichnamen oder Knochen. Benötigt entsprechende Körperteile als Materialkomponente.
 
-Modifikatoren:
+**Qualitätsauswirkung:** Anzahl der Untoten = QP/2, Stärke der Untoten = QP/3, Kontrolldauer = QP Stunden
 
-*   Permanenz (Wirkungsdauer muss auf permanent gehoben werden, 2 ASP permanent): macht die Wirkung permanent
+**Modifikatoren:**
+- **Permanenz (+4 Kategorien):** Macht die Wirkung permanent (2 AsP permanent gebunden)
+- **Verstärkt (+2 Kategorien):** Erschafft mächtigere Untote (Ghule, Wights)
+- **Intelligenz (+3 Kategorien):** Untote behalten Teile ihrer Persönlichkeit
+- **Selbstständig (+2 Kategorien):** Untote handeln ohne ständige Befehle
 
 #### Sphärenriss
 
-Wirkung: Kurzzeitige Öffnung/Manifestation dämonischer Sphäre; erzeugt Phänomene und Präsenz.
+**Wirkung:** Kurzzeitige Öffnung/Manifestation dämonischer Sphäre; erzeugt Phänomene und Präsenz. Extrem gefährlich und unvorhersagbar.
+
+**Qualitätsauswirkung:** Größe des Risses = QP Meter Durchmesser, Kontrolle über austretende Energien = QP/3
+
+**Modifikatoren:**
+- **Kontrolliert (+3 Kategorien):** Bessere Kontrolle über austretende Kräfte
+- **Spezifische Sphäre (+2 Kategorien):** Öffnet Verbindung zu einer bestimmten dämonischen Ebene
+- **Einbahnstraße (+1 Kategorie):** Die andere Sphäre kann betreten werden, aber nichts dringt nach außen
+
+### Besondere Regeln für Dämonenmagie
+
+**Korruptionsrisiko:** Jeder Zauber dieser Schule birgt das Risiko der Korruption. Bei kritischen Fehlschlägen drohen dauerhafte negative Auswirkungen.
+
+**Materialkomponenten:** Viele Zauber erfordern spezielle Komponenten (Blut, seltene Metalle, dämonische Artefakte).
+
+**Ritualkreise:** Schutzkreise sind bei den meisten Zaubern zwingend erforderlich und müssen entsprechend der Macht des beschworenen Wesens dimensioniert sein.
 
 ## Beschwörung elementarer Kräfte
 
 Elementare Magie ruft, formt und lenkt die sechs Elemente Feuer, Wasser, Luft, Erz, Humus und Eis. Sie reicht von schützenden Ringen über erschaffene Wände bis zur Dienstrufung elementarer Wesen.
 
-**Jeder Zauberer wählt ein Element.** Beschwörungen der beiden angrenzenden Elemente ist um +1 Kategorie erschwert, die beiden missgünstigen Elemente um +2 Kategorien und das feindliche Element um +3 Kategorien.
+**Jeder Zauberer wählt ein Element.** Beschwörungen der beiden angrenzenden Elemente sind um +1 Kategorie erschwert, die beiden missgünstigen Elemente um +2 Kategorien und das feindliche Element um +3 Kategorien.
+
+**Elementkreis:** Feuer ↔ Luft ↔ Eis ↔ Wasser ↔ Erz ↔ Humus ↔ Feuer
+
+### Elementare Affinitäten
+
+**Feuer:** Angriff, Zerstörung, Licht, Wärme
+**Wasser:** Heilung, Reinigung, Formbarkeit, Leben
+**Luft:** Bewegung, Kommunikation, Geschwindigkeit, Freiheit
+**Erz:** Schutz, Beständigkeit, Stärke, Handwerk
+**Humus:** Wachstum, Fruchtbarkeit, Verfall, Zyklen
+**Eis:** Bewahrung, Stillstand, Klarheit, Härte
 
 ### Grundzauber der Beschwörung elementarer Kräfte
 
@@ -1132,31 +1170,62 @@ Elementare Magie ruft, formt und lenkt die sechs Elemente Feuer, Wasser, Luft, E
 
 #### Elementarbeschwörung
 
-Wirkung: Ruft elementare Diener bis hin zu Dschinnen. Qualität bestimmt Bereitschaft, Dauer und Macht.
+**Wirkung:** Ruft elementare Diener bis hin zu Dschinnen herbei. Das beschworene Wesen ist grundsätzlich kooperativ, aber nicht vollständig kontrolliert.
 
-Modifikatoren:
+**Qualitätsauswirkung:** Bereitschaft zur Kooperation = QP
 
-• +Verstärkt (+3 Kategorien/Machtstufe): Mächtigeres Wesen (Start bei niedere Diener, hoher Diener, niederer Dschinn, Dschinn, mächtiger Dschinn, Elementarherr)
+**Modifikatoren:**
+- **Verstärkt (+3 Kategorien/Stufe):** Mächtigeres Wesen (niedere Diener → Dschinne → Elementarherren)
+- **Bindung (+2 Kategorien):** Wesen ist vollständig kontrolliert
+- **Mehrfachbeschwörung (+2 Kategorien):** Ruft mehrere schwächere Wesen gleichzeitig
 
 #### Elementarkontrolle
 
-Wirkung: Lenkt bestehende Elementkräfte (z. B. Windstoß, Lichtbündelung, lokale Schwerkraftänderung).
+**Wirkung:** Lenkt bestehende Elementkräfte (z.B. Windstoß, Lichtbündelung, lokale Schwerkraftänderung, Flammen umleiten).
+
+**Qualitätsauswirkung:** Stärke der Kontrolle = QP
+
+**Modifikatoren:**
+- **Feinsteuerung (+1 Kategorie):** Sehr präzise Kontrolle für komplexe Manipulationen
 
 #### Elementarerschaffung
 
-Wirkung: Erschafft stabile Strukturen wie Wände oder Kuppeln aus dem gewählten Element.
+**Wirkung:** Erschafft stabile Strukturen wie Wände, Kuppeln, Brücken oder Barrieren aus dem gewählten Element.
+
+**Qualitätsauswirkung:** Größe der Struktur = QP × QP Kubikmeter, Stabilität = QP
+
+**Modifikatoren:**
+- **Komplex (+2 Kategorien):** Erschafft komplizierte Strukturen (Treppen, Türen, bewegliche Teile)
+- **Verstärkt (+1 Kategorie):** Besonders stabile und widerstandsfähige Strukturen
 
 #### Elementarschutz
 
-Wirkung: Schützt Ziel oder Zone vor Schäden/Einflüssen eines Elements (Feuer, Kälte, etc.).
+**Wirkung:** Schützt Ziel oder Zone vor Schäden/Einflüssen eines Elements (Feuer, Kälte, Säure, etc.).
+
+**Qualitätsauswirkung:** Schutz gegen Elementarschaden = QP Punkte, Resistenz gegen Elementareffekte = QP
+
+**Modifikatoren:**
+- **Vollimmunität (+3 Kategorien):** Komplette Immunität gegen das gewählte Element
+- **Mehrfachschutz (+2 Kategorien pro zusätzlichem Element):** Schutz vor mehreren Elementen
+- **Reflektierend (+2 Kategorien):** Elementarangriffe prallen zum Angreifer zurück
 
 #### Elementarangriff
 
-Wirkung: Angriff in Form des Elements (Strahl, Pfeil, Sphäre). Schaden i. d. R. 1W6 + Qualität, Varianten nach Element.
+**Wirkung:** Angriff in Form des Elements (Strahl, Pfeil, Sphäre, Explosion). Grundschaden 1W6 + QP.
+
+**Modifikatoren:**
+- **Durchschlagend (+1 Kategorie):** Ignoriert Rüstung
+- **Anhaltend (+2 Kategorien):** Verursacht Schaden über QP Runden
 
 #### Elementarsicht
 
-Wirkung: Erkennt elementare Auren, Quellen, Bindungen und Materialreinheiten; Qualität steigert Detailtiefe.
+**Wirkung:** Erkennt elementare Auren, Quellen, Bindungen und Materialreinheiten; zeigt elementare Schwachstellen und Verbindungen auf.
+
+**Qualitätsauswirkung:** Detailtiefe der Wahrnehmung = QP
+
+**Modifikatoren:**
+- **Analytisch (+1 Kategorie):** Erkennt genaue Zusammensetzung und Eigenschaften
+- **Schwachstellen (+2 Kategorien):** Zeigt elementare Verwundbarkeiten von Zielen
 
 ## Bewegung
 
@@ -1177,54 +1246,63 @@ Bewegungszauber verändern Fortbewegung, Position und kinetische Einflüsse. Das
 
 #### Bewegung durch Medium
 
-Wirkung: Fortbewegung/Positionierung via Medium (Luft/ Wasser/ Eis/ Humus/ Feuer/ Erz). Deckt Levitation, Flug, Gleiten, Schwimmen, Laufen über Oberflächen sowie Durchdringen fester Materie (Erz) ab.
+**Wirkung:** Fortbewegung/Positionierung via Medium (Luft/Wasser/Eis/Humus/Feuer/Erz). Deckt Levitation, Flug, Gleiten, Schwimmen, Laufen über Oberflächen sowie Durchdringen fester Materie ab.
 
-Modifikatoren:
+**Qualitätsauswirkung:** Geschwindigkeit/Manövrierfähigkeit/Traglast = QP
 
-• Mediumwahl (+0 bis +1 Kat): Wechsel auf spezielles Medium (Feuer/Eis/Erz)
-
-• Strecke (+0–2 Kat): kurzer Durchtritt sofort vs. längere Passage aufrechterhaltend
-
-• Traglast/Tempo (+1 Kat): mehr Gewicht/schnelleres Vorankommen
-
-• Manövrierfähigkeit (+1 Kat): präzise Richtungswechsel, Schwebestopps
+**Modifikatoren:**
+- **Manövrierfähigkeit (+1 Kategorie):** Präzise Richtungswechsel, Schwebestopps, Kunstflug
 
 #### Telekinese
 
-Wirkung: Bewegt/manipuliert Objekte, öffnet einfache/komplexe Verschlüsse, feine Manipulation möglich.
+**Wirkung:** Bewegt/manipuliert Objekte, öffnet einfache/komplexe Verschlüsse, feine Manipulation möglich.
 
-Modifikatoren:
-
-• Gewicht/Feinmotorik (+1 Kat): schwerere Objekte, präzisere Eingriffe
+**Modifikatoren:**
+- **Gewicht/Feinmotorik (+1 Kategorie):** Schwerere Objekte, präzisere Eingriffe
+- **Kraftvoll (+1 Kategorien):** Kann als Waffe eingesetzt werden (Schaden = 1W6 + QP)
 
 #### Ausdauer/Bewegungssteigerung
 
-Wirkung: Erhöht die Bewegungsweite und reduziert Ermüdung; Initiativeboost als Variante.
+**Wirkung:** Erhöht die Bewegungsweite und reduziert Ermüdung;
+
+**Modifikatoren:**
+- **Reflexsteigerung (+1 Kategorie):** Zusätzlicher Bonus auf Kampfprobe (=QP)
 
 #### Spurenverwischung
 
-Wirkung: Entfernt Spuren auf Böden/Schnee/Sand; erschwert Verfolgung (auch Duft/astral per Modifikator).
+**Wirkung:** Entfernt Spuren auf Böden/Schnee/Sand; erschwert Verfolgung (auch Duft/astral per Modifikator).
 
-Modifikatoren:
+**Qualitätsauswirkung:** Erschwernis für Spurensuche = QP
 
-*   Medium (+1 Kat): inkl. Duftspur
-*   Astrale Verwischung (+2 Kategorien): inkl. astraler Spur
+**Modifikatoren:**
+- **Medium (+1 Kategorie):** Inkl. Duftspur und andere Sinnesspuren
+- **Astrale Verwischung (+2 Kategorien):** Inkl. astraler Spur und magischer Signaturen
 
 #### Anziehung/Abstoßung
 
-Wirkung: Zieht Ziel in Richtung Zauberer/markierten Punkt (oder stößt ab). Geeignet für kurze Lageänderungen.
+**Wirkung:** Zieht Ziel in Richtung Zauberer/markierten Punkt (oder stößt ab). Geeignet für kurze Lageänderungen.
+
+**Qualitätsauswirkung:** Kraft der Bewegung = QP × 10 kg, Geschwindigkeit = QP Meter/Runde
+
+**Modifikatoren:**
+- **Präzise (+1 Kategorie):** Sehr genaue Positionierung möglich
+- **Sanft (+0 Kategorien):** Bewegung verursacht keinen Schaden
+- **Kraftvoll (+1 Kategorie):** Kann Schaden verursachen oder Hindernisse durchbrechen
 
 #### Teleportation
 
-Wirkung: Versetzt das Ziel augenblicklich an einen bekannten/markierten Ort (Transversalis).
+**Wirkung:** Versetzt das Ziel augenblicklich an einen bekannten/markierten Ort. Dieser Zauber kann auf Reichweite "bekannte Orte" gehoben werden.
 
-Dieser Zauber kann auf Reichweite «bekannte Orte» gehoben werden.
+**Qualitätsauswirkung:** Präzision der Ankunft = QP (Abweichung sinkt)
+**Modifikatoren:**
+- **Masse (+1 Kategorie):** Mehr Gewicht transportieren
+- **Verfolgungsteleportation (+2 Kategorien):** Folgt einem sich bewegenden Ziel
 
-Modifikatoren:
+### Besondere Regeln für Bewegungszauber
 
-• Masse (+1 Kat): mehr
+**Orientierung:** Bei komplexen Bewegungen (Flug, Teleportation) können Orientierungsproben nötig sein.
 
-• Sicherheit (+1 Kat): geringeres Risiko von Abweichungen
+**Erschöpfung:** Intensive Bewegungszauber können zusätzliche Erschöpfung verursachen.
 
 ## Heilung
 
@@ -1234,38 +1312,56 @@ Heilzauber lindern Verletzungen, Krankheiten und Gifte, stärken Regeneration un
 
 | Zauber | Erschw. | Kosten | Zauberdauer | Reichweite | Wirkungsdauer | Beschreibung |
 | --- | --- | --- | --- | --- | --- | --- |
-| Wundheilung | 0 | variabel | 1 Min | Berührung | Sofort | Heilt Lebenspunkte/Verletzungen |
-| Giftheilung | 0 | 1/Stufe | 1 Min | Berührung | Sofort | Neutralisiert/zieht Gift aus dem Körper |
-| Krankheitsheilung | 0 | 1/Stufe | 1 Min | Berührung | Sofort | Heilt oder lindert Krankheiten |
-| Regeneration | 0 | 7 | 1 Min | Berührung | 6 h | Fördert natürliche Heilung/Erholung |
-| Geistheilung | 0 | variabel | 1 Min | Berührung | Sofort | Lindert Furcht, Stress, mentale Leiden |
-| Schutz (Umwelt) | 0 | 5 | 1 Min | Berührung | 1 Std | Schützt vor Kälte/Hunger/Umwelt |
+| Wundheilung | 0 | 10 | 1 Min | Berührung | Sofort | Heilt Lebenspunkte/Verletzungen |
+| Giftheilung | 0 | 10 | 1 Min | Berührung | Sofort | Neutralisiert/zieht Gift aus dem Körper |
+| Krankheitsheilung | 0 | 10 | 1 Min | Berührung | Sofort | Heilt oder lindert Krankheiten |
+| Geistheilung | 0 | 10 | 1 Min | Berührung | Sofort | Lindert Furcht, Stress, mentale Leiden |
 
 ### Detaillierte Zauberbeschreibungen
 
 #### Wundheilung
 
-Wirkung: Stellt Lebenspunkte wieder her, schließt Wunden. Qualität bestimmt Heilmenge/Heiltempo.
+**Wirkung:** Stellt Lebenspunkte wieder her, schließt Wunden. Die Heilung erfolgt sofort und vollständig.
+
+**Qualitätsauswirkung:** Geheilte LE = QP, bei QP 6+ können auch schwere Verletzungen geheilt werden
+
+**Modifikatoren:**
+- **Vollständige Wiederherstellung (+4 Kategorien):** Heilt auch verlorene Gliedmaßen. Funktioniert nur kurz nach der Verletzung
 
 #### Giftheilung
 
-Wirkung: Neutralisiert ein Gift oder senkt dessen Stufe. Bei Kontakt-/Atemgiften kann zusätzliche Zeit/Material nötig sein.
+**Wirkung:** Neutralisiert ein Gift oder senkt dessen Stufe. Bei Kontakt-/Atemgiften kann zusätzliche Zeit/Material nötig sein. In der Regel muss bekannt sein, um welches Gift es sich handelt.
+
+**Qualitätsauswirkung:** Max. Giftstufe = QP
+
+**Modifikatoren:**
+- **Universalgift (+2 Kategorien):** Wirkt gegen alle Giftarten gleichzeitig
+- **Präventiv (+1 Kategorie):** Schützt vor zukünftigen Vergiftungen
 
 #### Krankheitsheilung
 
-Wirkung: Heilt oder verkürzt Krankheitsverlauf, entfernt Fieber/Schwäche je nach Qualität.
+**Wirkung:** Heilt oder verkürzt Krankheitsverlauf, entfernt Fieber/Schwäche je nach Qualität.
 
-#### Regeneration
+**Qualitätsauswirkung:** Max. Krankheitsstufe = QP
 
-Wirkung: Stärkt natürliche Heilung und Erholung; verkürzt Erschöpfung, verbessert nächtliche Regeneration.
+**Modifikatoren:**
+- **Seuchen (+3 Kategorien):** Heilt auch magische oder übernatürliche Krankheiten
+- **Symptomlinderung (-1 Kategorien):** Lindert nur Symptome, heilt nicht die Ursache
 
 #### Geistheilung
 
-Wirkung: Löst mentale Belastung (Furcht, Stress, leichte Traumata).
+**Wirkung:** Löst mentale Belastung (Furcht, Stress, leichte Traumata), stellt geistige Klarheit wieder her.
 
-#### Schutz (Umwelt)
+**Qualitätsauswirkung:** Geheilte mentale Schäden = QP, Resistenz gegen weitere mentale Angriffe = QP
 
-Wirkung: Schutz gegen natürliche Einwirkungen wie Kälte, Hunger, Durst; erlaubt sichere Aktivität unter harschen Bedingungen.
+**Modifikatoren:**
+- **Tiefenheilung (+3 Kategorien):** Heilt auch schwere Traumata und Phobien
+- **Gedächtnisheilung (+2 Kategorien):** Stellt verlorene oder unterdrückte Erinnerungen wieder her
+- **Persönlichkeitsheilung (+4 Kategorien):** Heilt gespaltene oder beschädigte Persönlichkeiten
+
+### Besondere Regeln für Heilzauber
+
+**Heilungslimits:** Natürliche Heilung kann nicht über das ursprüngliche Maximum hinausgehen, magische Heilung schon.
 
 ## Hellsicht
 
@@ -1278,53 +1374,68 @@ Hellsichtszauber erweitern Wahrnehmung und Erkenntnis: vom simplen Spüren von M
 | Magieerkennung | 0 | 5 | 3 KR | Selbst | 1 Min | Sicht auf astrale Strukturen |
 | Sinnesverstärkung | 0 | 10 | 3 KR | Selbst | 1 Min | Schärft Sinne (Sehen/Hören/Riechen etc.) |
 | Fernwahrnehmung | 0 | 10 | 3 KR | Sicht | 1 Min | Blick an entfernte Orte/über Boten |
-| Gedanken- und Gedächtnislesung | 5 | 10 | 1 Min | Berührung | 1 Min | Liest Gedanken/Erinnerungen (In dein Trachten/Eternia) |
-| Wesens- und Eigenschaftserkennung | 0 | 10 | 3KR | Nah | Zauberdauer | Erkennt Natur/Wesen/Eigenschaften (Exposami/Eigenschaften seid gelesen) |
+| Gedanken- und Gedächtnislesung | 5 | 10 | 1 Min | Berührung | 1 Min | Liest Gedanken/Erinnerungen |
+| Wesens- und Eigenschaftserkennung | 0 | 10 | 3KR | Nah | Zauberdauer | Erkennt Natur/Wesen/Eigenschaften |
 
 ### Detaillierte Zauberbeschreibungen
 
 #### Magieerkennung
 
-#### Wirkung: Erkennt magische Auren, aktive Zauber, Artefakte. Qualität steigert Detailtiefe (Art, Stärke, Quelle).
+**Wirkung:** Erkennt magische Auren, aktive Zauber, Artefakte. Der Zauberer sieht magische Auren und kann aktive Zauber, verzauberte Gegenstände und magische Wesen erkennen.
 
-Wirkung: Der Zauberer sieht magische Auren und kann aktive Zauber, verzauberte Gegenstände und magische Wesen erkennen. Qualität bestimmt Detailgrad der Informationen.
+**Qualitätsauswirkung:** Detailgrad = QP (Art der Magie, Stärke, Quelle, Dauer)
 
-Modifikatoren:
-
-*   Verstärkt (+1 Kategorie): Erkennt auch Art und Stärke der Magie
-*   Astralsicht (+3 Kategorien): Astrale Strukturen, Matrixfäden und Bindungen werden sichtbar
+**Modifikatoren:**
+- **Verstärkt (+1 Kategorie):** Erkennt auch Art und Stärke der Magie genau
+- **Astralsicht (+3 Kategorien):** Astrale Strukturen, Matrixfäden und Bindungen werden sichtbar
+- **Magieanalyse (+2 Kategorien):** Erkennt Zauberformeln und magische Schwachstellen
+- **Durchdringend (+2 Kategorien):** Sieht durch magische Verschleierungen und Illusionen
 
 #### Sinnesverstärkung
 
-Wirkung: Hebt einzelne Sinne an (Adlerauge, Luchsenohr, Katzenaugen-Varianten).
+**Wirkung:** Hebt einzelne Sinne an (Adlerauge, Luchsenohr, Katzenaugen-Varianten). Verbessert einen gewählten Sinn dramatisch.
+
+**Qualitätsauswirkung:** Sinnesbonus = QP
+
+**Modifikatoren:**
+- **Mehrfachsinne (+1 Kategorie pro zusätzlichem Sinn):** Verstärkt mehrere Sinne gleichzeitig
+- **Übersinnlich (+3 Kategorien):** Verleiht übernatürliche Sinne (Auren sehen)
+- **Selektiv (+1 Kategorie):** Kann störende Eindrücke ausblenden
 
 #### Fernwahrnehmung
 
-Wirkung: Wahrnehmung an entfernten Orten/über Boten; Qualität senkt Störungen/Verzerrungen.
+**Wirkung:** Wahrnehmung an entfernten Orten/über Boten. Auch nicht sichtbare Orte sind möglich. Der Standardzauber gewährt nur einen Sinn, der verschoben wird.
 
-Auch nicht sichtbare Orte sind möglich. Der Standardzauber gewährt nur einen Sinn. Dieser Sinn ist verschoben, solange der Zauberer ihn an den anderen Ort schickt.
+**Qualitätsauswirkung:** Klarheit der Wahrnehmung = QP
 
-Modifikatoren:
-
-*   Objektsuche (+1 Kategorie): Spürt ein bekanntes Objekt über große Distanzen auf; Störungen bei Verschleierung möglich.
-*   Weitere Sinne (+1 Kategorie/Sinn): Man kann einen weiteren Sinn an den entfernten Ort verschieben.
+**Modifikatoren:**
+- **Objektsuche (+1 Kategorie):** Spürt ein bekanntes Objekt über große Distanzen auf
+- **Weitere Sinne (+1 Kategorie/Sinn):** Kann weitere Sinne an den entfernten Ort verschieben
+- **Unbekannte Orte (+2 Kategorien):** Kann auch völlig unbekannte Orte erkunden
+- **Vergangenheitssicht (+3 Kategorien):** Sieht vergangene Ereignisse am Zielort
 
 #### Gedanken- und Gedächtnislesung
 
-Wirkung: Liest aktuelle Gedanken oder dringt tiefer in Erinnerungen ein; Proben gegen Willen möglich.
+**Wirkung:** Liest aktuelle Gedanken oder dringt tiefer in Erinnerungen ein.**Magierestistenz des Opfers muss überwunden werden.**
 
-Modifikatoren:
+**Qualitätsauswirkung:** Tiefe der Gedankenlesung = QP
 
-*   +Verstärkt (+1 Kategorie): tiefere/ältere Erinnerungen, detaillierter
-*   Gefühle (-1 Kategorie): liest nur Gefühle; Lügen erkennen;
+**Modifikatoren:**
+- **Verstärkt (+1 Kategorie):** Tiefere/ältere Erinnerungen, detaillierter
+- **Gefühle (-1 Kategorie):** Liest nur Gefühle; Lügen erkennen
+- **Oberflächengedanken (-2 Kategorien):** Nur aktuelle, bewusste Gedanken
+- **Traumlesung (+2 Kategorien):** Liest Träume und Unterbewusstsein
 
 #### Wesens- und Eigenschaftserkennung
 
-Wirkung: Erkennt Natur, Werte und relevante Merkmale eines Wesens/Objekts.
+**Wirkung:** Erkennt Natur, Werte und relevante Merkmale eines Wesens/Objekts. Zeigt Stärken, Schwächen und besondere Eigenschaften.
 
-#### Lügenerkennung
+**Qualitätsauswirkung:** Detailgrad der Erkennung = QP, Anzahl erkannter Eigenschaften = QP
 
-Wirkung: Erkennt bewusste Lügen; Wahrscheinlichkeitsaussage je nach Qualität.
+**Modifikatoren:**
+- **Kampfwerte (+1 Kategorie):** Erkennt genaue Kampfwerte und Fertigkeiten
+- **Schwachstellen (+2 Kategorien):** Zeigt Verwundbarkeiten und optimale Angriffspunkte
+- **Potenzial (+3 Kategorien):** Sieht verborgene Fähigkeiten und ungenutztes Potenzial
 
 ## Illusion
 
@@ -1334,63 +1445,74 @@ Illusionszauber erschaffen oder verändern Sinneseindrücke, verschleiern Gestal
 
 | Zauber | Erschw. | Kosten | Zauberdauer | Reichweite | Wirkungsdauer | Beschreibung |
 | --- | --- | --- | --- | --- | --- | --- |
-| Sinnesillusion | 0 | 5 | 3 KR | Nah | 1 Min | Manipuliert Sinneseindrücke (Sicht/Klang/Geruch/Geschmack/Tast). Modi: Licht erzeugen/entziehen, Dunkelheitszone, Spiegel/Reflexion, Geräusche, Gerüche, Haptik. |
-| Gestaltsillusion | 0 | 10 | 3 KR | Selbst | 1 Min | Täuscht Aussehen/Kleidung/Körpermerkmale; zielgebundene Verkleidung. |
-| Unsichtbarkeit | 0 | 10 | 3 KR | Selbst | 1 Min | Macht das Ziel unsichtbar (Sichtentzug total); andere Sinne bleiben bestehen, wenn nicht erweitert. |
-| Doppelgänger | 0 | 5/Illusion | 3 KR | Selbst | 1 Min | Erzeugt trügerische Kopien zur Ablenkung; Koordination je nach Qualität. |
-| Raumillusion | 0 | 10 | 3 KR | Nah | 1 Min | Täuscht Wege/Strukturen (optische Irrwege, scheinbare Wände). |
+| Sinnesillusion | 0 | 5 | 3 KR | Nah | 1 Min | Manipuliert Sinneseindrücke (Sicht/Klang/Geruch/Geschmack/Tast) |
+| Gestaltsillusion | 0 | 10 | 3 KR | Selbst | 1 Min | Täuscht Aussehen/Kleidung/Körpermerkmale vor |
+| Unsichtbarkeit | 0 | 10 | 3 KR | Selbst | 1 Min | Macht das Ziel unsichtbar (Sichtentzug total) |
+| Doppelgänger | 0 | 5/Illusion | 3 KR | Selbst | 1 Min | Erzeugt trügerische Kopien zur Ablenkung |
+| Raumillusion | 0 | 10 | 3 KR | Nah | 1 Min | Täuscht Wege/Strukturen vor (optische Irrwege) |
 
 ### Detaillierte Zauberbeschreibungen
 
 #### Sinnesillusion
 
-Wirkung: Erzeugt/ändert Eindrücke einzelner oder mehrerer Sinne (Sicht, Klang, Geruch, Geschmack, Tast). Deckt Dunkelheitszonen, Lichtzeichen und Spiegel-/Reflexionseffekte als Modi ab.
+**Wirkung:** Erzeugt/ändert Eindrücke einzelner oder mehrerer Sinne (Sicht, Klang, Geruch, Geschmack, Tast). Deckt Dunkelheitszonen, Lichtzeichen und Spiegel-/Reflexionseffekte als Modi ab.
 
-Modifikatoren:
+**Qualitätsauswirkung:** Realismus der Illusion = QP, Widerstand gegen Durchschauen = QP
 
-*   Mehrsinnig (+1 Kategorie je zusätzlichem Sinn)
-*   Detailgrad (+1 Kategorie): realistischere, konsistente Details
-*   Sinnzerstörung (+1 Kategorie): Nimmt den Sinn komplett
+**Modifikatoren:**
+- **Mehrsinnig (+1 Kategorie je zusätzlichem Sinn):** Betrifft mehrere Sinne gleichzeitig
+- **Detailgrad (+1 Kategorie):** Realistischere, konsistente Details
+- **Sinnzerstörung (+1 Kategorie):** Nimmt den Sinn komplett weg
+- **Bewegte Illusion (+2 Kategorien):** Illusion kann sich bewegen und verändern
+- **Interaktive Illusion (+3 Kategorien):** Illusion reagiert auf Berührung und Interaktion
 
 #### Gestaltsillusion
 
-Wirkung: Zielgebundene Verkleidung/Umgestaltung von Erscheinung und Kleidung. Keine Substanz; Berührung/Interaktion offenbart Unterschiede.
+**Wirkung:** Zielgebundene Verkleidung/Umgestaltung von Erscheinung und Kleidung. Keine Substanz; Berührung/Interaktion offenbart Unterschiede.
 
-Modifikatoren:
+**Qualitätsauswirkung:** Überzeugungskraft der Verkleidung = QP, Widerstand gegen Entdeckung = QP
 
-• Detailgrad (+1 Kategorie): Mimik/Bewegung überzeugender
+**Modifikatoren:**
+- **Detailgrad (+1 Kategorie):** Mimik/Bewegung überzeugender
+- **Mehrsinnig (+1 Kategorie je zusätzlichem Sinn):** Betrifft mehrere Sinne gleichzeitig
+- **Größenänderung (+1 Kategorie):** Kann scheinbare Körpergröße verändern
 
 #### Unsichtbarkeit
 
-Wirkung: Entfernt die Sichtbarkeit des Ziels. Geräusche, Gerüche, Spuren bleiben bestehen, sofern nicht separat gedämpft.
+**Wirkung:** Entfernt die Sichtbarkeit des Ziels. Geräusche, Gerüche, Spuren bleiben bestehen, sofern nicht separat gedämpft.
 
-Modifikatoren:
+**Qualitätsauswirkung:** Vollständigkeit der Unsichtbarkeit = QP, Widerstand gegen magische Entdeckung = QP
 
-*   Mehrsinnig (+1 Kategorie je zusätzlichem Sinn)
+**Modifikatoren:**
+- **Mehrsinnig (+1 Kategorie je zusätzlichem Sinn):** Macht auch für andere Sinne unsichtbar
+- **Bewegungsanpassung (+1 Kategorie):** Unsichtbarkeit bleibt auch bei schnellen Bewegungen stabil
+- **Gruppenunichtbarkeit (+2 Kategorien):** Macht mehrere Personen gleichzeitig unsichtbar
+- **Objektunichtbarkeit (+1 Kategorie):** Macht auch getragene/berührte Gegenstände unsichtbar
+- **Selektive Sichtbarkeit (+2 Kategorien):** Nur für bestimmte Personen unsichtbar
 
 #### Doppelgänger
 
-Wirkung: Mehrere trügerische Kopien des Ziels, die Bewegungen nachahmen. Erschwert Zielauswahl und Angriffe gegen das echte Ziel.
+**Wirkung:** Mehrere trügerische Kopien des Ziels, die Bewegungen nachahmen. Erschwert Zielauswahl und Angriffe gegen das echte Ziel.
 
-Modifikatoren:
+**Qualitätsauswirkung:** Realismus der Bewegungen = QP - gegen Sinnesschärfe des Gegners
 
-• Anzahl (+1 Kategorie pro zusätzlicher Kopie): mehr Kopien
-
-• Realismus (+1 Kategorie): bessere Synchronität/Schattenwürfe
+**Modifikatoren:**
+- **Anzahl (+1 Kategorie pro zusätzlicher Kopie):** Mehr Kopien
+- **Unabhängige Bewegung (+2 Kategorien):** Kopien können sich unabhängig bewegen
+- **Substanzielle Kopien (+3 Kategorien):** Kopien können begrenzt physisch interagieren
 
 #### Raumillusion
 
-Wirkung: Täuscht räumliche Strukturen/Wege, erzeugt optische Irrläufe oder scheinbare Wände. Ideal zur Gebietskontrolle.
+**Wirkung:** Täuscht räumliche Strukturen/Wege vor, erzeugt optische Irrläufe oder scheinbare Wände. Ideal zur Gebietskontrolle.
 
-Modifikatoren:
+**Qualitätsauswirkung:** Komplexität der Illusion = QP - gegen Sinnesschärfe des Gegners
 
-• Fläche/Komplexität (+1–2 Kategorien): größere Zonen/kompliziertere Muster
+**Modifikatoren:**
+- **Fläche/Komplexität (+1-2 Kategorien):** Größere Zonen/kompliziertere Muster
 
-### Hinweise zur Systematik
+### Besondere Regeln für Illusionen
 
-• Unsichtbarkeit wirkt zielzentriert (am Träger), Sinnesillusion wirkt wahrnehmungszentriert (am Beobachter/der Zone).
-
-• Illusionen verursachen keine physische Interaktion (kein echter Schaden, keine echte Deckung). Proben zum Durchschauen richten sich nach Detailgrad/Qualität.
+**Glaubwürdigkeit:** Je unwahrscheinlicher eine Illusion ist, desto leichter ist sie zu durchschauen.
 
 ## Verständigung
 
@@ -1400,48 +1522,87 @@ Zauber der Verständigung übertragen Informationen: als Klang, Schrift, Blick, 
 
 | Zauber | Erschw. | Kosten | Zauberdauer | Reichweite | Wirkungsdauer | Beschreibung |
 | --- | --- | --- | --- | --- | --- | --- |
-| Zauberschrift | 0 | 10 | 5 Min | Berührung | bis Löschwort | Magische Schrift, nur für Eingeweihte lesbar (Cryptographo) |
-| Sinnenteilen | 0 | 10 | 3 KR | Nah | 1 Min | Gefühle/Eindrücke teilen (Das Sinnen fremder Wesen) |
-| Ruf/Klang | 0 | 5 | 3 KR | Sicht | 3 KR | Weit hörbarer Ruf/Klangbotschaft (Elfenruf/Elfenstimme) |
+| Zauberschrift | 0 | 10 | 5 Min | Berührung | 1 Monat | Magische Schrift, nur für Eingeweihte lesbar |
+| Sinnenteilen | 0 | 10 | 3 KR | Nah | 1 Min | Gefühle/Eindrücke teilen |
+| Ruf/Klang | 0 | 5 | 3 KR | Sicht | 3 KR | Weit hörbarer Ruf/Klangbotschaft |
 | Fernbotschaft | 0 | 5 | 3 KR | Nah | 3 KR | Botschaft/Emotion übertragen |
-| Objekt befragen | 0 | 5 | 3 KR | Berührung | 3 KR | Einfache Fragen an Objekte (Objectum stumm) |
-| Geistbund | 0 | 1 | 1 Min | Berührung | - | Kleiner mentaler Bund/Link |
+| Objekt befragen | 0 | 5 | 3 KR | Berührung | 3 KR | Einfache Fragen an Objekte |
+| Geistbund | 0 | 2 | 1 Min | Berührung | - | Kleiner mentaler Bund/Link |
 
 ### Detaillierte Zauberbeschreibungen
 
 #### Zauberschrift
 
-Wirkung: Erzeugt magische Schrift, die nur mit Kenntnis/Schlüssel lesbar ist. Optionaler Verfalls-/Löschmechanismus. Etwa 1 Blatt.
+**Wirkung:** Erzeugt magische Schrift, die nur mit Kenntnis/Schlüssel lesbar ist. Optionaler Verfalls-/Löschmechanismus. Etwa 1 Blatt Textmenge.
+
+**Qualitätsauswirkung:** Verschlüsselungsstärke = QP,
+
+**Modifikatoren:**
+- **Selbstzerstörung (+1 Kategorie):** Text zerstört sich nach dem Lesen oder bei unbefugtem Zugriff
+- **Unsichtbare Schrift (+1 Kategorie):** Schrift wird nur unter bestimmten Bedingungen sichtbar
+- **Lebende Schrift (+3 Kategorien):** Text kann sich selbst aktualisieren oder auf Fragen antworten
 
 #### Sinnenteilen
 
-Wirkung: Teilt einfache Sinneseindrücke/Emotionen zwischen Zauberer und Ziel(en).
+**Wirkung:** Teilt einfache Sinneseindrücke/Emotionen zwischen Zauberer und Ziel(en). Ermöglicht empathische Verbindung. Ziele müssen aktiv senden (kein Gedankenlesen!). Will das Ziel vom Zauberer nichts empfangen, muss die Magieresistenz überwunden werden, um dennoch zu senden.
+
+**Qualitätsauswirkung:** Intensität und Genauigkeit der geteilten Eindrücke = QP
+
+**Modifikatoren:**
+- **Emotionaler Link (-1 Kategorie):** Nur Emotionen werden geteilt
+- **Vollständiges Teilen (+2 Kategorien):** Alle Sinne werden geteilt
+- **Einseitig (+0 Kategorien):** Nur der Zauberer sendet
+- **Verstärkend (+2 Kategorien):** Geteilte Emotionen werden verstärkt erlebt
 
 #### Ruf/Klang
 
-Wirkung: Sendet Rufe/Klänge über große Distanzen, deutlich und gegen Umgebungsgeräusche verstärkt.
+**Wirkung:** Sendet Rufe/Klänge über große Distanzen, deutlich und gegen Umgebungsgeräusche verstärkt.
+
+**Qualitätsauswirkung:** Lautstärke/Klarheit = QP
+
+**Modifikatoren:**
+- **Gerichteter Ruf (+1 Kategorie):** Nur bestimmte Personen können den Ruf hören
+- **Kodierte Botschaft (+1 Kategorie):** Ruf enthält versteckte Informationen
+- **Tierstimme (+1 Kategorie):** Ruf klingt wie ein bestimmtes Tier
 
 #### Fernbotschaft
 
-Wirkung: Überträgt kurze Informationen/Emotionen an eine andere Person.
+**Wirkung:** Überträgt kurze Informationen/Emotionen an eine andere Person. Funktioniert auch über große Entfernungen.
 
-Modifikatoren:
+**Qualitätsauswirkung:** Klarheit = QP
 
-*   Traumbotschaft (+1 Kategorie): die Botschaft scheint natürlichen Ursprungs (Traum, Andere Zeichen)
+**Modifikatoren:**
+- **Traumbotschaft (+1 Kategorie):** Die Botschaft scheint natürlichen Ursprungs (Traum, andere Zeichen)
+- **Antwortfunktion (+1 Kategorie):** Empfänger können automatisch antworten
+- **Emotionale Botschaft (-1 Kategorie):** Überträgt nur Gefühle, keine Worte
 
 #### Objekt befragen
 
-Wirkung: Stellt einfachen, begrenzten „Fragen an Dinge“ – häufig ja/nein/kurze Antworten.
+**Wirkung:** Stellt einfachen, begrenzten Fragen an Dinge - häufig ja/nein/kurze Antworten. Objekte "erinnern" sich an ihre Erfahrungen.
+
+**Qualitätsauswirkung:** Komplexität der Fragen = QP, Alter der erfragbaren Ereignisse = QP Monate, Anzahl der Fragen = QP/2
+
+**Modifikatoren:**
+- **Detaillierte Antworten (+2 Kategorien):** Objekte können ausführlichere Antworten geben
+- **Emotionale Eindrücke (+1 Kategorie):** Objekt teilt auch Gefühle mit, die es "erlebt" hat
+- **Lebewesenbefragung (+1 Kategorien):** Kann auch Pflanzen und einfache Tiere befragen
 
 #### Geistbund
 
-Wirkung: Schafft einen temporären mentalen Link zwischen zwei oder mehr Beteiligten. Auch Zauberkraft kann darüber geteilt werden und gemeinsam gezaubert werden.
+**Wirkung:** Schafft einen temporären mentalen Link zwischen zwei oder mehr Beteiligten. Auch Zauberkraft kann darüber geteilt werden und gemeinsam gezaubert werden.
+
+**Qualitätsauswirkung:** Stärke der Verbindung = QP
+
+**Modifikatoren:**
+- **Kraftteilung (+1 Kategorien):** Teilnehmer können Astralenergie teilen
+- **Gedankenaustausch (+1 Kategorie):** Vollständige telepathische Kommunikation
+- **Kampfkoordination (+2 Kategorien):** Perfekte Koordination in Kampfsituationen
 
 ## Verwandlung von Lebewesen
 
 Verwandlungszauber verändern Körper, Eigenschaften oder Gestalt von Lebewesen. Dieses verschlankte Kapitel bündelt alle Attributs- und Gestaltsänderungen ohne Doppelungen zu anderen Kapiteln.
 
-### Grundzauber der Verwandlung von Lebewesen (verschlankt)
+### Grundzauber der Verwandlung von Lebewesen
 
 | Zauber | Erschw. | Kosten | Zauberdauer | Reichweite | Wirkungsdauer | Beschreibung |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -1453,20 +1614,33 @@ Verwandlungszauber verändern Körper, Eigenschaften oder Gestalt von Lebewesen.
 
 #### Tierverwandlung
 
-Wirkung: Verwandelt in bekannte Tierformen. Qualität legt verfügbare Formen, Adaptionsgrad (Sinne/Bewegung/Natürliche Waffen) und Dauer fest.
+**Wirkung:** Verwandelt in bekannte Tierformen. Qualität legt verfügbare Formen, Adaptionsgrad (Sinne/Bewegung/Natürliche Waffen) und Dauer fest.
 
-Modifikatoren:
+**Qualitätsauswirkung:** Beibehaltung menschlicher Intelligenz = geistige Attribute maximal QP
 
-*   +Verstärkt (+1-+3 Kategorien): zusätzliche/komplexere Formen, bessere Werte
-*   Einzelsinn (-1 Kategorie): verwandelt nur ein Sinn (Katzenaugen, Pumaklaue, etc.)
+**Modifikatoren:**
+- **Verstärkt (+1-3 Kategorien):** Zusätzliche/komplexere Formen, bessere Werte
+- **Einzelsinn (-1 Kategorie):** Verwandelt nur einen Sinn (Katzenaugen, Pumaklaue, etc.)
+- **Hybridform (+1 Kategorie):** Mischt menschliche und tierische Eigenschaften
+- **Größenänderung (+2 Kategorien):** Kann auch die Körpergröße entsprechend anpassen
 
 #### Attribute
 
-Wirkung: Temporäre Steigerung eines gewählten Attributs (inkl. Varianten wie Geschick, Empathie, Wagemut, Klugheit, Charisma).
+**Wirkung:** Temporäre Steigerung eines gewählten Attributs (inkl. Varianten wie Geschick, Empathie, Wagemut, Klugheit, Charisma).
+
+**Qualitätsauswirkung:** Attributssteigerung = QP Punkte
+
+**Modifikatoren:**
+- **Mehrfachattribute (+1 Kategorie pro zusätzlichem Attribut):** Steigert mehrere Attribute gleichzeitig
 
 #### Behinderung
 
-Wirkung: Starke Einschränkung spezifischer Funktionen (z. B. Atemnot). Einsetzbar als kontrollierende oder kampfnahe Variante.
+**Wirkung:** Starke Einschränkung spezifischer Funktionen (z.B. Atemnot). Einsetzbar als kontrollierende oder kampfnahe Variante.
+
+**Qualitätsauswirkung:** Stärke der Behinderung = QP
+
+**Modifikatoren:**
+- **Lähmung (+1 Kategorie):** Vollständige Bewegungsunfähigkeit bestimmter Körperteile
 
 ## Verwandlung von Unbelebtem
 
@@ -1476,54 +1650,83 @@ Dieses Kapitel bündelt stoffliche und strukturelle Veränderungen an unbelebten
 
 | Zauber | Erschw. | Kosten | Zauberdauer | Reichweite | Wirkungsdauer | Beschreibung |
 | --- | --- | --- | --- | --- | --- | --- |
-| Materialtransformation | 5 | 10 | 1 Min | Berührung | Sofort | Zustands-/Phasen-/Stoffänderung: Schmelzen, Erstarren, Gefrieren, Brennen, Zerfall (Desintegrat-Varianten). |
-| Funktionsmanipulation | 5 | 10 | 1 Min | Berührung | 1 Min | Fixieren, Versiegeln, Kleben, Schlösser/Mechaniken beeinflussen (Objectum Fix/Claudibus/Schelmenkleister). |
-| Formgebung/Umformung | 5 | 10 | 1 Min | Berührung | Sofort | Formt/fügt Materialien (Nähen/Verbinden/Reparieren; Ohne Ahle, Faden, Nadel). |
-| Reinigung/Entgiftung (Objekte) | 0 | 5 | 3 KR | Berührung | Sofort | Reinigt Oberflächen, entfernt Schmutz/Öle/geringe Gift-/Seuchenreste an Dingen. |
+| Materialtransformation | 5 | 10 | 1 Min | Berührung | Sofort | Zustands-/Phasen-/Stoffänderung: Schmelzen, Erstarren, Gefrieren, Brennen, Zerfall |
+| Funktionsmanipulation | 5 | 10 | 1 Min | Berührung | 1 Min | Fixieren, Versiegeln, Kleben, Schlösser/Mechaniken beeinflussen |
+| Formgebung/Umformung | 5 | 10 | 1 Min | Berührung | Sofort | Formt/fügt Materialien (Nähen/Verbinden/Reparieren) |
+| Reinigung/Entgiftung (Objekte) | 0 | 5 | 3 KR | Berührung | Sofort | Reinigt Oberflächen, entfernt Schmutz/Öle/geringe Gift-/Seuchenreste |
 
-### Detaillierte Zauberbeschreibungen (Unbelebtes)
+### Detaillierte Zauberbeschreibungen
 
 #### Materialtransformation
 
-Wirkung: Ändert stoffliche Zustände (fest/flüssig/gasförmig), Temperatur oder Bindungsstruktur; ermöglicht Zerfall/Staub (Desintegratus), Schmelzen/Erstarren (Hartes schmelze!/Weiches erstarre!), Gefrieren (Metamorpho Gletscherkalt), punktuelles Brennen.
+**Wirkung:** Ändert stoffliche Zustände (fest/flüssig/gasförmig), Temperatur oder Bindungsstruktur; ermöglicht Zerfall/Staub, Schmelzen/Erstarren, Gefrieren, punktuelles Brennen.
 
-• Zielmaterial/Härte (+1–3 Kategorien): Holz < Stein < Metall < gehärtete Legierungen
+**Qualitätsauswirkung:** Menge des verwandelten Materials = QP × 1 kg,Präzision der Veränderung = QP
+
+**Modifikatoren:**
+- **Materialhärte (+0-+4 Kategorien):** Stoff < Holz < Stein < Metall < gehärtete Legierungen
+- **Vollständige Transformation (+2 Kategorien):** Verwandelt Material in komplett anderen Stoff
+- **Selektive Transformation (+1 Kategorie):** Betrifft nur bestimmte Teile eines Objekts
+- **Temperaturkontrolle (+1 Kategorie):** Präzise Kontrolle über Hitze/Kälte bei der Verwandlung
 
 #### Funktionsmanipulation
 
-Wirkung: Beeinflusst die Kohäsion oder Mechanik eines Objekts: Fixieren, Kleben, temporäres Verschwinden/Verbergen, Schloss-Beeinflussung, Siegel setzen.
+**Wirkung:** Beeinflusst die Kohäsion oder Mechanik eines Objekts: Fixieren, Kleben, Schloss-Beeinflussung, Siegel setzen.
+
+**Qualitätsauswirkung:** Stärke der Manipulation = QP, Anzahl betroffener Mechanismen = QP, Dauer der Wirkung = QP × 10 Minuten
+
+**Modifikatoren:**
+- **Komplexe Mechanismen (+2 Kategorien):** Betrifft auch magische oder sehr komplizierte Vorrichtungen
 
 #### Formgebung/Umformung
 
-Wirkung: Fügt, näht, verformt, repariert. Eignet sich für Handwerk, Improvisation und Instandsetzung.
+**Wirkung:** Fügt, näht, verformt, repariert. Eignet sich für Handwerk, Improvisation und Instandsetzung.
+
+**Qualitätsauswirkung:** Komplexität der Formgebung = QP, Größe des bearbeiteten Objekts = QP × 1 Kubikmeter, Präzision der Arbeit = QP
+
+**Modifikatoren:**
+- **Materialfusion (+1 Kategorie):** Kann verschiedene Materialien nahtlos verbinden
 
 #### Reinigung/Entgiftung (Objekte)
 
-Wirkung: Entfernt Schmutz, Öle, gewöhnliche Kontaminationen; leichte Gifte/Seuchenreste an Gegenständen.
+**Wirkung:** Entfernt Schmutz, Öle, gewöhnliche Kontaminationen; leichte Gifte/Seuchenreste an Gegenständen.
+
+**Qualitätsauswirkung:** Gründlichkeit der Reinigung = QP, Größe des gereinigten Bereichs = QP × 10 Quadratmeter, Stärke entfernter Kontaminationen = QP
+
+**Modifikatoren:**
+- **Tiefenreinigung (+1 Kategorie):** Entfernt auch tief eingedrungene Verunreinigungen
+- **Magische Kontamination (+2 Kategorien):** Kann auch magische Verunreinigungen beseitigen
+- **Restaurierung (+1 Kategorie):** Stellt ursprüngliche Farben und Oberflächenbeschaffenheit wieder her
+- **Selektive Reinigung (+1 Kategorie):** Entfernt nur bestimmte Arten von Verunreinigungen
 
 ## Metamagie
 
-Metamagie verändert Zauber selbst: kehrt Wirkungen um, speichert oder überträgt Formeln in Gegenstände, moduliert Kosten/Parameter oder verändert zeitliche Abläufe. Diese Effekte wirken auf Magie – nicht auf die Welt direkt.
+Metamagie verändert Zauber selbst: kehrt Wirkungen um, speichert oder überträgt Formeln in Gegenstände, moduliert Kosten/Parameter oder verändert zeitliche Abläufe. Diese Effekte wirken auf Magie - nicht auf die Welt direkt.
 
 ### Grundzauber der Metamagie
 
 | Zauber | Erschw. | Kosten | Zauberdauer | Reichweite | Wirkungsdauer | Beschreibung |
 | --- | --- | --- | --- | --- | --- | --- |
-| Umkehr | 0 | 10 | 3 KR | Selbst | 1 Min | Kehrt Effektparameter eines aktiven Zaubers um. |
-| Artefaktbindung | 10 | 20+Zauber | 1 Std | Berührung | Permanent | Bindet einen Zaubereffekt an ein Objekt (Artefakt). |
+| Umkehr | 0 | 10 | 3 KR | Selbst | 1 Min | Kehrt Effektparameter eines aktiven Zaubers um |
+| Artefaktbindung | 10 | 20+Zauber | 1 Std | Berührung | Permanent | Bindet einen Zaubereffekt an ein Objekt (Artefakt) |
 
-### Detaillierte Zauberbeschreibungen (Metamagie)
+### Detaillierte Zauberbeschreibungen
 
 #### Umkehr
 
-Wirkung: Kehrt Zielrichtung/Parameter eines Zaubers um (z. B. Schutz → Verwundbarkeit, Wärme → Kälte), oder hebt einen konkreten Effekt auf. Vergleichende Probe gegen ursprüngliche Qualität.
+**Wirkung:** Kehrt Zielrichtung/Parameter eines Zaubers um (z.B. Schutz → Verwundbarkeit, Wärme → Kälte), oder hebt einen konkreten Effekt auf. Vergleichende Probe gegen ursprüngliche Qualität.
+
+**Qualitätsauswirkung:** Maximale Stärke des umgekehrten Zaubers = QP
+
 
 #### Artefaktbindung
 
-Wirkung: Bindet eine Formel an einen Gegenstand; Qualität bestimmt Ladungen, Stabilität und Aktivierungsart. Auch Zaubertränke werden so gebraut.
+**Wirkung:** Bindet eine Formel an einen Gegenstand; Qualität bestimmt Ladungen, Stabilität und Aktivierungsart. Auch Zaubertränke werden so gebraut.
 
-Modifikatoren:
+**Qualitätsauswirkung:** Maximale Stärke des gespeicherten Zaubers = QP
 
-*   Ladungen (+1 Kategorie/Ladung): mehr gespeicherte Wirkungen
-*   Trigger (+1 Kategorie): externe Auslösebedingung
-*   Permanenz (Wirkungsdauer muss auf permanent gehoben werden, 1 ASP permanent / 10 ASP): macht die Wirkung permanent; geht nur bei Zaubern, die nicht die Wirkungsdauer «Sofort» haben
+**Modifikatoren:**
+- **Ladungen (+1 Kategorie/Ladung):** Mehr gespeicherte Wirkungen
+- **Trigger (+1 Kategorie):** Externe Auslösebedingung (Berührung, Kommandowort, Situation)
+- **Permanenz (Wirkungsdauer muss auf permanent gehoben werden, 1 ASP permanent / 10 ASP):** macht die Wirkung permanent; geht nur bei Zaubern, die nicht die Wirkungsdauer «Sofort» haben
+- **Intelligentes Artefakt (+5 Kategorien):** Artefakt kann selbstständig entscheiden, wann es aktiviert wird
