@@ -164,7 +164,103 @@ sections.forEach(sec => {
   recalc();
 }
 
+
+// Enhanced visibility system for layout.js visibility rules
+function updateVisibility() {
+    if (!ui || !ui.Seiten) return;
+    
+    // Get current state for visibility checks
+    const currentState = {};
+    
+    // Collect all form values for visibility evaluation
+    const formInputs = document.querySelectorAll('input, select');
+    formInputs.forEach(input => {
+        if (input.id) {
+            // Remove prefixes to get clean field names
+            let fieldName = input.id;
+            if (fieldName.startsWith('row-input-')) {
+                fieldName = fieldName.replace('row-input-', '');
+            }
+            currentState[fieldName] = input.value;
+        }
+    });
+    
+    // Also include calculated values from state
+    Object.assign(currentState, state.values);
+    Object.assign(currentState, state.attributes);
+    
+    // Check each page and section for visibility conditions
+    ui.Seiten.forEach(page => {
+        (page.bereiche || []).forEach(secRef => {
+            const sectionElement = document.querySelector(`[data-section-ref="${secRef.ref}"]`);
+            if (sectionElement && secRef.visibility) {
+                const shouldShow = evaluateVisibilityRules(secRef.visibility, currentState);
+                sectionElement.style.display = shouldShow ? 'block' : 'none';
+            }
+        });
+    });
+}
+
+function evaluateVisibilityRules(visibility, currentState) {
+    if (!visibility || !visibility.rules) return true;
+    
+    const rules = visibility.rules;
+    const logic = visibility.logic || 'and'; // default to 'and'
+    
+    const results = rules.map(rule => evaluateVisibilityRule(rule, currentState));
+    
+    if (logic === 'or') {
+        return results.some(result => result);
+    } else { // 'and' or default
+        return results.every(result => result);
+    }
+}
+
+function evaluateVisibilityRule(rule, currentState) {
+    if (!rule.field) return true;
+    
+    const fieldValue = currentState[rule.field] || '';
+    const operator = rule.operator || 'equals';
+    
+    switch (operator) {
+        case 'equals':
+            return fieldValue === (rule.value || '');
+            
+        case 'not_equals':
+            return fieldValue !== (rule.value || '');
+            
+        case 'in':
+            return Array.isArray(rule.values) && rule.values.includes(fieldValue);
+            
+        case 'not_in':
+            return Array.isArray(rule.values) && !rule.values.includes(fieldValue);
+            
+        case 'has_value':
+            return fieldValue !== '' && fieldValue !== null && fieldValue !== undefined;
+            
+        case 'is_empty':
+            return fieldValue === '' || fieldValue === null || fieldValue === undefined;
+            
+        case 'greater_than':
+            return parseNum(fieldValue) > parseNum(rule.value || 0);
+            
+        case 'less_than':
+            return parseNum(fieldValue) < parseNum(rule.value || 0);
+            
+        case 'greater_equal':
+            return parseNum(fieldValue) >= parseNum(rule.value || 0);
+            
+        case 'less_equal':
+            return parseNum(fieldValue) <= parseNum(rule.value || 0);
+            
+        default:
+            return true;
+    }
+}
+
 function render(){
+  if (!ui || !ui.Seiten) return;
+  
   els.root.innerHTML = '';
 
   (ui.Seiten || []).forEach(page => {
@@ -346,7 +442,46 @@ function buildTable(items, sec, ref, opts = {}){
         push(inp);
         break;
       }
-
+      
+        case 'input.select': {
+          const key = generateKey(sec, it, k, valueKeyPrefix);
+          const select = document.createElement('select');
+          select.id = generateDisplayId('row-select', sec, it, k, valueKeyPrefix);
+          
+          // Hole Optionen aus dem Item selbst oder aus einer referenzierten Section
+          const options = it.options || [];
+          
+          options.forEach(opt => {
+            const option = document.createElement('option');
+            option.value = opt.id;
+            option.textContent = opt.label;
+            if (state.values[key] === opt.id) {
+              option.selected = true;
+            }
+            select.appendChild(option);
+          });
+          
+          select.addEventListener('change', () => {
+            state.values[key] = select.value;
+          });
+          
+          push(select);
+          break;
+        }
+      case 'readonly_text': {
+        if (k === 'basis') {
+          const cell = createDiv(basisVal);
+          cell.id = generateDisplayId('row-basis', sec, it, 'value', valueKeyPrefix);
+          push(cell);
+        } else if (k === 'total') {
+          const cell = createDiv(totalVal);
+          cell.id = generateDisplayId('row-total', sec, it, 'value', valueKeyPrefix);
+          push(cell);
+        } else {
+          push(createDiv(it[k] ?? ''));
+        }
+        break;
+      }
       case 'base': {
         const cell = createDiv(basisVal);
         cell.id = generateDisplayId('row-basis', sec, it, 'value', valueKeyPrefix);
@@ -372,15 +507,72 @@ function buildTable(items, sec, ref, opts = {}){
   return table;
 }
 
+function renderDropdown(sec, ref) {
+  const container = document.createElement('div');
+  container.className = 'dropdown-container';
+  container.style.padding = '10px';
+  
+  // Label
+  const label = document.createElement('label');
+  label.textContent = sec.label;
+  label.style.display = 'block';
+  label.style.marginBottom = '5px';
+  label.style.fontWeight = 'bold';
+  
+  // Dropdown
+  const select = document.createElement('select');
+  select.style.width = '100%';
+  select.style.padding = '5px';
+  
+  // Leere Option
+  const emptyOption = document.createElement('option');
+  emptyOption.value = '';
+  emptyOption.textContent = '-- Auswählen --';
+  select.appendChild(emptyOption);
+  
+  // Alle Items als Optionen
+  const items = sec.items || [];
+  items.forEach(item => {
+    const option = document.createElement('option');
+    option.value = item.id;
+    option.textContent = item.label;
+    select.appendChild(option);
+  });
+  
+  // Aktuellen Wert laden
+  const key = sec.id;
+  if (state.values[key]) {
+    select.value = state.values[key];
+  }
+  
+  // Änderungen speichern
+  select.addEventListener('change', () => {
+    state.values[key] = select.value;
+  });
+  
+  container.appendChild(label);
+  container.appendChild(select);
+  return container;
+}
+
 function renderSection(sec, ref){
   // Header und Card-Wrapper wie gehabt ...
   const card = document.createElement('div');
   card.className = 'card';
+  card.setAttribute('data-section-ref', sec.id);
   card.classList.add(ref.breite === 2 ? 'area-wide' : 'area-narrow');
   if (ref.titel_anzeigen){
     const h = document.createElement('h2'); h.textContent = sec.label; card.appendChild(h);
 	
     if (sec.basis?.length){ const hint=createDiv(`Basis aus (${sec.basis.join(' + ')}) / 2, gerundet`,'hint'); card.appendChild(hint); }
+  }
+
+  
+  // Prüfe ob es ein Dropdown sein soll
+  if (ref.type === 'dropdown') {
+    const dropdown = renderDropdown(sec, ref);
+    card.appendChild(dropdown);
+    return card;
   }
 
   const hasGroups = Array.isArray(sec.groups) && sec.groups.length > 0;
@@ -504,6 +696,7 @@ sections.forEach(sec => {
   }
   els.apSpent.textContent = String(spent);
   els.apRemaining.textContent = String(remaining);
+  updateVisibility();
 }
 
 // I/O
@@ -523,7 +716,11 @@ function wireButtons(){
       const r=new FileReader();
       r.onload=()=>{ // lädt ein vollständiges Save in generischer Struktur
         const doc = jsyaml.load(r.result);
-        init(r.result, document.getElementById('layout-yaml')?.textContent || '');
+        // Re-initialize with original definitions and layout, then load character data
+        init(defText, layText);
+        applySaveData(doc);
+        render();
+        recalc();
       };
       r.readAsText(f);
     });
@@ -622,6 +819,125 @@ rebuilt.globals.ap_total = state.ap_total;
   return rebuilt;
 }
 
+// Helper function to convert state key to display ID
+function keyToDisplayId(key) {
+  return `row-input-${key}`;
+}
+
+function applySaveData(saveData) {
+  // Apply loaded save data to current state
+  
+  // Update globals
+  if (saveData.globals && saveData.globals.ap_total !== undefined) {
+    state.ap_total = parseNum(saveData.globals.ap_total);
+  }
+
+  // Update all sections from save data
+  (saveData.sections || []).forEach(savedSec => {
+    // Find corresponding section in current definitions
+    const currentSec = sections.find(s => s.id === savedSec.id);
+    if (!currentSec) return;
+
+    // Update section fields
+    (savedSec.fields || []).forEach(savedField => {
+      const key = generateKey(currentSec, { id: savedField.id }, savedField.id);
+      if (savedField.type === 'text') {
+        state.values[key] = savedField.value ?? '';
+      } else {
+        state.values[key] = parseNum(savedField.value ?? 0);
+      }
+    });
+
+    // Update direct items (no groups)
+    (savedSec.items || []).forEach(savedItem => {
+      const currentItem = currentSec.items?.find(it => it.id === savedItem.id);
+      if (!currentItem) return;
+
+      // Update main value
+      const mainKey = generateKey(currentSec, savedItem);
+      state.values[mainKey] = parseNum(savedItem.value ?? 0);
+
+      // Update item label if it exists in save data
+      if (savedItem.label !== undefined) {
+        const labelKey = generateKey(currentSec, savedItem, 'label');
+        state.values[labelKey] = savedItem.label;
+      }
+
+      // Update attributes if this is the Eigenschaften section
+      if (currentSec.id === 'Eigenschaften') {
+        state.attributes[savedItem.id] = parseNum(savedItem.value ?? 0);
+      }
+
+      // Update custom fields
+      (savedItem.fields || []).forEach(savedField => {
+        const fieldKey = generateKey(currentSec, savedItem, savedField.id);
+        if (savedField.type === 'text') {
+          state.values[fieldKey] = savedField.value ?? '';
+        } else {
+          state.values[fieldKey] = parseNum(savedField.value ?? 0);
+        }
+      });
+    });
+
+    // Update groups
+    (savedSec.groups || []).forEach(savedGroup => {
+      const currentGroup = currentSec.groups?.find(g => g.id === savedGroup.id);
+      if (!currentGroup) return;
+
+      const valueKeyPrefix = `${savedSec.id}-${savedGroup.id}`;
+      
+      (savedGroup.items || []).forEach(savedItem => {
+        const currentItem = currentGroup.items?.find(it => it.id === savedItem.id);
+        if (!currentItem) return;
+
+        // Update main value
+        const mainKey = generateKey(currentSec, savedItem, 'value', valueKeyPrefix);
+        state.values[mainKey] = parseNum(savedItem.value ?? 0);
+
+        // Update item label if it exists in save data
+        if (savedItem.label !== undefined) {
+          const labelKey = generateKey(currentSec, savedItem, 'label', valueKeyPrefix);
+          state.values[labelKey] = savedItem.label;
+        }
+
+        // Update custom fields
+        (savedItem.fields || []).forEach(savedField => {
+          const fieldKey = generateKey(currentSec, savedItem, savedField.id, valueKeyPrefix);
+          if (savedField.type === 'text') {
+            state.values[fieldKey] = savedField.value ?? '';
+          } else {
+            state.values[fieldKey] = parseNum(savedField.value ?? 0);
+          }
+        });
+      });
+    });
+  });
+
+  // Update UI elements after loading values
+  setTimeout(() => {
+    // Update all form inputs with loaded values
+    Object.keys(state.values).forEach(key => {
+      const displayId = keyToDisplayId(key);
+      const element = document.getElementById(displayId);
+      if (element) {
+        element.value = state.values[key];
+      }
+    });
+
+    // Update attributes in UI (already handled above, but ensure it's set)
+    Object.keys(state.attributes).forEach(attrId => {
+      const displayId = generateDisplayId('row-input', { id: 'Eigenschaften' }, { id: attrId }, 'value');
+      const element = document.getElementById(displayId);
+      if (element) {
+        element.value = state.attributes[attrId];
+      }
+    });
+
+    // Trigger recalculation to update all computed values
+    recalc();
+  }, 100);
+}
+
 
 // Boot
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -629,4 +945,107 @@ document.addEventListener('DOMContentLoaded', ()=>{
   render();                     // baut DOM
   recalc();                     // berechnet AP/Basis/Gesamt
   wireButtons();                    // Buttons/IO
+});
+// Generic visibility system
+function evaluateShowIf(showIf, currentState) {
+    if (!showIf || !showIf.field) return true;
+    
+    const fieldValue = currentState[showIf.field] || '';
+    const compareValue = showIf.value || '';
+    
+    switch (showIf.operator) {
+        case 'not_empty':
+            return fieldValue !== '' && fieldValue !== null && fieldValue !== undefined;
+        case 'equals':
+            return fieldValue === compareValue;
+        case 'greater_than':
+            return parseNum(fieldValue) > parseNum(compareValue);
+        case 'less_than':
+            return parseNum(fieldValue) < parseNum(compareValue);
+        case 'greater_equal':
+            return parseNum(fieldValue) >= parseNum(compareValue);
+        case 'less_equal':
+            return parseNum(fieldValue) <= parseNum(compareValue);
+        default:
+            return true;
+    }
+}
+
+
+function updateVisibility() {
+    if (!defs || !defs.sections) return;
+    
+    // Get current state for visibility checks
+    const currentState = {};
+    
+    
+    // Collect all form values for visibility evaluation
+    const formInputs = document.querySelectorAll('input, select');
+    formInputs.forEach(input => {
+        if (input.id) {
+            currentState[input.id] = input.value;
+        }
+    });
+    
+    // Also include calculated values from state
+    Object.assign(currentState, state.values);
+    
+    // Check each section and group for visibility conditions
+    defs.sections.forEach(section => {
+        const sectionElement = document.getElementById(section.id + '_section');
+        if (sectionElement && section.show_if) {
+            const shouldShow = evaluateShowIf(section.show_if, currentState);
+            sectionElement.style.display = shouldShow ? 'block' : 'none';
+        }
+        
+        // Check groups within sections
+        if (section.groups) {
+            section.groups.forEach(group => {
+                const groupElement = document.getElementById(group.id + '_section');
+                if (groupElement && group.show_if) {
+                    const shouldShow = evaluateShowIf(group.show_if, currentState);
+                    groupElement.style.display = shouldShow ? 'block' : 'none';
+                }
+            });
+        }
+    });
+  }
+
+// Level-based cost calculation for liturgies and similar
+function calculateLevelCost(level, costPerIncrement = 50) {
+    return level * costPerIncrement;
+}
+
+// Update the cost calculation to handle different calc_id types
+function calcCost(item, value, section) {
+    const calcId = section.calc_id || 'triangular';
+    
+    switch (calcId) {
+        case 'level_cost':
+            const costPer = section.cost_per_increment || 50;
+            return calculateLevelCost(value, costPer);
+        case 'triangular':
+        default:
+            return tri(value);
+    }
+}
+
+// 
+// Add visibility update to existing event handlers
+document.addEventListener('DOMContentLoaded', function() {
+    // Update visibility on any form change
+    document.addEventListener('change', function(e) {
+        if (e.target.matches('input, select')) {
+            setTimeout(updateVisibility, 10); // Small delay to ensure value is updated
+        }
+    });
+    
+    document.addEventListener('input', function(e) {
+        if (e.target.matches('input, select')) {
+            setTimeout(updateVisibility, 10); // Small delay to ensure value is updated
+        }
+    });
+    
+    // Initial visibility update
+    setTimeout(updateVisibility, 100);
 });

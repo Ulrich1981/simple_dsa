@@ -1730,3 +1730,160 @@ Metamagie verändert Zauber selbst: kehrt Wirkungen um, speichert oder überträ
 - **Trigger (+1 Kategorie):** Externe Auslösebedingung (Berührung, Kommandowort, Situation)
 - **Permanenz (Wirkungsdauer muss auf permanent gehoben werden, 1 ASP permanent / 10 ASP):** macht die Wirkung permanent; geht nur bei Zaubern, die nicht die Wirkungsdauer «Sofort» haben
 - **Intelligentes Artefakt (+5 Kategorien):** Artefakt kann selbstständig entscheiden, wann es aktiviert wird
+
+# Geweihte
+
+## Liturgiekenntnis
+
+Die Liturgiekenntnis funktioniert wie ein Talent und folgt dem Basiswert + Talentwert System.
+
+**Basiswert:** Abhängig von der Gottheit (siehe Tabelle unten)
+**Gesamtwert:** Basiswert + Talentwert
+**Steigerungskosten:** Wie Talente (Faktor 5)
+
+### Gottheiten und Basiswerte
+
+| Gottheit | Basiswert | Beschreibung |
+|----------|-----------|--------------|
+| Praios | (MU + KL + CH) ÷ 2 | Gott der Sonne, Zeit und Gerechtigkeit |
+| Rondra | (MU + KK + CH) ÷ 2 | Göttin des Krieges und des Kampfes |
+| Efferd | (MU + KO + CH) ÷ 2 | Gott der Meere und Winde |
+| Travia | (KL + IN + CH) ÷ 2 | Göttin des Herdes und der Gastfreundschaft |
+| Boron | (MU + IN + CH) ÷ 2 | Gott des Todes und der Ruhe |
+| Hesinde | (KL + IN + CH) ÷ 2 | Göttin des Wissens und der Magie |
+| Firun | (MU + KO + CH) ÷ 2 | Gott der Jagd und Kälte |
+| Tsa | (KL + IN + CH) ÷ 2 | Göttin der Erneuerung und Heilung |
+| Phex | (MU + IN + CH) ÷ 2 | Gott der Diebe und Händler |
+| Peraine | (KL + IN + CH) ÷ 2 | Göttin der Landwirtschaft und Fruchtbarkeit |
+| Ingerimm | (MU + KK + CH) ÷ 2 | Gott des Feuers und Handwerks |
+| Rahja | (IN + GE + CH) ÷ 2 | Göttin der Liebe und Rausch |
+
+**Wichtig:** Charisma (CH) ist bei allen Gottheiten Teil des Basiswerts, da es die Verbindung zum Göttlichen repräsentiert.
+
+### Liturgiekenntnis-Probe
+
+**Probe:** Basiswert + Talentwert - Modifikatoren mit W20 unterwürfeln
+**Qualität:** Wie bei allen anderen Talenten
+
+## Mirakelproben und Liturgien
+
+### Grundmechanik
+
+Liturgien funktionieren ähnlich wie Zauber, verwenden aber Karmaenergie (KE) statt Astralenergie und basieren auf der Liturgiekenntnis statt auf einzelnen Zauberwerten.
+
+**Probe:** Liturgiekenntnis - Erschwernis mit W20 unterwürfeln
+**Kosten:** Bei Erfolg volle KE, bei Misserfolg halbe KE
+**Qualität:** Differenz zwischen Schwelle und Wurf (max. Liturgiekenntnis-Talentwert)
+
+### Liturgiegrade
+
+Liturgien sind in Grade eingeteilt, die Kosten und Schwierigkeit bestimmen:
+
+| Grad | Erschwernis | KE-Kosten        |
+|------|-------------|------------------|
+| I    | 0           | 5                |
+| II   | 5           | 10               |
+| III  | 10          | 15               |
+| IV   | 15          | 20 (1 permanent) |
+| V    | 20          | 25 (3 permanent) |
+| VI   | 25          | 30 (5 permanent) |
+
+*Bekannte Orte oder Personen
+
+### Modifikatoren
+
+Wie bei Zaubern können Liturgien durch Modifikatoren angepasst werden. Die zusätzlichen "Kategorien" können frei auf Erschwernis, Kosten und Zauberdauer verteilt werden.
+
+**Maximale Modifikationen:** Liturgiekenntnis-Talentwert ÷ 3 (abgerundet) Kategorien
+
+#### Verfügbare Modifikatoren
+
+- **Bereich (+2 Kategorien):** Betrifft einen Bereich von etwa 5 Schritt Radius
+- **Selektiver Bereich (+3 Kategorien):** Wie Bereich, aber der Geweihte kann wählen, wer betroffen ist
+- **Mehrere Ziele (+1 Kategorie pro weiterem Ziel)**
+- **Erhöhte Reichweite (+1 Kategorie pro Reichweitenkategorie)**
+- **Erhöhte Wirkungsdauer (+1 Kategorie pro Wirkungsdauerkategorie)**
+- **Erschwernis/Kosten verringern (+1 Kategorie pro verringerte Kategorie)**
+
+### Kategorien-Verteilung
+
+Jede zusätzliche Kategorie kann wie folgt eingesetzt werden:
+
+- **+1 Kategorie auf Erschwernis:** +5 Erschwernis
+- **+1 Kategorie auf Kosten:** +4 KE
+
+### Mirakel
+
+Mirakel entsprechen dem klassischen DSA-Konzept: Spontane Steigerungen von Eigenschaften oder Talenten durch göttliche Eingebung.
+
+#### Mirakel-Arten
+
+| Mirakel-Art | Erschwernis | KE-Kosten | Bonus |
+|-------------|-------------|-----------|-------|
+| Eigenschafts-Mirakel | 5 | 15 | +Qualität/2 auf eine Eigenschaft |
+| Talent-Mirakel | 0 | 10 | +Qualität/2 auf ein Talent |
+| Schutz-Mirakel | 10 | 20 | +Qualität/2 als Schutz gegen Schaden |
+
+**Maximaler Bonus:** Talentwert in Liturgiekenntnis
+**Beschränkung:** Maximal 1 Mirakel pro Szene/Konflikt
+**Voraussetzung:** Muss dem Wesen und den Zielen der Gottheit entsprechen
+
+### Die Zwölf Segnungen (Grad I Liturgien)
+
+Jede Gottheit verfügt über eine spezielle Segnung. Alle sind Grad I Liturgien (0 Erschwernis, 5 KE).
+
+#### Die Segnungen der Zwölfgötter
+
+- **Eidsegen (Praios):** Verstärkt einen Eid, +Qualität÷2 auf Willenskraft gegen Eidbruch für Qualität Tage
+- **Feuersegen (Ingerimm):** Segnet Feuer oder Waffe, +Qualität÷2 Feuerschaden für Qualität Stunden
+- **Geburtssegen (Tsa):** Segnet Neugeborenes, +Qualität÷2 auf Konstitution gegen Krankheiten für Qualität Jahre
+- **Glückssegen (Phex):** +Qualität÷2 auf eine selbstgewählte Probe in den nächsten Qualität Stunden
+- **Grabsegen (Boron):** Segnet Verstorbenen, verhindert Untotwerden und gewährt Seelenfrieden
+- **Harmoniesegen (Travia):** Beendet Streit, +Qualität÷2 auf soziale Proben für Qualität Stunden
+- **Heilungssegen (Tsa):** Heilt Qualität÷2 Lebenspunkte sofort
+- **Märtyrersegen (Rondra):** +Qualität÷2 auf Kampfproben wenn zahlenmäßig unterlegen für Qualität Kampfrunden
+- **Objektsegen (Hesinde):** Segnet Gegenstand, +Qualität÷2 auf Proben mit diesem Objekt für Qualität Tage
+- **Prophezeiung (Praios):** Gewährt Vision der nächsten Qualität Stunden, +Qualität÷2 auf Intuition
+- **Schutzsegen (Praios):** +Qualität÷2 auf Abwehr gegen böse Kreaturen für Qualität×10 Minuten
+- **Speisesegen (Peraine):** Segnet Nahrung, nährt wie Qualität×2 normale Mahlzeiten
+- **Tranksegen (Rahja):** Segnet Getränk, verstärkt Wirkung um Qualität÷2 (Heilung, Rausch, etc.)
+- **Weisheitssegen (Hesinde):** +Qualität÷2 auf Klugheit-Proben für Qualität×10 Minuten
+
+**Besonderheit:** Jeder Geweihte eines der Zwölfgötter beherrscht diese Segnungen.
+
+## Praios - Gott der Sonne, Zeit und Gerechtigkeit
+
+### Beschreibung
+
+Praios ist der Herr der Sonne und des Lichts, Hüter der Zeit und oberster Richter über Recht und Unrecht. Seine Geweihten sind Kämpfer gegen die Finsternis, sowohl im wörtlichen als auch im übertragenen Sinne. Sie stehen für Gerechtigkeit, Ordnung und Wahrheit. Praios verabscheut Lügen, Chaos und alles, was im Verborgenen geschieht.
+
+### Mirakel-Möglichkeiten
+
+**Eigenschaften:**
+- Mut (gegen Furcht und in gerechten Kämpfen)
+- Klugheit (bei der Wahrheitsfindung und Rechtsprechung)
+- Charisma (bei der Verkündung göttlicher Wahrheit)
+
+**Talente:**
+- Götter & Kulte (Wissen über göttliche Ordnung)
+- Überreden (Verkündung der Wahrheit)
+- Menschenkenntnis (Erkennen von Lügen und Betrug)
+- Einschüchtern (Autorität des Gesetzes)
+- Etikette (höfische Gerechtigkeit)
+- Nahkampf (im Kampf gegen das Böse)
+- Reiten (als Vertreter göttlicher Autorität)
+- Rechtskunde (Kenntnis von Gesetz und Ordnung)
+
+### Göttliche Gunst und Ungnade
+
+**Erschwernisse (+1 Kategorie auf Erschwernis/Kosten):**
+- Heimliche oder hinterlistige Handlungen
+- Lügen oder Betrug unterstützen
+- Völlige Dunkelheit
+
+**Erleichterungen (-1 Kategorie von Erschwernis/Kosten):**
+- Sonnenaufgang oder Mittag
+- Öffentliche Verkündung der Wahrheit
+- Kampf gegen eindeutig Böse
+
+

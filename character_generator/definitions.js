@@ -325,4 +325,204 @@ sections:
           - {id: funktionsmanipulation, label: "Funktionsmanipulation", value: 0}
           - {id: formgebung_umformung, label: "Formgebung/Umformung", value: 0}
           - {id: reinigung_entgiftung_objekte, label: "Reinigung/Entgiftung (Objekte)", value: 0}
-`
+
+  - id: gottheit
+    label: "Gottheit"
+    items:
+      - {id: praios, label: "Praios - Gott der Sonne, Zeit und Gerechtigkeit"}
+      - {id: rondra, label: "Rondra - Göttin des Kampfes und des Sturms"}
+      - {id: efferd, label: "Efferd - Gott des Meeres und der Reisen"}
+      - {id: travia, label: "Travia - Göttin des Herdes und der Gastfreundschaft"}
+      - {id: boron, label: "Boron - Gott des Todes und des Schweigens"}
+      - {id: hesinde, label: "Hesinde - Göttin der Weisheit und Magie"}
+      - {id: firun, label: "Firun - Gott der Jagd und des Winters"}
+      - {id: tsa, label: "Tsa - Göttin der Erneuerung und Wiedergeburt"}
+      - {id: phex, label: "Phex - Gott des Handels und der Diebe"}
+      - {id: peraine, label: "Peraine - Göttin der Landwirtschaft und Heilung"}
+      - {id: ingerimm, label: "Ingerimm - Gott des Feuers und der Handwerkskunst"}
+      - {id: rahja, label: "Rahja - Göttin der Liebe und des Rausches"}
+
+  - id: liturgien
+    label: "Liturgien"
+    calc_id: "level_cost"
+    cost_per_increment: 50
+    show_if:
+      field: "gottheit"
+      operator: "not_empty"
+    groups:
+      - id: liturgiekenntnis
+        label: "Liturgiekenntnis"
+        basis: [KL, IN, CH]
+        show_if:
+          field: "gottheit"
+          operator: "not_empty"
+        items:
+          - {id: liturgiekenntnis, label: "Liturgiekenntnis", level: 1}
+
+      - id: praios_liturgien
+        label: "Praios-Liturgien"
+        basis: [MU, KL, CH]
+        show_if:
+          field: "gottheit"
+          operator: "equals"
+          value: "praios"
+        items:
+          - {id: licht_der_wahrheit, label: "Licht der Wahrheit", level: 0}
+          - {id: sonnenstrahl, label: "Sonnenstrahl", level: 0}
+          - {id: zeitstillstand, label: "Zeitstillstand", level: 2}
+          - {id: urteil_des_lichts, label: "Urteil des Lichts", level: 0}
+          - {id: bannstrahl, label: "Bannstrahl", level: 0}
+
+      - id: rondra_liturgien
+        label: "Rondra-Liturgien"
+        basis: [MU, KO, KK]
+        show_if:
+          field: "gottheit"
+          operator: "equals"
+          value: "rondra"
+        items:
+          - {id: segen_des_mutes, label: "Segen des Mutes", level: 0}
+          - {id: segen_des_schutzes, label: "Segen des Schutzes", level: 0}
+          - {id: sturmruf, label: "Sturmruf", level: 0}
+          - {id: kampfwut, label: "Kampfwut", level: 0}
+          - {id: unbesiegbarkeit, label: "Unbesiegbarkeit", level: 0}
+
+      - id: efferd_liturgien
+        label: "Efferd-Liturgien"
+        basis: [MU, IN, GE]
+        show_if:
+          field: "gottheit"
+          operator: "equals"
+          value: "efferd"
+        items:
+          - {id: wasseratmung, label: "Wasseratmung", level: 0}
+          - {id: wellenkontrolle, label: "Wellenkontrolle", level: 0}
+          - {id: sturmbeschwichtigung, label: "Sturmbeschwichtigung", level: 0}
+          - {id: meeresruf, label: "Meeresruf", level: 0}
+          - {id: gezeitenwandel, label: "Gezeitenwandel", level: 0}
+
+      - id: travia_liturgien
+        label: "Travia-Liturgien"
+        basis: [MU, IN, CH]
+        show_if:
+          field: "gottheit"
+          operator: "equals"
+          value: "travia"
+        items:
+          - {id: gastfreundschaft, label: "Gastfreundschaft", level: 0}
+          - {id: friedensstiftung, label: "Friedensstiftung", level: 0}
+          - {id: heimsegen, label: "Heimsegen", level: 0}
+          - {id: familienbund, label: "Familienbund", level: 0}
+          - {id: ewiger_frieden, label: "Ewiger Frieden", level: 0}
+
+      - id: boron_liturgien
+        label: "Boron-Liturgien"
+        basis: [MU, IN, KO]
+        show_if:
+          field: "gottheit"
+          operator: "equals"
+          value: "boron"
+        items:
+          - {id: totenruhe, label: "Totenruhe", level: 0}
+          - {id: leichenrede, label: "Leichenrede", level: 0}
+          - {id: untotenbann, label: "Untotenbann", level: 0}
+          - {id: seelenfuehrung, label: "Seelenführung", level: 0}
+          - {id: ewige_ruhe, label: "Ewige Ruhe", level: 0}
+
+      - id: hesinde_liturgien
+        label: "Hesinde-Liturgien"
+        basis: [KL, KL, IN]
+        show_if:
+          field: "gottheit"
+          operator: "equals"
+          value: "hesinde"
+        items:
+          - {id: wissensschau, label: "Wissensschau", level: 0}
+          - {id: gedaechtnispalast, label: "Gedächtnispalast", level: 0}
+          - {id: inspiration, label: "Inspiration", level: 0}
+          - {id: weisheit_der_schlange, label: "Weisheit der Schlange", level: 0}
+          - {id: allwissen, label: "Allwissen", level: 0}
+
+      - id: firun_liturgien
+        label: "Firun-Liturgien"
+        basis: [MU, IN, KO]
+        show_if:
+          field: "gottheit"
+          operator: "equals"
+          value: "firun"
+        items:
+          - {id: kaelteschutz, label: "Kälteschutz", level: 0}
+          - {id: jagdsegen, label: "Jagdsegen", level: 0}
+          - {id: winterruf, label: "Winterruf", level: 0}
+          - {id: eiswall, label: "Eiswall", level: 0}
+          - {id: ewiger_winter, label: "Ewiger Winter", level: 0}
+
+      - id: tsa_liturgien
+        label: "Tsa-Liturgien"
+        basis: [MU, IN, CH]
+        show_if:
+          field: "gottheit"
+          operator: "equals"
+          value: "tsa"
+        items:
+          - {id: wunder_der_heilung, label: "Wunder der Heilung", level: 0}
+          - {id: lebenssegen, label: "Lebenssegen", level: 0}
+          - {id: wiedergeburt, label: "Wiedergeburt", level: 0}
+          - {id: fruchtbarkeitssegen, label: "Fruchtbarkeitssegen", level: 0}
+          - {id: ewiges_leben, label: "Ewiges Leben", level: 0}
+
+      - id: phex_liturgien
+        label: "Phex-Liturgien"
+        basis: [MU, IN, GE]
+        show_if:
+          field: "gottheit"
+          operator: "equals"
+          value: "phex"
+        items:
+          - {id: glueckssegen, label: "Glückssegen", level: 0}
+          - {id: unsichtbarkeit, label: "Unsichtbarkeit", level: 0}
+          - {id: handelssegen, label: "Handelssegen", level: 0}
+          - {id: diebessegen, label: "Diebessegen", level: 0}
+          - {id: grosses_glueck, label: "Großes Glück", level: 0}
+
+      - id: peraine_liturgien
+        label: "Peraine-Liturgien"
+        basis: [MU, IN, CH]
+        show_if:
+          field: "gottheit"
+          operator: "equals"
+          value: "peraine"
+        items:
+          - {id: erntesegen, label: "Erntesegen", level: 0}
+          - {id: pflanzenwachstum, label: "Pflanzenwachstum", level: 0}
+          - {id: krankheitsheilung, label: "Krankheitsheilung", level: 0}
+          - {id: giftbann, label: "Giftbann", level: 0}
+          - {id: goldene_ernte, label: "Goldene Ernte", level: 0}
+
+      - id: ingerimm_liturgien
+        label: "Ingerimm-Liturgien"
+        basis: [MU, KK, KO]
+        show_if:
+          field: "gottheit"
+          operator: "equals"
+          value: "ingerimm"
+        items:
+          - {id: feuersegen, label: "Feuersegen", level: 0}
+          - {id: schmiedekunst, label: "Schmiedekunst", level: 0}
+          - {id: metallbeherrschung, label: "Metallbeherrschung", level: 0}
+          - {id: vulkanruf, label: "Vulkanruf", level: 0}
+          - {id: ewiges_feuer, label: "Ewiges Feuer", level: 0}
+
+      - id: rahja_liturgien
+        label: "Rahja-Liturgien"
+        basis: [MU, CH, CH]
+        show_if:
+          field: "gottheit"
+          operator: "equals"
+          value: "rahja"
+        items:
+          - {id: liebeszauber, label: "Liebeszauber", level: 0}
+          - {id: ekstase, label: "Ekstase", level: 0}
+          - {id: rauschsegen, label: "Rauschsegen", level: 0}
+          - {id: verfuehrung, label: "Verführung", level: 0}
+          - {id: ewige_leidenschaft, label: "Ewige Leidenschaft", level: 0}`;

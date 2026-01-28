@@ -146,6 +146,43 @@ Seiten:
             - { key: "value", type: "input.number_text", header: "Wert" }
             - { key: "total", type: "total",             header: "Gesamt" }
 
+  - id: gottheit
+    titel: "Gottheit und Liturgien"
+    page_break_before: always
+    page_break_after: auto
+    druck_header_footer: false
+    visibility:
+      rule: "values_gt_0"
+      params: { section_id: "gottheit" }
+    bereiche:
+      - ref: gottheit
+        titel_anzeigen: false
+        grid_span:
+          col_start: 1
+          col_span: 2
+        spalten: 1
+        kompakt: true
+        type: dropdown
+
+      - ref: praios_liturgien
+        titel_anzeigen: true
+        visibility:
+          rules:
+            - field: "gottheit"
+              operator: "equals"
+              value: "praios"
+        grid_span:
+          col_start: 1
+          col_span: 6
+          row_span: 1
+        spalten: 2
+        kompakt: true
+        gruppen:
+          group_columns: 2
+          columns:
+            - { key: "label", type: "label",            header: "Name" }
+            - { key: "grad",  type: "label",             header: "Grad" }
+
 Einstellungen:
   typography:
     base_font_size: "8pt"
