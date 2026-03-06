@@ -96,9 +96,13 @@ Seiten:
         tabelle:
           columns:
             - { key: "label", type: "input.text",        header: "Name" }
-            - { key: "f1",    type: "input.number_text", header: "Schaden" }
+            - { key: "kampftalent", type: "input.select", header: "Kampftalent" }
+            - { key: "f1",    type: "input.number_text", header: "Schaden+" }
             - { key: "f2",    type: "input.number_text", header: "Präzision" }
             - { key: "f3",    type: "input.number_text", header: "Parade/Nachladen" }
+            - { key: "angriffswert", type: "computed",   header: "Angriff", formula_id: "weapon_attack_value" }
+            - { key: "schaden_wurf", type: "computed",   header: "Schaden", formula_id: "weapon_damage_roll" }
+            - { key: "paradewert", type: "computed",     header: "Verteidigung", formula_id: "weapon_parry_value" }
 
       - ref: Rüstung
         titel_anzeigen: true

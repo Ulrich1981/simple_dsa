@@ -27,6 +27,9 @@ function createDiv(text, cls){ const d=document.createElement('div'); if (text!=
 function setText(id,v){ const el=document.getElementById(id); if(el) el.textContent=String(v); }
 function setInput(id,v){ const el=document.getElementById(id); if(el && el.tagName==='INPUT'){ el.value=(v===0||v===undefined||v==='')?'':String(v); } }
 function makeNumInput(val,on){ const i=document.createElement('input'); i.type='text'; i.placeholder='0'; i.value=(val===0||val===undefined||val==='')?'':String(val); i.className='num'; i.addEventListener('input',()=>on(parseNum(i.value))); return i; }
+function isNumericFieldType(type){ return type === 'number' || type === 'input.number_text'; }
+function normalizeFieldValue(type, value){ return isNumericFieldType(type) ? parseNum(value ?? 0) : (value ?? ''); }
+function formatComputedDisplay(main, bracket){ return `${main} (${bracket})`; }
 
 // formulas
 function basisFrom(list){
@@ -74,6 +77,155 @@ function generateDisplayId(prefix, sec, it, fieldId = null, valueKeyPrefix = nul
   return `${prefix}-${key}`;
 }
 
+function normalizeOption(opt){
+  if (typeof opt === 'string' || typeof opt === 'number') {
+    const v = String(opt);
+    return { id: v, label: v };
+  }
+  const id = String(opt?.id ?? opt?.value ?? '');
+  const label = String(opt?.label ?? opt?.name ?? id);
+  if (!id) return null;
+  return { id, label };
+}
+
+function optionsFromSource(source){
+  if (!source?.section_id) return [];
+  const sec = sections.find(s => s.id === source.section_id);
+  if (!sec) return [];
+
+  let srcItems = [];
+  if (source.group_id) {
+    const grp = (sec.groups || []).find(g => g.id === source.group_id);
+    srcItems = grp?.items || [];
+  } else {
+    srcItems = sec.items || [];
+  }
+
+  return srcItems.map(it => ({ id: String(it.id), label: String(it.label || it.id) }));
+}
+
+function resolveSelectOptions(field){
+  if (!field) return [];
+  if (Array.isArray(field.options)) {
+    return field.options.map(normalizeOption).filter(Boolean);
+  }
+  if (field.options_from) {
+    return optionsFromSource(field.options_from);
+  }
+  return [];
+}
+
+function getSectionColumns(sectionId, grouped = false){
+  const pages = ui?.Seiten || [];
+  for (const page of pages) {
+    for (const ref of (page.bereiche || [])) {
+      if (ref.ref !== sectionId) continue;
+      return grouped ? (get(ref, 'gruppen.columns', []) || []) : (get(ref, 'tabelle.columns', []) || []);
+    }
+  }
+  return [];
+}
+
+function findGroupItemValue(sectionId, groupId, itemId){
+  const sec = sections.find(s => s.id === sectionId);
+  if (!sec) return 0;
+  const grp = (sec.groups || []).find(g => g.id === groupId);
+  if (!grp) return 0;
+  const item = (grp.items || []).find(i => i.id === itemId);
+  if (!item) return 0;
+  const keyPrefix = `${sec.id}-${grp.id}`;
+  const valueKey = generateKey(sec, item, 'value', keyPrefix);
+  return parseNum(state.values[valueKey] ?? item.value ?? 0);
+}
+
+function findGroupItemTotal(sectionId, groupId, itemId){
+  const sec = sections.find(s => s.id === sectionId);
+  if (!sec) return 0;
+  const grp = (sec.groups || []).find(g => g.id === groupId);
+  if (!grp) return 0;
+  const item = (grp.items || []).find(i => i.id === itemId);
+  if (!item) return 0;
+
+  const basis = basisFrom(grp.basis || []);
+  const keyPrefix = `${sec.id}-${grp.id}`;
+  const valueKey = generateKey(sec, item, 'value', keyPrefix);
+  const value = parseNum(state.values[valueKey] ?? item.value ?? 0);
+  const calcId = item.overrides?.calc_id || sec.calc_id;
+  return total(calcId, basis, value);
+}
+
+function getSectionItemFieldValue(sectionId, itemId, fieldId){
+  const sec = sections.find(s => s.id === sectionId);
+  if (!sec) return 0;
+  const item = (sec.items || []).find(i => i.id === itemId);
+  if (!item) return 0;
+  const key = generateKey(sec, item, fieldId);
+  return parseNum(state.values[key] ?? 0);
+}
+
+function getOwnFieldValue(sec, it, fieldId, valueKeyPrefix = null){
+  if (!fieldId) return 0;
+  const key = generateKey(sec, it, fieldId, valueKeyPrefix);
+  return parseNum(state.values[key] ?? 0);
+}
+
+function formatDiceWithModifier(dice, mod){
+  const d = String(dice || '1W6');
+  const n = parseNum(mod);
+  if (n === 0) return d;
+  return n > 0 ? `${d}+${n}` : `${d}${n}`;
+}
+
+function computeCellValue(sec, it, col, valueKeyPrefix = null){
+  const formulaId = col?.formula_id;
+  if (!formulaId) return '';
+
+  const formula = get(defs, `globals.formulas.${formulaId}`, null);
+  if (!formula) return '';
+
+  if (formula.type === 'selected_group_total_plus_field_minus_section_field') {
+    const p = formula.params || {};
+    const selectedFieldId = p.selected_field_id || '';
+    const selectedKey = generateKey(sec, it, selectedFieldId, valueKeyPrefix);
+    const selectedId = String(state.values[selectedKey] ?? '');
+
+    const addFieldId = p.add_field_id || '';
+    const addKey = generateKey(sec, it, addFieldId, valueKeyPrefix);
+    const ownAdd = parseNum(state.values[addKey] ?? 0);
+
+    const subtractVal = getSectionItemFieldValue(
+      p.subtract_section_id,
+      p.subtract_item_id,
+      p.subtract_field_id
+    );
+
+    if (!selectedId) {
+      return formatComputedDisplay(parseNum(ownAdd - subtractVal), 0);
+    }
+
+    const selectedTotal = findGroupItemTotal(p.source_section_id, p.source_group_id, selectedId);
+    const selectedValue = findGroupItemValue(p.source_section_id, p.source_group_id, selectedId);
+    const result = parseNum(selectedTotal + ownAdd - subtractVal);
+    const bracket = p.bracket === 'selected_value' ? selectedValue : selectedTotal;
+    return formatComputedDisplay(result, bracket);
+  }
+
+  if (formula.type === 'field_plus_section_field') {
+    const p = formula.params || {};
+    const ownVal = getOwnFieldValue(sec, it, p.own_field_id, valueKeyPrefix);
+    const sectionVal = getSectionItemFieldValue(p.section_id, p.item_id, p.section_field_id);
+    return String(parseNum(ownVal + sectionVal));
+  }
+
+  if (formula.type === 'dice_plus_field') {
+    const p = formula.params || {};
+    const ownVal = getOwnFieldValue(sec, it, p.own_field_id, valueKeyPrefix);
+    return formatDiceWithModifier(p.dice || '1W6', ownVal);
+  }
+
+  return '';
+}
+
 
 // normalization
 let sections = []; // normalized view
@@ -84,11 +236,19 @@ function normalize(defs){
     type: sec.type || 'table',
     calc_id: sec.calc_id || 'base_plus_value',
     cost_cpi: sec.cost_per_increment ?? 0,
+    exclude_from_ap: !!sec.exclude_from_ap,
     items: (sec.items || []).map(it => ({
       id: it.id, label: it.label || '',
       basis: it.basis || [],
       value: parseNum(it.value ?? 0),
-	  fields: Array.isArray(it.fields) ? it.fields.map(f => ({ id: f.id, type: f.type || 'number', value: f.value ?? '' })) : undefined,
+	  fields: Array.isArray(it.fields)
+        ? it.fields.map(f => ({
+            ...f,
+            id: f.id,
+            type: f.type || 'number',
+            value: f.value ?? ''
+          }))
+        : undefined,
       overrides: {
         ...(it.calc_id ? { calc_id: it.calc_id } : {}),
         ...(typeof it.cost_per_increment !== 'undefined' ? { cost_per_increment: it.cost_per_increment } : {})
@@ -102,6 +262,14 @@ function normalize(defs){
         id: it.id, label: it.label || '',
         basis: it.basis || [],
         value: parseNum(it.value ?? 0),
+        fields: Array.isArray(it.fields)
+          ? it.fields.map(f => ({
+              ...f,
+              id: f.id,
+              type: f.type || 'number',
+              value: f.value ?? ''
+            }))
+          : undefined,
         overrides: {
           ...(it.calc_id ? { calc_id: it.calc_id } : {}),
           ...(typeof it.cost_per_increment !== 'undefined' ? { cost_per_increment: it.cost_per_increment } : {})
@@ -135,7 +303,7 @@ state.values = {};
 sections.forEach(sec => {
   (sec.fields || []).forEach(field => {
     const key = generateKey(sec, { id: field.id }, field.id);
-    state.values[key] = field.type === 'text' ? (field.value ?? '') : parseNum(field.value ?? 0);
+    state.values[key] = normalizeFieldValue(field.type, field.value);
   });
   
   (sec.items || []).forEach(it => {
@@ -143,7 +311,7 @@ sections.forEach(sec => {
     
     (it.fields || []).forEach(field => {
       const key = generateKey(sec, it, field.id);
-      state.values[key] = field.type === 'text' ? (field.value ?? '') : parseNum(field.value ?? 0);
+      state.values[key] = normalizeFieldValue(field.type, field.value);
     });
   });
   
@@ -154,7 +322,7 @@ sections.forEach(sec => {
       
       (it.fields || []).forEach(field => {
         const key = generateKey(sec, it, field.id, valueKeyPrefix);
-        state.values[key] = field.type === 'text' ? (field.value ?? '') : parseNum(field.value ?? 0);
+        state.values[key] = normalizeFieldValue(field.type, field.value);
       });
     });
   });
@@ -445,24 +613,39 @@ function buildTable(items, sec, ref, opts = {}){
       
         case 'input.select': {
           const key = generateKey(sec, it, k, valueKeyPrefix);
+          const field = Array.isArray(it.fields) ? it.fields.find(f => f.id === k) : null;
           const select = document.createElement('select');
-          select.id = generateDisplayId('row-select', sec, it, k, valueKeyPrefix);
+          select.id = generateDisplayId('row-input', sec, it, k, valueKeyPrefix);
           
-          // Hole Optionen aus dem Item selbst oder aus einer referenzierten Section
-          const options = it.options || [];
+          const options = resolveSelectOptions(field);
+          const allowEmpty = field?.allow_empty !== false;
+          const emptyLabel = field?.empty_label || '-- auswaehlen --';
+          const currentValue = String(state.values[key] ?? field?.value ?? '');
+
+          if (allowEmpty) {
+            const emptyOption = document.createElement('option');
+            emptyOption.value = '';
+            emptyOption.textContent = emptyLabel;
+            select.appendChild(emptyOption);
+          }
           
           options.forEach(opt => {
             const option = document.createElement('option');
-            option.value = opt.id;
-            option.textContent = opt.label;
-            if (state.values[key] === opt.id) {
+            option.value = String(opt.id);
+            option.textContent = String(opt.label);
+            if (currentValue === String(opt.id)) {
               option.selected = true;
             }
             select.appendChild(option);
           });
+
+          if (allowEmpty) {
+            select.value = currentValue;
+          }
           
           select.addEventListener('change', () => {
             state.values[key] = select.value;
+            recalc();
           });
           
           push(select);
@@ -492,6 +675,13 @@ function buildTable(items, sec, ref, opts = {}){
       case 'total': {
         const cell = createDiv(totalVal);
         cell.id = generateDisplayId('row-total', sec, it, 'value', valueKeyPrefix);
+        push(cell);
+        break;
+      }
+
+      case 'computed': {
+        const cell = createDiv(computeCellValue(sec, it, col, valueKeyPrefix));
+        cell.id = generateDisplayId('row-computed', sec, it, k, valueKeyPrefix);
         push(cell);
         break;
       }
@@ -647,8 +837,11 @@ function renderSection(sec, ref){
 function recalc(){
   let spent=0;
 sections.forEach(sec => {
-  if (sec.exclude_from_ap) return;
+  const includeInAp = !sec.exclude_from_ap;
   const secCpi = sec.cost_cpi;
+  const flatComputedCols = getSectionColumns(sec.id, false).filter(col => col.type === 'computed');
+  const groupComputedCols = getSectionColumns(sec.id, true).filter(col => col.type === 'computed');
+
   (sec.items || []).forEach(it => {
     const valueKey = generateKey(sec, it);
     const value = parseNum(state.values[valueKey]);
@@ -657,11 +850,14 @@ sections.forEach(sec => {
     const tot = total(calcId, basis, value);
     const k = cpi(secCpi, null, it.overrides);
 
-    spent += tri(value) * k;
+    if (includeInAp) spent += tri(value) * k;
 
     setText(generateDisplayId('row-basis', sec, it, 'value'), basis);
     setInput(generateDisplayId('row-input', sec, it, 'value'), value);
     setText(generateDisplayId('row-total', sec, it, 'value'), tot);
+    flatComputedCols.forEach(col => {
+      setText(generateDisplayId('row-computed', sec, it, col.key), computeCellValue(sec, it, col));
+    });
   });
 
   (sec.groups || []).forEach(gr => {
@@ -674,11 +870,17 @@ sections.forEach(sec => {
       const tot = total(calcId, basis, value);
       const k = cpi(secCpi, gr.overrides, it.overrides);
 
-      spent += tri(value) * k;
+      if (includeInAp) spent += tri(value) * k;
 
       setText(generateDisplayId('row-basis', sec, it, 'value', valueKeyPrefix), basis);
       setInput(generateDisplayId('row-input', sec, it, 'value', valueKeyPrefix), value);
       setText(generateDisplayId('row-total', sec, it, 'value', valueKeyPrefix), tot);
+      groupComputedCols.forEach(col => {
+        setText(
+          generateDisplayId('row-computed', sec, it, col.key, valueKeyPrefix),
+          computeCellValue(sec, it, col, valueKeyPrefix)
+        );
+      });
     });
   });
 });
@@ -756,11 +958,7 @@ rebuilt.globals.ap_total = state.ap_total;
   // Update section fields (falls vorhanden)
   (sec.fields || []).forEach(field => {
     const key = generateKey(sec, { id: field.id }, field.id);
-    if (field.type === 'text') {
-      field.value = state.values[key] ?? field.value ?? '';
-    } else {
-      field.value = parseNum(state.values[key] ?? field.value ?? 0);
-    }
+    field.value = normalizeFieldValue(field.type, state.values[key] ?? field.value ?? '');
   });
 
   // Handle direct items (no groups)
@@ -779,11 +977,7 @@ rebuilt.globals.ap_total = state.ap_total;
     // Update custom fields if they exist
     (it.fields || []).forEach(field => {
       const fieldKey = generateKey(sec, it, field.id);
-      if (field.type === 'text') {
-        field.value = state.values[fieldKey] ?? field.value ?? '';
-      } else {
-        field.value = parseNum(state.values[fieldKey] ?? field.value ?? 0);
-      }
+      field.value = normalizeFieldValue(field.type, state.values[fieldKey] ?? field.value ?? '');
     });
   });
 
@@ -805,11 +999,7 @@ rebuilt.globals.ap_total = state.ap_total;
       // Update custom fields if they exist
       (it.fields || []).forEach(field => {
         const fieldKey = generateKey(sec, it, field.id, valueKeyPrefix);
-        if (field.type === 'text') {
-          field.value = state.values[fieldKey] ?? field.value ?? '';
-        } else {
-          field.value = parseNum(state.values[fieldKey] ?? field.value ?? 0);
-        }
+        field.value = normalizeFieldValue(field.type, state.values[fieldKey] ?? field.value ?? '');
       });
     });
   });
@@ -841,11 +1031,7 @@ function applySaveData(saveData) {
     // Update section fields
     (savedSec.fields || []).forEach(savedField => {
       const key = generateKey(currentSec, { id: savedField.id }, savedField.id);
-      if (savedField.type === 'text') {
-        state.values[key] = savedField.value ?? '';
-      } else {
-        state.values[key] = parseNum(savedField.value ?? 0);
-      }
+      state.values[key] = normalizeFieldValue(savedField.type, savedField.value ?? '');
     });
 
     // Update direct items (no groups)
@@ -871,11 +1057,7 @@ function applySaveData(saveData) {
       // Update custom fields
       (savedItem.fields || []).forEach(savedField => {
         const fieldKey = generateKey(currentSec, savedItem, savedField.id);
-        if (savedField.type === 'text') {
-          state.values[fieldKey] = savedField.value ?? '';
-        } else {
-          state.values[fieldKey] = parseNum(savedField.value ?? 0);
-        }
+        state.values[fieldKey] = normalizeFieldValue(savedField.type, savedField.value ?? '');
       });
     });
 
@@ -903,11 +1085,7 @@ function applySaveData(saveData) {
         // Update custom fields
         (savedItem.fields || []).forEach(savedField => {
           const fieldKey = generateKey(currentSec, savedItem, savedField.id, valueKeyPrefix);
-          if (savedField.type === 'text') {
-            state.values[fieldKey] = savedField.value ?? '';
-          } else {
-            state.values[fieldKey] = parseNum(savedField.value ?? 0);
-          }
+          state.values[fieldKey] = normalizeFieldValue(savedField.type, savedField.value ?? '');
         });
       });
     });

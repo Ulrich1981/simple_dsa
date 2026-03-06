@@ -7,6 +7,29 @@ globals:
     weighted_base_value:
       type: "weighted"
       params: { b: 2, w: 3 }
+    weapon_attack_value:
+      type: "selected_group_total_plus_field_minus_section_field"
+      params:
+        selected_field_id: "kampftalent"
+        source_section_id: "Talente"
+        source_group_id: "kampf"
+        add_field_id: "f2"
+        subtract_section_id: "Rüstung"
+        subtract_item_id: "armor_1"
+        subtract_field_id: "armor"
+        bracket: "selected_value"
+    weapon_parry_value:
+      type: "field_plus_section_field"
+      params:
+        own_field_id: "f3"
+        section_id: "Rüstung"
+        item_id: "armor_1"
+        section_field_id: "armor"
+    weapon_damage_roll:
+      type: "dice_plus_field"
+      params:
+        dice: "1W6"
+        own_field_id: "f1"
 
 sections:
   - id: Kopfzeile
@@ -157,12 +180,14 @@ sections:
       - id: weapon_1
         label: ""                  # frei befüllbar
         fields:                    # zusätzliche Felder in dieser Zeile
+          - { id: kampftalent, type: "select", value: "", options_from: { section_id: "Talente", group_id: "kampf" } }
           - { id: f1, type: "number", value: "" }
           - { id: f2, type: "number", value: "" }
           - { id: f3, type: "number", value: "" } 
       - id: weapon_2
         label: ""                  # frei befüllbar
         fields:                    # zusätzliche Felder in dieser Zeile
+          - { id: kampftalent, type: "select", value: "", options_from: { section_id: "Talente", group_id: "kampf" } }
           - { id: f1, type: "number", value: "" }
           - { id: f2, type: "number", value: "" }
           - { id: f3, type: "number", value: "" }  
@@ -176,7 +201,7 @@ sections:
       - id: armor_1
         label: ""                  # frei befüllbar
         fields:                    # zusätzliche Felder in dieser Zeile
-          - { id: f1, type: "number", value: "" }
+          - { id: armor, type: "number", value: "" }
   - id: Ausrüstung
     label: "Ausrüstung"
     calc_id: "value_only"          # keine Berechnung
