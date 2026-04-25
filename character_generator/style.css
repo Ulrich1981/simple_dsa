@@ -15,7 +15,7 @@ html, body {
   background: var(--bg);
   color: var(--text);
   font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
-  font-size: 12x;
+  font-size: 13px;
   line-height: 1.4;
 }
 h3 {
@@ -40,20 +40,13 @@ main {
   max-width: 1600px;
   margin: 0 auto;
 }
-/* Stats optisch wie eine Karte und gleiche Breite */
-.stats {
-  max-width: 1200px;
-  margin: 0 auto 12px auto;
-}
-
-
 /* Toolbar & Stats */
 .toolbar {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 button {
   padding: 2px 2px;
@@ -65,10 +58,13 @@ button {
 button:hover { background: #f2f2f2; }
 input[type="file"] { padding: 2px; }
 
+/* Stats optisch wie eine Karte und gleiche Breite */
 .stats {
+  max-width: 1200px;
+  margin: 0 auto 6px auto;
   display: grid;
   grid-template-columns: repeat(3, minmax(180px, 1fr));
-  gap: 8px;
+  gap: 6px;
 }
 .stat {
   background: var(--card);
@@ -83,10 +79,11 @@ input[type="file"] { padding: 2px; }
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 2px;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
+  width: 100%;
 }
 .card h2 {
-  margin: 0 0 8px 0;
+  margin: 0 0 4px 0;
   font-size: 16px;
   font-weight: 700;
 }
@@ -97,17 +94,17 @@ input[type="file"] { padding: 2px; }
 .hint {
   color: var(--muted);
   font-size: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .table-grid {
   display: grid;
   grid-template-columns: var(--cols, repeat(1, minmax(0,1fr)));
-  gap: 6px;
+  gap: 4px;
 }
 /* Generische Tabellenzellen: kleine Schrift, normaler Zeilenumbruch */
 .table-grid > div {
-  font-size: 0.9rem;         /* kleiner als Standard; gern 0.85rem, wenn nötig */
+  font-size: 0.95rem;
   line-height: 1.2;          /* kompaktere Zeilen */
   white-space: normal;       /* erlaubt Umbruch innerhalb der Zelle */
   word-wrap: break-word;     /* lange Wörter umbrechen */
@@ -116,7 +113,7 @@ input[type="file"] { padding: 2px; }
 
 /* Header etwas größer, aber weiterhin bruchfähig */
 .table-grid .header {
-  font-size: 1rem;
+  font-size: 1.02rem;
   font-weight: 600;
   white-space: normal;
   overflow-wrap: anywhere;
@@ -128,13 +125,20 @@ input[type="file"] { padding: 2px; }
 .table-grid input {
   width: 100%;
   box-sizing: border-box;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   line-height: 1.2;
+}
+
+/* Override numeric inputs to stay compact inside table grids */
+.table-grid input.num {
+  width: 3ch;
+  min-width: 3ch;
 }
 
 /* Optional: maximale Zeilenhöhe mit Ellipsis, falls du harte Kürzung willst */
 .table-grid .truncate-2 {
   display: -webkit-box;
+  line-clamp: 2;
   -webkit-line-clamp: 2;     /* maximal 2 Zeilen */
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -159,24 +163,24 @@ input[type="file"] { padding: 2px; }
 
 /* Eingaben */
 input.num, input.ap {
-  padding: 2px 2px;
+  padding: 1px 2px;
   border: 1px solid #999;
   border-radius: 8px;
   background: #fff;
 }
 input.ap { width: 5.5rem; }
-input.num { width: 3rem; }
+input.num { width: 3ch; }
 
 /* Kopfzeilen-Grid (Header-Sektion aus YAML) */
 .char-head-row {
   display: grid;
   grid-template-columns: repeat(4, minmax(160px, 1fr));
-  gap: 8px;
+  gap: 6px;
 }
 .char-head-row label {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 .char-head-row input[type="text"] {
   padding: 2px 2px;
@@ -188,14 +192,14 @@ input.num { width: 3rem; }
 .group-rows {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 6px;
 }
 
 
 .group-grid {
   display: grid;
   grid-template-columns: var(--group-cols, repeat(2, minmax(0,1fr)));
-  gap: 8px;
+  gap: 6px;
 }
 
 .group-card {
@@ -212,14 +216,12 @@ input.num { width: 3rem; }
 .area-wide  { width: 100%; }
 .area-narrow{ width: 100%; }
 
-/* Seitencontainer */
-.page { margin-bottom: 16px; }
-
-/* Seite als Grid: zwei Spalten für halbe Bereiche */
+/* Seitencontainer + Grid */
 .page {
+  margin-bottom: 16px;
   display: grid;
   grid-template-columns: 1fr 1fr;  /* zwei Spalten */
-  gap: 12px;
+  gap: 8px;
 }
 
 /* Volle Breite: über beide Spalten */
@@ -228,14 +230,11 @@ input.num { width: 3rem; }
 }
 
 /* Halbe Breite bleibt Standard (eine Spalte) */
-.area-narrow {
-  /* keine spezielle Anweisung nötig; steht in einer Spalte */
-}
 
 .split-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* wird im JS dynamisch überschrieben */
-  gap: 12px;
+  gap: 8px;
 }
 
 /* Seiten-Grid – per CSS-Variablen steuerbar */
@@ -243,13 +242,7 @@ input.num { width: 3rem; }
   display: grid;
   grid-template-columns: var(--grid-columns, repeat(2, minmax(0,1fr))); /* fallback 2 Spalten */
   grid-auto-rows: var(--grid-row-height, auto);
-  gap: var(--grid-gap, 12px);
-}
-
-/* Karten verhalten sich als Grid-Items */
-.card {
-  /* dein bestehendes Styling */
-  width: 100%; /* nimmt die zugewiesene Grid-Spalte komplett ein */
+  gap: var(--grid-gap, 8px);
 }
 
 /* Optional: Visuelle Kontrolle bei Debug */
@@ -258,10 +251,21 @@ input.num { width: 3rem; }
 
 /* Druck */
 @media print {
-  @page { size: A4 portrait; margin: 2mm; }
+  @page { size: A4 portrait; margin: 8mm; }
   body { background: #fff; color: #000; font-size: 6pt; line-height: 1.2; }
   header { padding: 2px 2px; border-bottom: 1px solid #ddd; }
-  main { padding: 0; }
+  main { padding: 0; max-width: none; width: 100%; }
+
+  .page-grid, .split-grid, .table-grid {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .table-grid > div,
+  .table-grid input,
+  .table-grid select {
+    min-width: 0;
+  }
 
   .toolbar, input[type="file"] { display: none !important; }
   .card, .group-card { page-break-inside: auto; box-shadow: none; }
@@ -298,12 +302,12 @@ input.num { width: 3rem; }
 /* Geweihte-specific styles */
 .deity-dropdown {
     width: 100%;
-    padding: 8px;
+  padding: 6px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 13px;
     background-color: white;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
 }
 
 .deity-dropdown:focus {
@@ -313,20 +317,20 @@ input.num { width: 3rem; }
 }
 
 .liturgy-group {
-    margin-bottom: 15px;
-    padding: 10px;
+  margin-bottom: 8px;
+  padding: 6px;
     border: 1px solid #e0e0e0;
     border-radius: 6px;
     background-color: #f9f9f9;
 }
 
-.group-title {
-    font-weight: bold;
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #ddd;
+.liturgy-group .group-title {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 6px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
 }
 
 .liturgy-group .talent-item {

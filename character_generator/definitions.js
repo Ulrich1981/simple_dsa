@@ -4,6 +4,14 @@ globals:
   formulas:
     value_only:      { type: "value" }
     base_plus_value: { type: "sum" }
+    display_basis:
+      type: "item_basis"
+    display_total:
+      type: "item_total"
+    display_basis_formula:
+      type: "item_basis_formula"
+    display_total_formula:
+      type: "item_total_formula"
     weighted_base_value:
       type: "weighted"
       params: { b: 2, w: 3 }
@@ -48,23 +56,23 @@ sections:
     calc_id: "value_only"
     cost_per_increment: 20
     items:
-      - { id: MU, label: "MU", value: 0 }
-      - { id: KL, label: "KL", value: 0 }
-      - { id: IN, label: "IN", value: 0 }
-      - { id: CH, label: "CH", value: 0 }
-      - { id: GE, label: "GE", value: 0 }
-      - { id: KK, label: "KK", value: 0 }
-      - { id: KO, label: "KO", value: 0 }
+      - { id: MU, label: "Mut", value: 0 }
+      - { id: KL, label: "Klugheit", value: 0 }
+      - { id: IN, label: "Intuition", value: 0 }
+      - { id: CH, label: "Charisma", value: 0 }
+      - { id: GE, label: "Geschicklichkeit", value: 0 }
+      - { id: KK, label: "Körperkraft", value: 0 }
+      - { id: KO, label: "Konstitution", value: 0 }
 
   - id: Ressourcen
     label: "Ressourcen"
     calc_id: "weighted_base_value"
     cost_per_increment: 20
     items:
-      - { id: LE, label: "LE", basis: [KK, KO, KO], value: 0 }
-      - { id: AE, label: "AE", basis: [KL, IN, CH], value: 0 }
-      - { id: KE, label: "KE", basis: [IN, CH, CH], value: 0 }
-      - { id: MR, label: "MR", calc_id: "base_plus_value_minus_10", basis: [MU, KL, KO], value: 0 }
+      - { id: LE, label: "Lebensenergie", basis: [KK, KO, KO], value: 0 }
+      - { id: AE, label: "Astralenergie", basis: [KL, IN, CH], value: 0 }
+      - { id: KE, label: "Karmaenergie", basis: [IN, CH, CH], value: 0 }
+      - { id: MR, label: "Magieresistenz", calc_id: "base_plus_value_minus_10", basis: [MU, KL, KO], value: 0 }
       - { id: Heldenpunkte, label: "Heldenpunkte", calc_id: "value_only", cost_per_increment: 100, value: 0 }
 
   - id: Talente
@@ -131,43 +139,34 @@ sections:
           - {id: diebstahl, label: "Diebstahl", value: 0}
           - {id: schloesser_knacken, label: "Schlösser knacken", value: 0}
   
-  - id: Sprachen2
-    label: "Sprachen  (KL, IN, CH)/2"
+  - id: Sprachen
+    label: "Sprachen"
     cost_per_increment: 2
     calc_id: "base_plus_value"
     basis: [KL, IN, CH]
     items:
       - {id: garethi, label: "Garethi", value: 0}
       - {id: isdira, label: "Isdira", value: 0}
-  
-  - id: Sprachen
-    label: "Sprachen  (KL, IN, CH)/2"
-    cost_per_increment: 2
-    calc_id: "base_plus_value"
-    basis: [KL, IN, CH]
-    items:
-      - {id: garethi, basis: [KL, IN, CH], label: "Garethi", value: 0}
-      - {id: isdira, basis: [KL, IN, CH], label: "Isdira", value: 0}
-      - {id: rogolan, basis: [KL, IN, CH], label: "Rogolan", value: 0}
-      - {id: tulamydia, basis: [KL, IN, CH], label: "Tulamydia", value: 0}
-      - {id: thorwalsch, basis: [KL, IN, CH], label: "Thorwalsch", value: 0}
-      - {id: alaani, basis: [KL, IN, CH], label: "Alaani", value: 0}
-      - {id: mnujuka, basis: [KL, IN, CH], label: "Mnujuka", value: 0}
-      - {id: mohisch, basis: [KL, IN, CH], label: "Mohisch", value: 0}
-      - {id: zelemia, basis: [KL, IN, CH], label: "Zelemia", value: 0}
-      - {id: trollisch, basis: [KL, IN, CH], label: "Trollisch", value: 0}
-      - {id: rssahh, basis: [KL, IN, CH], label: "Rssahh", value: 0}
-      - {id: koboldisch, basis: [KL, IN, CH], label: "Koboldisch", value: 0}
-      - {id: orkisch, basis: [KL, IN, CH], label: "Orkisch", value: 0}
-      - {id: goblinisch, basis: [KL, IN, CH], label: "Goblinisch", value: 0}
-      - {id: atak, basis: [KL, IN, CH], label: "Atak", value: 0}
-      - {id: zhayad, basis: [KL, IN, CH], label: "Zhayad", value: 0}
-      - {id: fuechsisch, basis: [KL, IN, CH], label: "Füchsisch", value: 0}
-      - {id: bosparano, basis: [KL, IN, CH], label: "Bosparano", value: 0}
-      - {id: asdharia, basis: [KL, IN, CH], label: "Asdharia", value: 0}
-      - {id: ur_tulamydia, basis: [KL, IN, CH], label: "Ur-Tulamydia", value: 0}
-      - {id: yash_hualay, basis: [KL, IN, CH], label: "Yash'Hualay", value: 0}
-      - {id: drachisch, basis: [KL, IN, CH], label: "Drachisch", value: 0}
+      - {id: rogolan, label: "Rogolan", value: 0}
+      - {id: tulamydia, label: "Tulamydia", value: 0}
+      - {id: thorwalsch, label: "Thorwalsch", value: 0}
+      - {id: alaani, label: "Alaani", value: 0}
+      - {id: mnujuka, label: "Mnujuka", value: 0}
+      - {id: mohisch, label: "Mohisch", value: 0}
+      - {id: zelemia, label: "Zelemia", value: 0}
+      - {id: trollisch, label: "Trollisch", value: 0}
+      - {id: rssahh, label: "Rssahh", value: 0}
+      - {id: koboldisch, label: "Koboldisch", value: 0}
+      - {id: orkisch, label: "Orkisch", value: 0}
+      - {id: goblinisch, label: "Goblinisch", value: 0}
+      - {id: atak, label: "Atak", value: 0}
+      - {id: zhayad, label: "Zhayad", value: 0}
+      - {id: fuechsisch, label: "Füchsisch", value: 0}
+      - {id: bosparano, label: "Bosparano", value: 0}
+      - {id: asdharia, label: "Asdharia", value: 0}
+      - {id: ur_tulamydia, label: "Ur-Tulamydia", value: 0}
+      - {id: yash_hualay, label: "Yash'Hualay", value: 0}
+      - {id: drachisch, label: "Drachisch", value: 0}
   
   
   - id: Waffen

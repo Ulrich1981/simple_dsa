@@ -3,7 +3,7 @@ Seiten:
   - id: haupt
     titel: "Charakterbogen"
     grid:
-      columns_percent: [19, 19, 10, 10, 19, 19]
+      columns_percent: [25, 25, 25, 25]
       row_height: "auto"
       gap: "6px"
     page_break_before: auto
@@ -16,7 +16,7 @@ Seiten:
         # Kopf über volle Breite: optional direkt per grid_span
         grid_span:
           col_start: 1
-          col_span: 6
+          col_span: 4
           row_span: 1
         spalten: 1
         kompakt: true
@@ -31,7 +31,7 @@ Seiten:
         titel_anzeigen: true
         grid_span:
           col_start: 1
-          col_span: 4
+          col_span: 2
           row_span: 1
         spalten: 2
         kompakt: true
@@ -43,53 +43,55 @@ Seiten:
       - ref: Ressourcen
         titel_anzeigen: true
         grid_span:
-          col_start: 5
+          col_start: 3
           col_span: 2
           row_span: 1
         kompakt: true
         tabelle:
           columns:
             - { key: "label", type: "label",            header: "Name" }
-            - { key: "base",  type: "base",             header: "Basis" }
+            - { key: "base",  type: "computed",         header: "Basis", formula_id: "display_basis" }
+            - { key: "basis_formel", type: "computed",  header: " ", formula_id: "display_basis_formula" }
             - { key: "value", type: "input.number_text", header: "Wert" }
-            - { key: "total", type: "total",             header: "Gesamt" }
+            - { key: "total", type: "computed",         header: "Gesamt", formula_id: "display_total" }
+            - { key: "gesamt_formel", type: "computed", header: " ", formula_id: "display_total_formula" }
 
       - ref: Talente
         titel_anzeigen: true
         grid_span:
           col_start: 1
-          col_span: 4
+          col_span: 3
           row_span: 1
-        spalten: 2
+        spalten: 3
         kompakt: true
         gruppen:
-          group_columns: 2
+          group_columns: 3
           columns:
             - { key: "label", type: "label",            header: "Name" }
-            - { key: "base",  type: "base",             header: "Basis" }
+            - { key: "base",  type: "computed",         header: "Basis", formula_id: "display_basis" }
             - { key: "value", type: "input.number_text", header: "Wert" }
-            - { key: "total", type: "total",             header: "Gesamt" }
+            - { key: "total", type: "computed",         header: "Gesamt", formula_id: "display_total" }
 
       - ref: Sprachen
         titel_anzeigen: true
         grid_span:
-          col_start: 5
-          col_span: 2
+          col_start: 4
+          col_span: 1
           row_span: 1
         kompakt: true
         spalten: 1
         tabelle:
           columns:
             - { key: "label", type: "label",            header: "Name" }
-            - { key: "base",  type: "base",             header: "Basis" }
-            - { key: "value", type: "input.text", header: "Wert" }
-            - { key: "total", type: "total",             header: "Gesamt" }
+            - { key: "base",  type: "computed",         header: "Basis", formula_id: "display_basis" }
+            - { key: "value", type: "input.text", header: "Wert", input_width: "3ch" }
+            - { key: "total", type: "computed",         header: "Gesamt", formula_id: "display_total" }
 
       - ref: Waffen
         titel_anzeigen: true
         grid_span:
           col_start: 1
-          col_span: 4
+          col_span: 3
           row_span: 1
         kompakt: true
         spalten: 1
@@ -102,13 +104,13 @@ Seiten:
             - { key: "f3",    type: "input.number_text", header: "Parade/Nachladen" }
             - { key: "angriffswert", type: "computed",   header: "Angriff", formula_id: "weapon_attack_value" }
             - { key: "schaden_wurf", type: "computed",   header: "Schaden", formula_id: "weapon_damage_roll" }
-            - { key: "paradewert", type: "computed",     header: "Verteidigung", formula_id: "weapon_parry_value" }
+            - { key: "paradewert", type: "computed",     header: "Reduzierung", formula_id: "weapon_parry_value" }
 
       - ref: Rüstung
         titel_anzeigen: true
         grid_span:
-          col_start: 5
-          col_span: 2
+          col_start: 4
+          col_span: 1
           row_span: 1
         kompakt: true
         tabelle:
@@ -120,9 +122,9 @@ Seiten:
         titel_anzeigen: true
         grid_span:
           col_start: 1
-          col_span: 6
+          col_span: 4
           row_span: 1
-        spalten: 3
+        spalten: 4
         kompakt: true
         tabelle:
           columns:
@@ -130,6 +132,10 @@ Seiten:
 
   - id: zauber
     titel: "Zauber"
+    grid:
+      columns_percent: [25, 25, 25, 25]
+      row_height: "auto"
+      gap: "6px"
     page_break_before: always
     page_break_after: auto
     druck_header_footer: false
@@ -139,19 +145,26 @@ Seiten:
     bereiche:
       - ref: Zauber
         titel_anzeigen: true
-        breite: 2
-        spalten: 2
+        grid_span:
+          col_start: 1
+          col_span: 4
+          row_span: 1
+        spalten: 4
         kompakt: true
         gruppen:
-          group_columns: 2
+          group_columns: 4
           columns:
             - { key: "label", type: "label",            header: "Name" }
-            - { key: "base",  type: "base",             header: "Basis" }
+            - { key: "base",  type: "computed",         header: "Basis", formula_id: "display_basis" }
             - { key: "value", type: "input.number_text", header: "Wert" }
-            - { key: "total", type: "total",             header: "Gesamt" }
+            - { key: "total", type: "computed",         header: "Gesamt", formula_id: "display_total" }
 
   - id: gottheit
     titel: "Gottheit und Liturgien"
+    grid:
+      columns_percent: [25, 25, 25, 25]
+      row_height: "auto"
+      gap: "6px"
     page_break_before: always
     page_break_after: auto
     druck_header_footer: false
@@ -163,12 +176,12 @@ Seiten:
         titel_anzeigen: false
         grid_span:
           col_start: 1
-          col_span: 2
+          col_span: 4
         spalten: 1
         kompakt: true
         type: dropdown
 
-      - ref: praios_liturgien
+      - ref: liturgien
         titel_anzeigen: true
         visibility:
           rules:
@@ -177,15 +190,15 @@ Seiten:
               value: "praios"
         grid_span:
           col_start: 1
-          col_span: 6
+          col_span: 4
           row_span: 1
-        spalten: 2
+        spalten: 4
         kompakt: true
         gruppen:
-          group_columns: 2
+          group_columns: 4
           columns:
             - { key: "label", type: "label",            header: "Name" }
-            - { key: "grad",  type: "label",             header: "Grad" }
+            - { key: "level", type: "readonly_text",    header: "Grad" }
 
 Einstellungen:
   typography:
