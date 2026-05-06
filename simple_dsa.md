@@ -1163,7 +1163,7 @@ Elementare Magie ruft, formt und lenkt die sechs Elemente Feuer, Wasser, Luft, E
 | Elementarkontrolle | 0 | 10 | 3 KR | Nah | 3KR | Lenkt lokale Elementkräfte (Licht, Luft, Gravitation, etc.) |
 | Elementarerschaffung | 5 | 15 | 1 Min | Nah | 5 Min | Erschafft Formationen aus einem Element (Wand, Ring) |
 | Elementarschutz | 0 | 10 | 3 KR | Nah | 5 Min | Schützt vor einem Element |
-| Elementarangriff | 0 | 10 | 1KR | Nah | sofort | Angriffseffekt eines Elements |
+| Elementarangriff | 0 | 5 | 1KR | Nah | sofort | Angriffseffekt eines Elements |
 | Elementarsicht | 0 | 10 | 1 Min | Nah | 3 KR | Erkennt und analysiert elementare Präsenz/Strukturen |
 
 ### Detaillierte Zauberbeschreibungen
@@ -1211,7 +1211,7 @@ Elementare Magie ruft, formt und lenkt die sechs Elemente Feuer, Wasser, Luft, E
 
 #### Elementarangriff
 
-**Wirkung:** Angriff in Form des Elements (Strahl, Pfeil, Sphäre, Explosion). Grundschaden 1W6 + QP.
+**Wirkung:** Angriff in Form des Elements (Strahl, Pfeil, Sphäre, Explosion). Grundschaden 1W6 + QP/2.
 
 **Modifikatoren:**
 - **Durchschlagend (+1 Kategorie):** Ignoriert Rüstung
@@ -1236,7 +1236,7 @@ Bewegungszauber verändern Fortbewegung, Position und kinetische Einflüsse. Das
 | Zauber | Erschw. | Kosten | Zauberdauer | Reichweite | Wirkungsdauer | Beschreibung |
 | --- | --- | --- | --- | --- | --- | --- |
 | Bewegung durch Medium | 5 | 10 | 3KR | Selbst | 5 Min | Fortbewegung via Medium: Luft/Wasser/Eis/Humus/Feuer/Erz (Levitation/Flug/Schwimmen/Durchdringen) |
-| Telekinese | 0 | 10 | 1KR | Nah | Sofort | Objekte bewegen/manipulieren; umfasst Objektkontrolle/Öffnen/Entkleiden |
+| Telekinese | 0 | 5 | 1KR | Nah | Sofort | Objekte bewegen/manipulieren; umfasst Objektkontrolle/Öffnen/Entkleiden |
 | Ausdauer/Bewegungssteigerung | 0 | 10 | 1KR | Selbst | 6 Std | Erhöht Tempo/Ermüdungsgrenzen |
 | Spurenverwischung | 0 | 10 | 3KR | Berührung | 1 Std | Verwischt Fuß-/Fährten-/Duft-/astrale Spuren |
 | Anziehung/Abstoßung | 0 | 10 | 1KR | Nah | spez. | Zieht/stößt Ziel/Objekt; kurze Lageänderungen |
@@ -1259,7 +1259,7 @@ Bewegungszauber verändern Fortbewegung, Position und kinetische Einflüsse. Das
 
 **Modifikatoren:**
 - **Gewicht/Feinmotorik (+1 Kategorie):** Schwerere Objekte, präzisere Eingriffe
-- **Kraftvoll (+1 Kategorien):** Kann als Waffe eingesetzt werden (Schaden = 1W6 + QP)
+- **Kraftvoll (+1 Kategorien):** Kann als Waffe eingesetzt werden (Schaden = 1W6 + QP/2)
 
 #### Ausdauer/Bewegungssteigerung
 
