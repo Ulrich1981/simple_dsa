@@ -12,6 +12,8 @@
 
 [VI. Magie](#magie)
 
+[VII. Geweihte und Liturgien](#geweihte-und-liturgien)
+
 # Vorwort
 
 ## Warum Simple DSA?
@@ -180,7 +182,7 @@ Kann alle Talente erlernen, aber keine Zauber oder Liturgien.
 
 • Mindestinvestition: 1000 AP in Liturgien + Liturgiekenntnis
 
-• Segnungen: Erhält automatisch alle 12 Grundsegnungen
+• Segnungen: Erhält automatisch alle 12 Primärsegnungen
 
 • Karmaenergie verfügbar
 
@@ -260,13 +262,13 @@ Liturgien (1300 AP):
 
 • Liturgiekenntnis 4 (200 AP)
 
-• Segnung des Mutes 3 (150 AP)
+• Unbeugsamkeit 3 (150 AP)
 
-• Segnung des Schutzes 3 (150 AP)
+• Schutzsegen 3 (150 AP)
 
-• Wunder der Heilung 2 (100 AP)
+• Heilwunder 2 (100 AP)
 
-• Plus 12 Grundsegnungen (kostenlos)
+• Plus 12 Primärsegnungen (kostenlos)
 
 Gesamt: 4000 AP
 
@@ -1731,7 +1733,7 @@ Metamagie verändert Zauber selbst: kehrt Wirkungen um, speichert oder überträ
 - **Permanenz (Wirkungsdauer muss auf permanent gehoben werden, 1 ASP permanent / 10 ASP):** macht die Wirkung permanent; geht nur bei Zaubern, die nicht die Wirkungsdauer «Sofort» haben
 - **Intelligentes Artefakt (+5 Kategorien):** Artefakt kann selbstständig entscheiden, wann es aktiviert wird
 
-# Geweihte
+# Geweihte und Liturgien
 
 ## Liturgiekenntnis
 
@@ -1758,7 +1760,6 @@ Die Liturgiekenntnis funktioniert wie ein Talent und folgt dem Basiswert + Talen
 | Ingerimm | (MU + KK + CH) ÷ 2 | Gott des Feuers und Handwerks |
 | Rahja | (IN + GE + CH) ÷ 2 | Göttin der Liebe und Rausch |
 
-**Wichtig:** Charisma (CH) ist bei allen Gottheiten Teil des Basiswerts, da es die Verbindung zum Göttlichen repräsentiert.
 
 ### Liturgiekenntnis-Probe
 
@@ -1766,6 +1767,12 @@ Die Liturgiekenntnis funktioniert wie ein Talent und folgt dem Basiswert + Talen
 **Qualität:** Wie bei allen anderen Talenten
 
 ## Mirakelproben und Liturgien
+
+**AP und KP:** AP-Steigerungskosten bezahlen das Erlernen beziehungsweise Verbessern einer Liturgie. Die KP-Kosten unten werden beim Wirken ausgegeben; KP stammen aus dem KE-Vorrat des Geweihten.
+
+### Stufe und Weihegrad
+
+Liturgien haben **Stufe 0 bis VI**. Eine Liturgie kann nur gewirkt werden, wenn die Gottheit des Geweihten sie gewährt und die verwendete Stufe seinen Weihegrad nicht übersteigt. Mehrere Gottheiten können dieselbe Liturgie gewähren. Der Katalog führt gebündelte Liturgien auf ihrer niedrigsten Stufe; die jeweilige Beschreibung nennt stärkere Ausprägungen und deren Mindeststufe. Beim Wirken wählt der Geweihte genau eine Ausprägung. Die verwendete Stufe muss mindestens deren Mindeststufe erreichen; weitere Modifikationen addieren ihre Stufen dazu. Ausprägungen wirken nicht gleichzeitig.
 
 ### Grundmechanik
 
@@ -1781,14 +1788,13 @@ Liturgien sind in Grade eingeteilt, die Kosten und Schwierigkeit bestimmen:
 
 | Grad | Erschwernis | KE-Kosten        |
 |------|-------------|------------------|
+| 0    | 0           | 2                |
 | I    | 0           | 5                |
 | II   | 5           | 10               |
 | III  | 10          | 15               |
 | IV   | 15          | 20 (1 permanent) |
 | V    | 20          | 25 (3 permanent) |
 | VI   | 25          | 30 (5 permanent) |
-
-*Bekannte Orte oder Personen
 
 ### Modifikatoren
 
@@ -1798,58 +1804,194 @@ Wie bei Zaubern können Liturgien durch Modifikatoren angepasst werden. Die zus�
 
 #### Verfügbare Modifikatoren
 
-- **Bereich (+2 Kategorien):** Betrifft einen Bereich von etwa 5 Schritt Radius
-- **Selektiver Bereich (+3 Kategorien):** Wie Bereich, aber der Geweihte kann wählen, wer betroffen ist
-- **Mehrere Ziele (+1 Kategorie pro weiterem Ziel)**
-- **Erhöhte Reichweite (+1 Kategorie pro Reichweitenkategorie)**
-- **Erhöhte Wirkungsdauer (+1 Kategorie pro Wirkungsdauerkategorie)**
-- **Erschwernis/Kosten verringern (+1 Kategorie pro verringerte Kategorie)**
+- **Bereich (+2 Grade):** Betrifft einen Bereich von etwa 5 Schritt Radius
+- **Mehrere Ziele (+1 Grade verzehnfacht die Anzahl Ziele)**
+- **Erhöhte Reichweite (+1 Grade pro Reichweitenkategorie)**
+- **Erhöhte Wirkungsdauer (+1 Grade pro Wirkungsdauerkategorie)**
 
-### Kategorien-Verteilung
+## Liturgien nach Stufe
 
-Jede zusätzliche Kategorie kann wie folgt eingesetzt werden:
+Die folgenden Liturgien sind nach Stufe geordnet und bündeln nur Wirkungen mit gemeinsamem regeltechnischem Kern. Eine Liturgie kann von mehreren Gottheiten gewährt werden.
 
-- **+1 Kategorie auf Erschwernis:** +5 Erschwernis
-- **+1 Kategorie auf Kosten:** +4 KE
+### Stufe 0 – Zwölf Primärsegnungen
 
-### Mirakel
+Alle zwölf Formen sind jedem Geweihten des Zwölferkreises automatisch bekannt. Die Zuordnung in Klammern nennt die primäre Tradition, nicht ein exklusives Wirkungsrecht. QP verbessern die passende Einzelwirkung, erzeugen aber keine große oder dauerhafte Veränderung.
 
-Mirakel entsprechen dem klassischen DSA-Konzept: Spontane Steigerungen von Eigenschaften oder Talenten durch göttliche Eingebung.
+- **Eidsegen (Praios):** Bekräftigt einen freiwillig geleisteten Eid mit einer konkreten Pflicht und benannten Konsequenz. Ein bewusster Eidbruch zieht für Qualität Tage einen Malus von Qualität÷2 auf passende Proben nach sich; niemand wird zum Schwur gezwungen.
+- **Schutzsegen (Rondra):** Schützt ein Ziel für kurze Zeit vor einer festgelegten Art unheiliger Wesen. Gegen gewöhnliche Gegner oder andere Gefahren bietet er keinen allgemeinen Schutz.
+- **Tranksegen (Efferd):** Reinigt Trinkwasser für bis zu Qualität Personen von Schmutz und Fäulnis. Absichtlich beigemischte Gifte werden nicht entfernt.
+- **Speisesegen (Travia):** Reinigt eine Mahlzeit für bis zu Qualität Personen und schützt sie vor Schmutz, Fäulnis und gewöhnlichen Krankheiten. Absichtlich beigemischte Gifte werden nicht entfernt.
+- **Grabsegen (Boron):** Segnet Verstorbene, verhindert Untotwerden und gewährt Seelenfrieden.
+- **Weisheitssegen (Hesinde):** +Qualität÷2 auf Klugheit-Proben, um Irrtümer, Lügen und Täuschungen zu erkennen oder ihnen zu widerstehen, für Qualität×10 Minuten.
+- **Märtyrersegen (Firun):** Lässt einen Verwundeten für Qualität Kampfrunden trotz seiner Verletzungen weiterhandeln. Er heilt keine Wunden und verhindert keinen weiteren Schaden.
+- **Geburtssegen (Tsa):** Segnet ein Neugeborenes und gewährt +Qualität÷2 auf Konstitution gegen Krankheiten für Qualität Jahre.
+- **Glückssegen (Phex):** +Qualität÷2 auf eine passende, selbstgewählte Probe in den nächsten Qualität Stunden.
+- **Heilungssegen (Peraine):** Heilt sofort Qualität÷2 Lebenspunkte.
+- **Feuersegen (Ingerimm):** Segnet ein Feuer oder eine Waffe und verleiht +Qualität÷2 Feuerschaden für Qualität Stunden.
+- **Harmoniesegen (Rahja):** Mildert Streit und gewährt +Qualität÷2 auf soziale Proben für Qualität Stunden.
 
-#### Mirakel-Arten
+### Stufe 1 – Kleine, unmittelbare Wunder
 
-| Mirakel-Art | Erschwernis | KE-Kosten | Bonus |
-|-------------|-------------|-----------|-------|
-| Eigenschafts-Mirakel | 5 | 15 | +Qualität/2 auf eine Eigenschaft |
-| Talent-Mirakel | 0 | 10 | +Qualität/2 auf ein Talent |
-| Schutz-Mirakel | 10 | 20 | +Qualität/2 als Schutz gegen Schaden |
+- **Göttliches Zeichen** — **Gottheiten:** alle Zwölfgötter. Erzeugt ein sichtbares oder hörbares Zeichen, das die Gegenwart oder Zustimmung der Gottheit ausdrückt. Es vermittelt keine Prophezeiung und beantwortet keine Frage.
+- **Prophezeiung** — **Gottheiten:** alle Zwölfgötter. Gibt eine knappe, bildhafte Ahnung zu einer eng umrissenen Frage oder einem nahen Ereignis. Die Aussage ist nicht sicher und lässt Deutungsspielraum.
+- **Sprechende Symbole** — **Gottheit:** Hesinde. Lässt ein einzelnes Symbol oder eine kurze Zeichenfolge eine einfache, passende Botschaft vermitteln. Es entschlüsselt keine lange Schrift und sagt nichts über die Zukunft aus.
+- **Blendstrahl** — **Gottheit:** Praios. Trifft ein einzelnes Ziel mit einem kurzen Lichtblitz und erschwert vorübergehend dessen Sehen. Er erhellt keinen größeren Bereich.
+- **Innere Ruhe** — **Gottheit:** Praios. Mildert akute Unruhe und erleichtert, sich auf eine Handlung zu konzentrieren. Verändert weder Gefühle dauerhaft noch Willen oder Überzeugungen.
+- **Gesegneter Schlaf** — **Gottheiten:** Boron, Rahja. Verleiht einem Schlafenden besonders erholsame Träume und zusätzliche natürliche Erholung. Die Liturgie versetzt niemanden in Schlaf und hebt weder Krankheit noch Gift auf.
+- **Ruf zur Ruhe** — **Gottheit:** Boron. Nimmt einem Ziel vorübergehend das Bedürfnis zu sprechen. Es kann den Bann mit Willenskraft brechen; der Geweihte muss während der Wirkung ebenfalls schweigen.
+- **Objektsegen** — **Gottheiten:** alle Zwölfgötter. Segnet einen Gegenstand und schützt ihn für kurze Zeit vor gewöhnlichem Verderb oder Entweihung. Er macht das Objekt weder unzerstörbar noch dauerhaft magisch.
+- **Mahlzeit segnen** — **Gottheiten:** Travia, Peraine. Segnet eine bereitgestellte Mahlzeit, sodass sie besonders sättigt und die Essenden für kurze Zeit stärkt. Es erschafft keine Nahrung.
+- **Rausch lösen** — **Gottheit:** Rahja. Beendet einen Rausch, der durch Alkohol, Drogen oder einen magischen Einfluss ausgelöst wurde. Giftwirkungen werden nicht automatisch aufgehoben.
+- **Gegenstände reparieren** — **Gottheiten:** Tsa, Ingerimm. Setzt einen beschädigten, leblosen Gegenstand in einen funktionsfähigen Zustand zurück, soweit er noch reparierbar ist. Die Liturgie erschafft kein neues Objekt und ersetzt keine handwerkliche Neuanfertigung.
+- **Kälbchensegen** — **Gottheiten:** Peraine, Tsa. Stärkt ein einzelnes neugeborenes Nutztier gegen gewöhnliche Gefahren der ersten Lebenszeit. Er heilt keine schweren Verletzungen und macht das Tier nicht außergewöhnlich widerstandsfähig.
+- **Wundersame Blütenpracht** — **Gottheit:** Tsa. Lässt auf einer kleinen Fläche für kurze Zeit natürliche Frühlingsblumen erblühen. Sie wachsen nicht dauerhaft weiter, wenn Boden oder Klima ungeeignet sind.
+- **Heilige Schmiedeglut** — **Gottheit:** Ingerimm. Erhöht für kurze Zeit die Hitze eines vorhandenen Feuers bis zur Schmiedeglut. Es erschafft kein Feuer und lenkt es nicht.
 
-**Maximaler Bonus:** Talentwert in Liturgiekenntnis
-**Beschränkung:** Maximal 1 Mirakel pro Szene/Konflikt
-**Voraussetzung:** Muss dem Wesen und den Zielen der Gottheit entsprechen
+### Stufe 2 – Verlässliche Hilfe und gezielte Einzelwirkungen
 
-### Die Zwölf Segnungen (Grad I Liturgien)
+- **Sprachverständigung** — **Gottheiten:** alle Zwölfgötter. Ermöglicht zwei oder mehr Beteiligten, eine gesprochene Sprache für kurze Zeit zu verstehen und zu sprechen. QP bestimmen Reichweite und Zahl der Personen; es überträgt keine Gedanken.
+- **Tierempathie** — **Gottheiten:** Efferd, Tsa. Lässt den Geweihten für kurze Zeit die Gefühle eines Tieres wahrnehmen; gelegentlich zeigen sich flüchtige Gedankenbilder. Efferds Ausprägung richtet sich auf Meerestiere, Tsas auf Tiere allgemein. Sie ermöglicht keine Kontrolle und zunächst keine sprachähnliche Verständigung. Wird die Liturgie auf Stufe III erhöht, kann sie eine geistige Verständigung ermöglichen; wie viel ein Tier mitteilen kann, hängt von seiner natürlichen Intelligenz ab.
+- **Handwerk segnen** — **Gottheiten:** alle Zwölfgötter. Stärkt eine einzelne Probe in einem für die Gottheit passenden Talent, auch bei handwerklicher oder künstlerischer Arbeit. Bei der Herstellung eines Gegenstands kann der Segen die Qualität verbessern, aber er ersetzt weder Können noch Material.
+- **Heilwunder** — **Gottheiten:** Peraine, Tsa. Heilt und stärkt ein Lebewesen. Auf Stufe II lindert es gewöhnliche Verletzungen und unterstützt natürliche Heilung; auf Stufe IV kann es ein sterbendes Wesen stabilisieren; auf Stufe V kann es verlorene Lebenskraft zurückgeben; auf Stufe VI kann es ein schweres oder sonst unheilbares Leiden heilen, sofern die Gottheit zustimmt. Das Nachwachsen eines verlorenen Körperteils ist ein eigenes Tsa-Wunder. Pro Anwendung wird eine Ausprägung gewählt. Es erweckt keine lange Verstorbenen wieder und ersetzt keine gewöhnliche Behandlung.
+- **Wetter und Gewässer** — **Gottheiten:** Efferd, Firun, Rondra. Verändert Wetter- und Wasserbedingungen. Auf Stufe II kann es örtlich den Wind wenden; auf Stufe III Regen über einem Feld auslösen oder eine Nebelfront erschaffen beziehungsweise tilgen; auf Stufe IV Wetter in einem begrenzten Gebiet lenken; auf Stufe V einen heftigen Schnee- oder Eissturm hervorrufen oder eine große sichtbare Wasserfläche aufwühlen beziehungsweise beruhigen. Pro Anwendung wird eine Ausprägung gewählt; QP bestimmen Ausdehnung und Dauer.
+- **Traumwirken** — **Gottheiten:** Boron, Rahja. Wirkt durch Träume. Auf Stufe II kann es einen Einblick in das letzte Traumbild eines Schlafenden gewähren oder dessen Traum-Erinnerungen erkunden; auf Stufe III kann es eine warnende oder erschreckende Traumvision senden; auf Stufe IV kann die Geweihte in einen Traum eintreten und einer kranken Person dort seelisch beistehen. Pro Anwendung wird eine Ausprägung gewählt; Eindrücke bleiben bruchstückhaft, und Träume erzwingen keine Handlung.
+- **Initiation** — **Gottheiten:** alle Zwölfgötter. Vollzieht ein einfaches, kirchlich anerkanntes Aufnahmeritual oder bestätigt die Zugehörigkeit eines einzelnen Gläubigen. Sie ändert keine Persönlichkeit und verleiht keine neuen Talente.
+- **Objektweihe** — **Gottheiten:** alle Zwölfgötter. Weihe einen einzelnen Gegenstand oder ein kleines, klar abgegrenztes Objekt für einen kirchlichen Zweck. Sie macht daraus kein mächtiges Artefakt und schützt keinen ganzen Ort.
+- **Heiliger Befehl** — **Gottheiten:** alle Zwölfgötter. Gibt einem Ziel einen kurzen, klaren Auftrag, dem es widerstehen kann. Der Befehl darf nicht unmittelbar selbstschädigend sein und verändert weder Persönlichkeit noch dauerhafte Überzeugung.
+- **Lehnseid** — **Gottheit:** Praios. Bekräftigt die Verpflichtung zwischen Lehnsherr und Lehnsträger und macht einen bewussten Eidbruch für die Beteiligten erkennbar. Er zwingt niemanden, einen Eid zu leisten.
+- **Magiesicht** — **Gottheiten:** Praios, Hesinde, Phex. Zeigt, ob an einem sichtbaren Wesen, Ort oder Gegenstand Magie wirkt. Sie benennt nicht automatisch den Zauber oder seine Quelle.
+- **Goldene Rüstung** — **Gottheit:** Praios. Umgibt den Geweihten mit einer gleißenden Aura, die Gegner vom Angriff abhält und Angriffe sowie Zauber gegen ihn erschwert. Anders als Argelions Mantel ist sie keine bloße Schadensminderung, sondern wirkt abschreckend und stört gegnerische Handlungen.
+- **Auge des Händlers** — **Gottheit:** Phex. Erfasst für einen Raum grob oder detailliert, welche Arten und wie viele Gegenstände oder Personen sich darin befinden. Es enthüllt weder den Inhalt verschlossener Behälter noch Geheimverstecke.
+- **Auge des Mondes** — **Gottheit:** Phex. Lässt den Geweihten für kurze Zeit in Dunkelheit sehen, als herrsche helles Tageslicht. Es durchdringt keine festen Hindernisse.
+- **Blick für das Handwerk** — **Gottheiten:** Ingerimm, Phex. Prüft ein sichtbares handwerkliches Erzeugnis auf Qualität, Echtheit oder bauliche Beschaffenheit und gibt dazu einen begrenzten Eindruck. Er erfasst keine verborgenen Inhalte oder magischen Eigenschaften.
+- **Gift erkennen** — **Gottheit:** Hesinde. Erkennt, ob ein berührter oder sichtbarer Stoff giftig ist und gibt einen groben Hinweis auf seine Art. Das Gift wird nicht entfernt.
 
-Jede Gottheit verfügt über eine spezielle Segnung. Alle sind Grad I Liturgien (0 Erschwernis, 5 KE).
 
-#### Die Segnungen der Zwölfgötter
+- **Gesegneter Fang** — **Gottheit:** Efferd. Erhöht für einen Angelausflug die Chance auf einen gewöhnlichen Fang. Er ruft keine Tiere herbei und erschafft keine Nahrung.
+- **Ruf der Gefährten** — **Gottheit:** Efferd. Ruft ein passendes Meerestier, insbesondere einen Delphin, in der Nähe herbei, sofern eines erreichbar ist. Das Tier bleibt selbstbestimmt.
+- **Nahrung erschaffen** — **Gottheit:** Travia. Erschafft nach dem Gebet eine einfache Mahlzeit für mehrere Bedürftige, sofern zuvor keine gewöhnliche Nahrungsquelle genutzt werden konnte. Die Speise muss mit Schutzsuchenden geteilt werden.
+- **Heimstein verorten** — **Gottheit:** Travia. Erlaubt der Geweihten, die Richtung zu einem zuvor geweihten Heimstein zu erkennen. Der Stein wird nicht zu ihr gerufen.
+- **Treue des Tiergefährten** — **Gottheit:** Travia. Stärkt die Bindung zwischen einem Tier und seinem sorgfältig sorgenden Besitzer. Das Tier bleibt eigenständig; Misshandlung oder Vernachlässigung beendet den Segen.
+- **Pflanzengespür** — **Gottheit:** Peraine. Lässt eine berührte Pflanze als essbar, giftig oder heilkräftig erkennen. Es heilt keine Vergiftung.
 
-- **Eidsegen (Praios):** Verstärkt einen Eid, +Qualität÷2 auf Willenskraft gegen Eidbruch für Qualität Tage
-- **Feuersegen (Ingerimm):** Segnet Feuer oder Waffe, +Qualität÷2 Feuerschaden für Qualität Stunden
-- **Geburtssegen (Tsa):** Segnet Neugeborenes, +Qualität÷2 auf Konstitution gegen Krankheiten für Qualität Jahre
-- **Glückssegen (Phex):** +Qualität÷2 auf eine selbstgewählte Probe in den nächsten Qualität Stunden
-- **Grabsegen (Boron):** Segnet Verstorbenen, verhindert Untotwerden und gewährt Seelenfrieden
-- **Harmoniesegen (Travia):** Beendet Streit, +Qualität÷2 auf soziale Proben für Qualität Stunden
-- **Heilungssegen (Tsa):** Heilt Qualität÷2 Lebenspunkte sofort
-- **Märtyrersegen (Rondra):** +Qualität÷2 auf Kampfproben wenn zahlenmäßig unterlegen für Qualität Kampfrunden
-- **Objektsegen (Hesinde):** Segnet Gegenstand, +Qualität÷2 auf Proben mit diesem Objekt für Qualität Tage
-- **Prophezeiung (Praios):** Gewährt Vision der nächsten Qualität Stunden, +Qualität÷2 auf Intuition
-- **Schutzsegen (Praios):** +Qualität÷2 auf Abwehr gegen böse Kreaturen für Qualität×10 Minuten
-- **Speisesegen (Peraine):** Segnet Nahrung, nährt wie Qualität×2 normale Mahlzeiten
-- **Tranksegen (Rahja):** Segnet Getränk, verstärkt Wirkung um Qualität÷2 (Heilung, Rausch, etc.)
-- **Weisheitssegen (Hesinde):** +Qualität÷2 auf Klugheit-Proben für Qualität×10 Minuten
+- **Feuerhaut** — **Gottheiten:** Ingerimm, Travia. Schützt den Geweihten samt Kleidung und Ausrüstung vor kurzer Berührung mit Feuer. Für das Durchqueren eines brennenden Raumes ist eine Modifikation auf Stufe III nötig.
+- **Felsenschutz** — **Gottheit:** Ingerimm. Schützt den Geweihten vor Steinschlag und gewöhnlichen steinernen Waffen. Es schützt nicht vor Feuer oder anderen Elementen.
+- **Metall erhitzen** — **Gottheit:** Ingerimm. Erhitzt ein berührtes Stück Metall so weit, dass es geschmiedet werden kann. Es formt das Metall nicht und erschafft keine Glut.
+- **Segensreicher Neuanfang** — **Gottheiten:** Tsa, Ingerimm. Segnet den Beginn eines konkreten Vorhabens und erleichtert passende handwerkliche Proben; die Beteiligten gewinnen Zuversicht, aber keinen automatischen Erfolg.
 
-**Besonderheit:** Jeder Geweihte eines der Zwölfgötter beherrscht diese Segnungen.
+- **Kleiner Giftbann** — **Gottheit:** Peraine. Schwächt oder neutralisiert ein gewöhnliches Gift im Körper eines Ziels. Mächtige Gifte oder eine fortgeschrittene Vergiftung benötigen eine höhere Stufe.
+- **Kräuterwissen** — **Gottheit:** Boron. Erkennt eine geeignete Heil- oder Ritualpflanze und ihre gewöhnliche Anwendung. Die Liturgie stellt weder die Pflanze bereit noch heilt sie selbst.
+- **Geisterblick** — **Gottheit:** Boron. Macht nahe, nicht manifestierte Geister oder ihre Spuren für kurze Zeit sichtbar und erlaubt dem Geweihten, mit anwesenden Geistern zu sprechen; diese müssen nicht antworten. Die Liturgie löst die Seele nicht vom Körper und bannt den Geist nicht.
+- **Tiefschlaf** — **Gottheit:** Boron. Versetzt ein Ziel in einen langen, erholsamen Schlaf; währenddessen werden gewöhnliche Krankheits- oder Giftwirkungen vorübergehend angehalten. Das Leiden wird nicht geheilt.
+- **Grabweihung** — **Gottheit:** Boron. Weiht eine einzelne Ruhestätte, damit die Totenruhe dort geschützt und geachtet wird. Es ist kein Bann gegen alle Geister eines Gebietes.
+- **Rauschsegen** — **Gottheit:** Rahja. Verstärkt für kurze Zeit die angenehmen Sinneseindrücke eines freiwillig eingegangenen Rausches. Er zwingt niemanden zum Konsum und hebt keine Vergiftung auf.
+- **Heiliges Liebesspiel** — **Gottheit:** Rahja. Segnet eine freiwillige intime Begegnung und macht sie für die Beteiligten besonders erfüllend. Es wirkt nur, solange alle Beteiligten zustimmen.
+
+### Stufe 3 – Bereichswunder, starke Banne und Gruppenwirkungen
+
+- **Zauber- und Fluchbruch** — **Gottheiten:** alle Zwölfgötter. Hebt eine anhaltende magische, karmale oder verfluchte Wirkung auf, wenn die erzielten QP mindestens ihrer Stärke entsprechen. Bei mächtigeren Wirkungen unterdrückt sie den Effekt nur vorübergehend.
+- **Exorzismus** — **Gottheiten:** alle Zwölfgötter. Vertreibt einen anwesenden unheiligen Geist oder löst eine Besessenheit, sofern die Probe dessen Widerstand überwindet. Er bannt keine gewöhnlichen Zauber und zerstört das Wesen nicht automatisch.
+- **Furcht lösen und bannen** — **Gottheiten:** Boron, Firun, Praios. Beendet oder mindert akute Furcht und seelische Erschütterung. Übernatürliche Furcht kann widerstehen; dauerhafte Phobien und Persönlichkeitsveränderungen werden nicht geheilt.
+- **Seelenprüfung** — **Gottheiten:** alle Zwölfgötter. Erkennt, ob ein Ziel initiiert oder geweiht ist, unter einem Anathema steht oder seine Seele einem Dämon verpfändet hat. Sie benennt den Gott oder Dämon nicht zuverlässig und erkennt keine Astralenergie.
+- **Vision** — **Gottheiten:** alle Zwölfgötter. Gewährt ein kurzes, symbolisches Bild zu einem Ort, einer Person oder einer möglichen Entwicklung. Die Vision ist mehrdeutig und kein verlässlicher Blick in die Zukunft.
+- **Tiergestalt** — **Gottheiten:** alle Zwölfgötter außer Praios und Ingerimm. Verwandelt den Geweihten in das heilige Tier seiner Gottheit. QP bestimmen Dauer und Passgenauigkeit; besondere Fähigkeiten des Tieres bleiben begrenzt.
+- **Argelions Mantel** — **Gottheiten:** Hesinde, Praios. Schützt den Geweihten selbst vor direkt auf ihn gewirkten Zaubern und schwächt oder hebt sie auf, wenn die erzielten QP ausreichen. Flächen- und Massenzauber werden nicht abgefangen.
+- **Eidechsenhaut** — **Gottheit:** Tsa. Überzieht ein Ziel mit dicker Haut, die einen begrenzten Rüstungsschutz verleiht. Nach Ende des Schutzes häutet sich das Ziel und ist vorübergehend stark in Bewegung und Geschicklichkeit eingeschränkt.
+- **Waliburias Wehr** — **Gottheit:** Ingerimm. Ruft zwischen dem Geweihten und einem oder mehreren Angreifern eine Manifestation aus Feuer oder Erz hervor, etwa einen Feuerschwall oder einen Riss im Boden. Die Erscheinung verwirrt die Angreifer, hemmt ihren Ansturm und kann sie kurzzeitig am Angreifen hindern; sie ist kein gezielter Elementarschaden.
+
+- **Licht des Herrn** — **Gottheit:** Praios. Taucht einen begrenzten, ortsfesten Bereich in helles Tageslicht und lässt gewöhnliche Schatten weichen.
+- **Praios’ Mahnung** — **Gottheit:** Praios. Entzieht einem Frevler für kurze Zeit eine Gabe Praios’: Licht, Wahrheit oder Orientierung. Die konkrete Einschränkung hängt von der gewählten Gabe ab.
+- **Ordnender Blick** — **Gottheiten:** Hesinde, Praios. Lässt ein verborgenes Ordnungsmuster in scheinbarem Chaos erkennen oder hilft, Dinge systematisch zu ordnen. Je komplexer das Muster, desto ungewisser der Eindruck.
+- **Hesindes Fingerzeig** — **Gottheit:** Hesinde. Lenkt die Aufmerksamkeit auf die für eine konkrete Frage relevanten Stellen eines Buches. Er erklärt den Inhalt nicht automatisch und ersetzt keine nötigen Sprach- oder Fachkenntnisse.
+
+- **Freundliche Aufnahme** — **Gottheit:** Travia. Erleichtert einem willkommenen Gast die Aufnahme in eine Gemeinschaft, die Travias Gastfreundschaft achtet. Sie macht niemanden zum Freund und schützt nicht automatisch ein Haus.
+
+- **Fest der Freude** — **Gottheit:** Rahja. Verwandelt eine Feier in ein außergewöhnlich gelungenes Fest und lässt gewöhnliche Speisen, Musik und Tanz besonders erfreulich wirken. Es beendet keine Feindschaft und zwingt niemanden zur Teilnahme.
+- **Bootssegen** — **Gottheit:** Efferd. Segnet ein einzelnes Boot, sodass gewöhnliche Schäden und Gefahren der nächsten Reise unwahrscheinlicher werden. Er stärkt nicht die Mannschaft und verhindert keine Naturkatastrophe.
+
+- **Mannschaftssegen** — **Gottheit:** Efferd. Stärkt für einige Tage den Mut einer Schiffsbesatzung und erleichtert schifffahrtsbezogene Handlungen. Das Boot selbst wird nicht geschützt.
+- **Segnung des Heimes** — **Gottheit:** Travia. Weitet Travias Schutz auf ein einzelnes Haus oder Heim aus, solange die Bewohner die Regeln der Gastfreundschaft achten. Sie bannte keine gezielt herbeigerufene Naturkatastrophe.
+- **Schwellenbann** — **Gottheit:** Travia. Hält unheilige Wesen davon ab, eine geweihte Schwelle zu überschreiten. Er schützt nur den abgegrenzten Raum hinter dieser Schwelle.
+- **Saat schützen** — **Gottheit:** Peraine. Segnet ausgesäte Saat, sodass sie unter gewöhnlichem Wetter zuverlässig keimt und bis zum Sprössling vor Krankheit und Unwetter geschützt ist. Sie beschleunigt das Wachstum nicht.
+- **Speisen und Wasser reinigen** — **Gottheiten:** Travia, Peraine. Entfernt Giftstoffe und Krankheitsüberträger aus einer bereitgestellten Mahlzeit oder einem Gefäß Wasser. Alle, die von der gereinigten Speise bitten, müssen daran teilhaben dürfen.
+
+- **Hauch Borons** — **Gottheit:** Boron. Erschafft in einem Bereich undurchdringliche Dunkelheit, die gewöhnliches und magisches Licht nicht durchdringt. Für unheilige Wesen wirkt die Zone wie geweihter Boden.
+- **Siegel Borons** — **Gottheit:** Boron. Verschließt die Lippen eines Ziels dauerhaft zu einem vom Geweihten bestimmten Wissensbereich. Ein weit gefasstes Schweigegebot kann eine höhere Stufe erfordern.
+- **Segen der Heiligen Noiona** — **Gottheiten:** Boron, Travia, Rahja, Peraine. Behandelt eine seelische Erkrankung, Verwirrung oder Sucht nach einem intensiven Beicht- und Gesprächsritual. Die Heilung kann vorübergehend sein und bei erneuter Konfrontation mit dem Auslöser zurückkehren.
+- **Verbergen** — **Gottheiten:** Phex, Tsa. Erschwert es Beobachtern, eine Person oder einen kleinen Gegenstand wahrzunehmen, solange er sich unauffällig verhält. Es macht nichts sichtbar unsichtbar und endet bei offenem Angriff.
+- **Aura der Form** — **Gottheit:** Hesinde. Offenbart in einer Vision Hinweise auf Besitzer, Nutzung und emotionale Spuren eines berührten Gegenstands. Die Eindrücke bleiben fragmentarisch und reichen nicht automatisch bis zu einer bestimmten Zeit zurück.
+- **Unverstellter Blick** — **Gottheiten:** Hesinde, Praios, Phex. Deckt sichtbare magische Illusionen auf und lässt die Geweihte sie von der unveränderten Szene unterscheiden. Er liest keine Gedanken und entlarvt keine gewöhnliche Verkleidung.
+- **Graues Siegel** — **Gottheiten:** Hesinde, Phex. Verbirgt den Inhalt eines Schriftstücks vor allen außer einer bestimmten empfangsberechtigten Person. Sorgfältige Untersuchung oder Fachwissen kann den verborgenen Text dennoch erschließen.
+- **Phexens Augenzwinkern** — **Gottheit:** Phex. Lässt ein Ziel das Gesicht des Geweihten vergessen, sodass es ihn später nicht zuverlässig identifizieren kann. Es wirkt nicht gegen jemanden, der seine Identität bereits sicher kennt.
+- **Phexens Elsterflug** — **Gottheit:** Phex. Entrückt ein berührtes Objekt von höchstens 10 kg an einen unerreichbaren Ort am Himmel. Dort bleibt es maximal ein Jahr und einen Tag; danach kann es als Sternschnuppe zurückkehren, als Belohnung dienen oder verloren bleiben.
+
+
+### Stufe 4 – Mächtige Eingriffe und besondere Schutzwirkungen
+
+- **Magiebann** — **Gottheit:** Praios. Errichtet für kurze Zeit eine Zone, in der aktive Magie aufgehoben und neue Zauberei verhindert wird. Die Wirkung erfasst auch magische Artefakte im Bereich, unterdrückt sie aber nur vorübergehend.
+- **Dunkelheit vertreiben** — **Gottheit:** Praios. Bannt eine übernatürliche Dunkelheit oder Schattenwirkung aus einem begrenzten Bereich. Es hebt keine beliebigen Zauber auf.
+- **Zauberspiegel** — **Gottheit:** Hesinde. Reflektiert einen einzelnen direkt gegen die Geweihte gerichteten Zauber auf dessen Anwender zurück. Flächenzauber werden nicht gespiegelt.
+- **Seelenheilung** — **Gottheiten:** Praios, Hesinde. Löst einen Beherrschungszauber oder einen nicht permanenten Hexenfluch und stellt vorübergehend gesenkte geistige Fähigkeiten wieder her. Sie heilt keine gewöhnliche psychische Erkrankung.
+- **Wille zur Wahrheit** — **Gottheit:** Praios. Erzeugt in einer Predigt einen starken inneren Widerstand gegen Lügen und gesetzeswidriges Handeln. Betroffene können widerstehen; die Liturgie liest keine Gedanken und beweist nicht, was wahr ist.
+- **Liturgieeinweisung** — **Gottheiten:** alle Zwölfgötter. Ermöglicht einer Lehrerin oder einem Lehrer, einer geeigneten Schülerin oder einem Schüler eine bestimmte kirchliche Liturgie beizubringen. Sie verleiht die Liturgie nicht automatisch und ersetzt weder AP noch die Voraussetzungen.
+- **Ordination** — **Gottheiten:** alle Zwölfgötter. Bestätigt in einem formellen Ritual das kirchliche Amt einer Person. Die Wirkung ist sozial und religiös, kein Zwangszauber und kein Kampfbonus.
+
+- **Feuer lenken** — **Gottheit:** Ingerimm. Lenkt ein größeres vorhandenes Feuer für kurze Zeit in eine gewählte Richtung und kann es von bestimmten Bereichen fernhalten. Es erschafft kein Feuer und kontrolliert keine anderen Elemente.
+- **Unterirdische Gefahr erspüren** — **Gottheit:** Ingerimm. Erkennt, ob ein nahegelegenes unterirdisches Bauwerk einsturzgefährdet ist, und weist einen sicheren Weg durch den betroffenen Bereich. Es gräbt keinen Tunnel.
+- **Alchimistische Erkenntnis** — **Gottheit:** Hesinde. Unterstützt die Analyse oder Herstellung eines einzelnen alchemistischen Werkes durch göttliche Einsicht. Benötigte Zutaten und fachliche Arbeit bleiben erforderlich.
+
+- **Befreiung** — **Gottheiten:** Rahja, Tsa. Löst eine einzelne körperliche, geistige oder seelische Fessel, etwa eine Kette, einen lähmenden Zwang oder einen Beherrschungseffekt, sofern die QP dessen Stärke überwinden.
+- **Nebelgestalt** — **Gottheit:** Phex. Verwandelt den Geweihten samt Ausrüstung für kurze Zeit in Nebel, sodass er durch schmale Öffnungen dringen kann und gegen gewöhnliche Angriffe geschützt ist. Wind kann ihn forttragen; er entscheidet nicht frei über jede Bewegung.
+- **Phexens Sternenwurf** — **Gottheit:** Phex. Beschwört einen geweihten Wurfstern, der sein Ziel sicher trifft. Er richtet Schaden nach den Kampfregeln an und kann auch Dämonen sowie Paktierer verletzen, die gewöhnlichen Waffen widerstehen. Wird er nicht geworfen, bleibt er bis zu Qualität+10 Kampfrunden bestehen; danach verschwindet er.
+
+- **Nemekaths Zwiesprache** — **Gottheit:** Boron. Versetzt den Geweihten in Trance und löst seine Seele vom Körper, damit er in der Geisterwelt mit anwesenden Geistern sprechen kann. Diese müssen nicht antworten; die Rückkehr in den Körper bleibt Teil des Ritualrisikos.
+
+### Stufe 5 – Große und anhaltende Wunder
+
+- **Anathema** — **Gottheiten:** alle Zwölfgötter. Erklärt ein bestimmtes Wesen oder einen Ort für unheilig und entzieht ihm göttliche Anerkennung. Es ist ein dauerhaftes kirchliches Urteil, kein allgemeiner Schadenzauber.
+- **Konsekration** — **Gottheiten:** alle Zwölfgötter. Bittet die Gottheit, einen eigens dafür vorbereiteten Tempel oder heiligen Ort anzunehmen und dauerhaft zu weihen. Die endgültige Weihe bleibt eine Entscheidung der Gottheit.
+- **Zerschmetternder Bannstrahl** — **Gottheit:** Praios. Ruft einen gleißenden Strahl auf einen als Frevler oder unheilig erkannten Gegner herab. Er wirkt als gezielter Angriff und richtet schweren göttlichen Schaden an; er ist kein Bann gegen Zauber.
+- **Argelions bannende Hand** — **Gottheiten:** Hesinde, Praios. Schwächt bestimmte aktive Zauberwirkungen auf einer Person oder einem Gegenstand. Sie beendet nicht automatisch alle Magie im Umkreis und trifft keine anderen Ziele.
+- **Rondras wundersame Rüstung** — **Gottheit:** Rondra. Verleiht der Geweihten für eine entscheidende Auseinandersetzung eine göttliche Rüstung, die den erlittenen Schaden stark mindert und Schmerzen unterdrückt. Sie schützt nur die Trägerin.
+- **Segnung der Schlacht** — **Gottheit:** Rondra. Legt einer anwesenden Streitmacht die Regeln des rondragefälligen Kampfes auf. Sie stärkt weder automatisch Angriff noch Rüstung und unheilige Gegner können sich der Wirkung entziehen.
+- **Gebet der sicheren Zuflucht** — **Gottheit:** Travia. Errichtet um Schutzsuchende eine unbewegliche Schutzkuppel gegen widrige Umweltbedingungen und die meisten dämonischen Einflüsse. Sie hält nicht jedem gezielten Angriff stand.
+- **Garafans Gleißende Schwingen** — **Gottheit:** Praios. Verleiht dem Geweihten für kurze Zeit die Fähigkeit, sich durch die Luft zu bewegen. Die Wirkung transportiert keine ganze Gruppe und gewährt keine allgemeine Unverwundbarkeit.
+
+- **Frühlingslobpreisung** — **Gottheit:** Peraine. Segnet einen begrenzten Landstrich mit außergewöhnlicher Frühlingskraft und unterstützt dort den natürlichen Neubeginn von Pflanzen. Sie erzeugt keine sofortige Ernte.
+
+- **Tsas Wunderbare Erneuerung** — **Gottheit:** Tsa. Lässt nach einem langwierigen Ritual ein natürlich verlorenes Körperteil nachwachsen. Sie ist kein Sofortheilwunder und ersetzt keine gewöhnliche Behandlung.
+
+
+
+
+- **Lavaströme lenken** — **Gottheit:** Ingerimm. Lenkt einen vorhandenen Lavastrom in eine andere, mögliche Richtung. Er kann nicht bergauf fließen und wird nicht aus dem Nichts erschaffen.
+- **Schutz vor Ingerimms Zorn** — **Gottheit:** Ingerimm. Bewahrt ein Ziel oder eine Gruppe vor einer klar benannten Gefahr durch Feuer oder die Kräfte des Erdreichs. Es lenkt weder Lava noch ein größeres Elementarereignis.
+- **Schöpferische Eingebung** — **Gottheiten:** Hesinde, Ingerimm. Schenkt einer Person bei einer mehrtägigen kreativen Arbeit neue Ideen und die nötige Inspiration, sie umzusetzen. Das Werk muss selbst geschaffen werden; die Liturgie macht es nicht automatisch perfekt.
+- **Khablas makelloser Leib** — **Gottheit:** Rahja. Lässt Narben und geringfügige körperliche Entstellungen verschwinden und stellt das frühere natürliche Aussehen wieder her. Es verändert keine Eigenschaften und erschafft keinen neuen Körper.
+- **Phexens Meisterschlüssel** — **Gottheit:** Phex. Erschafft für einen einzelnen Versuch einen geweihten Schlüssel, der mechanische und manche magische Schlösser öffnen kann. Mächtige Schutzzauber können widerstehen.
+- **Phexens Schatten** — **Gottheit:** Phex. Verbirgt den Geweihten für kurze Zeit in einem Schattenbereich, sodass gewöhnliche Beobachter ihn kaum wahrnehmen. Helles Licht oder gezielte Suche kann die Täuschung durchbrechen.
+
+### Stufe 6 – Höchste Kirchenwunder
+
+Nur die folgenden Zwölfgott-Kirchen führen eigene Liturgien der höchsten Stufe. Diese Stufe ist der Höhepunkt des Katalogs.
+
+- **Arcanum Interdictum** — **Gottheit:** Praios. Errichtet nach einem langen Hochritual eine große Zone, in der aktive Magie aufgehoben wird. Die Reichweite und Dauer sind außergewöhnlich; gegen ein Wunder dieser Stufe wirken nur gleichrangige oder besondere Gegenkräfte.
+- **Kriegsruf der Kirche** — **Gottheit:** Rondra. Versetzt die Rondra-Kirche durch den höchsten kirchlichen Befehl in den Kriegszustand und übermittelt diesen an die leitenden Würdenträger. Das ist ein kirchenweites Organisationswunder, kein persönlicher Kampfbonus.
+- **Große Weihe des Heimsteins** — **Gottheit:** Travia. Ein geweihter Heimstein schützt ein Haus oder einen Ort vor Zerstörung durch Naturgewalten, solange die Bewohner die Gesetze der Gastfreundschaft achten.
+- **Travias verborgene Halle** — **Gottheit:** Travia. Öffnet in der Landschaft eine Tür zu einem warmen, verborgenen Raum mit Nahrung und Getränken für eine Gruppe. Von außen ist die Tür nach dem Schließen nicht auffindbar und lässt sich nur von innen öffnen. Wird in der Halle Travias Gastfreundschaft gebrochen, endet das Wunder vorzeitig und die Schutzsuchenden kehren an den Ausgangsort zurück. QP bestimmen Gruppengröße und Dauer.
+- **Tsas ewige Jugend** — **Gottheit:** Tsa. Bewahrt das äußere Erscheinungsbild des Ziels in Jugend über seine normale Lebensspanne. Die Wirkung bringt deutliche Auflagen und Nebenwirkungen mit sich und verhindert weder Krankheit noch Tod durch Gewalt.
+- **Schattenlarve** — **Gottheit:** Phex. Erschafft eine geweihte Maske, die das Äußere einer bekannten Person samt Kleidung überzeugend nachbildet. Die Täuschung ist außergewöhnlich schwer zu durchschauen, aber die Maske verändert weder Wissen noch Persönlichkeit des Trägers.
+
+- **Eherne Kraft – lodernder Zorn** — **Gottheit:** Ingerimm. Entfesselt ein außergewöhnliches Feuer- und Erz-Wunder gegen Frevler oder eine konkrete Bedrohung. Die genaue Gestalt folgt dem Ort, verfügbaren Elementen und der göttlichen Absicht.
+
+- **Rahjas Sinnlichkeit** — **Gottheit:** Rahja. Macht die Geweihte oder ein williges Ziel für eine begrenzte Zeit körperlich unverwundbar und verstärkt zugleich die Sinneswahrnehmung. Dauer und Belastbarkeit richten sich nach QP; die Liturgie ist ein seltenes Hochritual.
+
+## Mirakel
+
+Mirakel sind spontane Steigerungen von Eigenschaften oder Talenten durch göttliche Eingebung.
+Um ein Mirakel zu wirken, ist ein Stoßgebet nötig (1 Aktion), sowie eine Liturgiekenntnisprobe und 5KP.
+Für die nächste Aktion ist die entsprechende Eigenschaft oder das entsprechende Talent um QP/2 des Geweihten erhöht.
+Es können nur Aktionen beeinflusst werden, die dem Wesen der Gottheit entsprechen.
 
 ## Praios - Gott der Sonne, Zeit und Gerechtigkeit
 
@@ -1874,16 +2016,360 @@ Praios ist der Herr der Sonne und des Lichts, Hüter der Zeit und oberster Richt
 - Reiten (als Vertreter göttlicher Autorität)
 - Rechtskunde (Kenntnis von Gesetz und Ordnung)
 
-### Göttliche Gunst und Ungnade
+### Liturgien für Praios Geweihte
 
-**Erschwernisse (+1 Kategorie auf Erschwernis/Kosten):**
-- Heimliche oder hinterlistige Handlungen
-- Lügen oder Betrug unterstützen
-- Völlige Dunkelheit
+- **0:** Zwölf Primärsegnungen
+- **1:** Göttliches Zeichen; Prophezeiung; Blendstrahl; Innere Ruhe; Objektsegen
+- **2:** Sprachverständigung; Handwerk segnen; Initiation; Objektweihe; Heiliger Befehl; Lehnseid; Magiesicht; Goldene Rüstung
+- **3:** Zauber- und Fluchbruch; Exorzismus; Furcht lösen und bannen; Seelenprüfung; Vision; Argelions Mantel; Licht des Herrn; Praios’ Mahnung; Ordnender Blick; Unverstellter Blick
+- **4:** Magiebann; Dunkelheit vertreiben; Seelenheilung; Wille zur Wahrheit; Liturgieeinweisung; Ordination
+- **5:** Anathema; Konsekration; Zerschmetternder Bannstrahl; Argelions bannende Hand; Garafans Gleißende Schwingen
+- **6:** Arcanum Interdictum
 
-**Erleichterungen (-1 Kategorie von Erschwernis/Kosten):**
-- Sonnenaufgang oder Mittag
-- Öffentliche Verkündung der Wahrheit
-- Kampf gegen eindeutig Böse
+## Rondra - Göttin des Krieges und des Kampfes
+
+### Beschreibung
+
+Rondra steht für Mut, Ehre und den offenen Kampf. Ihre Geweihten stellen sich Gefahren, schützen Schwächere und achten auf faire Bedingungen. Stärke ist für sie eine Verpflichtung; Feigheit, Hinterhalt und unnötige Grausamkeit widersprechen ihrem Ideal.
+
+### Mirakel-Möglichkeiten
+
+**Eigenschaften:**
+- Mut (gegen Furcht und in gerechten Kämpfen)
+- Körperkraft (bei Kampf und körperlicher Bewährung)
+- Charisma (als Anführerin und Verkünderin rondragefälliger Werte)
+
+**Talente:**
+- Götter und Kulte (Wissen über Rondras Gebote und Rituale)
+- Kriegskunst (Planung und Führung eines gerechten Kampfes)
+- Bewaffneter Nahkampf (im offenen Zweikampf)
+- Reiten (auf Reisen und im Kampf)
+- Überzeugen (um andere für Mut und Ehre zu gewinnen)
+- Etikette (bei Duellen und formellen Herausforderungen)
+- Sinnesschärfe (um Gefahren rechtzeitig zu erkennen)
+
+### Liturgien für Rondra Geweihte
+
+- **0:** Zwölf Primärsegnungen
+- **1:** Göttliches Zeichen; Prophezeiung; Objektsegen
+- **2:** Sprachverständigung; Handwerk segnen; Initiation; Objektweihe; Heiliger Befehl; Wetter und Gewässer
+- **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt
+- **4:** Liturgieeinweisung; Ordination
+- **5:** Anathema; Konsekration; Rondras wundersame Rüstung; Segnung der Schlacht
+- **6:** Kriegsruf der Kirche
+
+## Efferd - Gott der Meere und Winde
+
+### Beschreibung
+
+Efferd herrscht über Meer, Wind und wechselhaftes Wetter. Seine Geweihten begleiten Seeleute und Küstengemeinden, helfen in Seenot und erinnern daran, dass die Natur nicht beherrscht werden kann. Sie begegnen dem Wasser mit Ehrfurcht und passen sich seinen unberechenbaren Kräften an.
+
+### Mirakel-Möglichkeiten
+
+**Eigenschaften:**
+- Mut (in Seenot und angesichts der Naturgewalten)
+- Konstitution (bei langen Reisen und körperlichen Entbehrungen)
+- Charisma (um Mannschaften zu beruhigen und anzuleiten)
+
+**Talente:**
+- Schwimmen (im und auf dem Wasser)
+- Wildnisleben (auf See und an der Küste)
+- Sinnesschärfe (um Wetter und Gefahren früh zu bemerken)
+- Jagen (beim Fischfang und bei der Nahrungssuche)
+- Götter und Kulte (Kenntnis von Efferds Geboten und Riten)
+- Überzeugen (um eine Mannschaft zu sammeln und zu führen)
+- Reiten (für Reisen entlang der Küste)
+
+### Liturgien für Efferd Geweihte
+
+- **0:** Zwölf Primärsegnungen
+- **1:** Göttliches Zeichen; Prophezeiung; Objektsegen
+- **2:** Sprachverständigung; Tierempathie; Handwerk segnen; Initiation; Objektweihe; Heiliger Befehl; Wetter und Gewässer; Gesegneter Fang; Ruf der Gefährten
+- **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt; Bootssegen; Mannschaftssegen
+- **4:** Liturgieeinweisung; Ordination
+- **5:** Anathema; Konsekration
+
+## Travia - Göttin des Herdes und der Gastfreundschaft
+
+### Beschreibung
+
+Travia schützt Herd, Familie, Ehe und Gastfreundschaft. Ihre Geweihten nehmen Reisende und Bedürftige auf, bewahren den Frieden in einer Gemeinschaft und helfen, wenn ein Zuhause oder familiärer Zusammenhalt bedroht ist. Gastfreundschaft bedeutet für sie Schutz und Fürsorge, verlangt aber auch Achtung vor den Regeln des Hauses.
+
+### Mirakel-Möglichkeiten
+
+**Eigenschaften:**
+- Klugheit (bei der Vermittlung und umsichtigem Haushalten)
+- Intuition (um Bedürfnisse und Spannungen in einer Gemeinschaft zu erfassen)
+- Charisma (um Vertrauen und Zusammenhalt zu stiften)
+
+**Talente:**
+- Etikette (bei Gastrecht, Einladungen und Familienritualen)
+- Menschenkenntnis (um Streit und Notlagen zu erkennen)
+- Überzeugen (bei Vermittlung und Versöhnung)
+- Lehren (bei der Weitergabe von Traditionen)
+- Heilkunde (bei der Versorgung von Gästen und Angehörigen)
+- Götter und Kulte (Wissen über Travias Gebote und Riten)
+- Schätzen (beim gerechten Teilen und Verwalten von Vorräten)
+
+### Liturgien für Travia Geweihte
+
+- **0:** Zwölf Primärsegnungen
+- **1:** Göttliches Zeichen; Prophezeiung; Mahlzeit segnen; Objektsegen
+- **2:** Sprachverständigung; Handwerk segnen; Initiation; Objektweihe; Heiliger Befehl; Nahrung erschaffen; Heimstein verorten; Treue des Tiergefährten; Feuerhaut
+- **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt; Freundliche Aufnahme; Segnung des Heimes; Schwellenbann; Speisen und Wasser reinigen; Segen der Heiligen Noiona
+- **4:** Liturgieeinweisung; Ordination
+- **5:** Anathema; Konsekration; Gebet der sicheren Zuflucht
+- **6:** Große Weihe des Heimsteins; Travias verborgene Halle
+
+## Boron - Gott des Todes und der Ruhe
+
+### Beschreibung
+
+Boron wacht über Tod, Schlaf und die Ruhe der Seelen. Seine Geweihten begleiten Sterbende, bestatten die Toten und stehen Trauernden bei. Sie schützen die Totenruhe und wenden sich gegen jene, die den Tod entwürdigen oder die Grenze zwischen Leben und Tod missachten.
+
+### Mirakel-Möglichkeiten
+
+**Eigenschaften:**
+- Mut (beim Umgang mit Tod, Untoten und unheimlichen Orten)
+- Intuition (um seelische Not und die Gegenwart von Geistern zu spüren)
+- Charisma (um Trauernde zu trösten und Sterbende zu begleiten)
+
+**Talente:**
+- Götter und Kulte (Kenntnis der Bestattungsriten und Borons Gebote)
+- Heilkunde (bei der Begleitung von Kranken und Sterbenden)
+- Menschenkenntnis (um Trauer und seelische Belastung zu erkennen)
+- Gelehrsamkeit (für Wissen über Tod, Geschichte und Rituale)
+- Sinnesschärfe (um Spuren des Unnatürlichen wahrzunehmen)
+- Lehren (bei der Vermittlung von Trost und Glaubensgrundsätzen)
+- Etikette (bei Totenfeiern und im Umgang mit Hinterbliebenen)
+
+### Liturgien für Boron Geweihte
+
+- **0:** Zwölf Primärsegnungen
+- **1:** Göttliches Zeichen; Prophezeiung; Gesegneter Schlaf; Ruf zur Ruhe; Objektsegen
+- **2:** Sprachverständigung; Handwerk segnen; Traumwirken; Initiation; Objektweihe; Heiliger Befehl; Kräuterwissen; Geisterblick; Tiefschlaf; Grabweihung
+- **3:** Zauber- und Fluchbruch; Exorzismus; Furcht lösen und bannen; Seelenprüfung; Vision; Tiergestalt; Hauch Borons; Siegel Borons; Segen der Heiligen Noiona
+- **4:** Liturgieeinweisung; Ordination; Nemekaths Zwiesprache
+- **5:** Anathema; Konsekration
+
+## Hesinde - Göttin des Wissens und der Magie
+
+### Beschreibung
+
+Hesinde steht für Wissen, Weisheit, Magie und die Kunst des Denkens. Ihre Geweihten sammeln und bewahren Erkenntnisse, unterrichten andere und erforschen das Unbekannte. Neugier soll mit Sorgfalt einhergehen: Wissen ist wertvoll, bringt aber auch Verantwortung mit sich.
+
+### Mirakel-Möglichkeiten
+
+**Eigenschaften:**
+- Klugheit (bei Forschung, Schlussfolgerungen und gelehrter Arbeit)
+- Intuition (um Zusammenhänge und verborgene Muster zu erkennen)
+- Charisma (beim Lehren und Vermitteln von Erkenntnissen)
+
+**Talente:**
+- Gelehrsamkeit (bei Forschung und der Einordnung von Wissen)
+- Magiekunde (beim Verständnis magischer Phänomene)
+- Alchemie (bei der Untersuchung und Herstellung von Substanzen)
+- Prophezeihen (bei der Deutung von Zeichen und möglichen Entwicklungen)
+- Götter und Kulte (Kenntnis Hesindes und religiöser Überlieferungen)
+- Lehren (bei Unterricht und Wissensvermittlung)
+- Schätzen (bei der Prüfung von Büchern, Artefakten und Sammlungen)
+
+### Liturgien für Hesinde Geweihte
+
+- **0:** Zwölf Primärsegnungen
+- **1:** Göttliches Zeichen; Prophezeiung; Sprechende Symbole; Objektsegen
+- **2:** Sprachverständigung; Handwerk segnen; Initiation; Objektweihe; Heiliger Befehl; Magiesicht; Gift erkennen
+- **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt; Argelions Mantel; Ordnender Blick; Hesindes Fingerzeig; Aura der Form; Unverstellter Blick; Graues Siegel
+- **4:** Zauberspiegel; Seelenheilung; Liturgieeinweisung; Ordination; Alchimistische Erkenntnis
+- **5:** Anathema; Konsekration; Argelions bannende Hand; Schöpferische Eingebung
+
+## Firun - Gott der Jagd und Kälte
+
+### Beschreibung
+
+Firun verkörpert die unerbittliche Natur, die Jagd und die Kälte des Winters. Seine Geweihten suchen die Herausforderung, verlassen sich auf eigene Fähigkeiten und gehen sparsam mit dem um, was die Wildnis ihnen bietet. Sie achten die Beute und sehen Entbehrung als Prüfung von Ausdauer und Selbstbeherrschung.
+
+### Mirakel-Möglichkeiten
+
+**Eigenschaften:**
+- Mut (bei der Jagd und im Angesicht großer Gefahren)
+- Konstitution (bei Kälte, Hunger und langen Märschen)
+- Charisma (um eine Jagdgemeinschaft zu führen und zu stärken)
+
+**Talente:**
+- Jagen (bei der ehrbaren und maßvollen Jagd)
+- Wildnisleben (beim Überleben in rauer Umgebung)
+- Sinnesschärfe (beim Aufspüren von Beute und Gefahren)
+- Heimlichkeit (bei der lautlosen Pirsch)
+- Schwimmen (beim Durchqueren kalter Gewässer)
+- Götter und Kulte (Kenntnis von Firuns Geboten und Riten)
+- Kriegskunst (bei der Planung einer gefährlichen Jagd oder Expedition)
+
+### Liturgien für Firun Geweihte
+
+- **0:** Zwölf Primärsegnungen
+- **1:** Göttliches Zeichen; Prophezeiung; Objektsegen
+- **2:** Sprachverständigung; Handwerk segnen; Initiation; Objektweihe; Heiliger Befehl; Wetter und Gewässer
+- **3:** Zauber- und Fluchbruch; Exorzismus; Furcht lösen und bannen; Seelenprüfung; Vision; Tiergestalt
+- **4:** Liturgieeinweisung; Ordination
+- **5:** Anathema; Konsekration
+
+## Tsa - Göttin der Erneuerung und Heilung
+
+### Beschreibung
+
+Tsa steht für Leben, Wandel, Heilung und jeden Neuanfang. Ihre Geweihten helfen Verletzten und fördern friedliche Lösungen, setzen sich für Freiheit und Selbstbestimmung ein und begegnen Veränderungen ohne Vorurteil. Sie betrachten jedes Leben als schützenswert und lehnen unnötige Gewalt ab.
+
+### Mirakel-Möglichkeiten
+
+**Eigenschaften:**
+- Klugheit (bei Heilung und der Suche nach neuen Lösungen)
+- Intuition (um zu erkennen, was ein Mensch für einen Neuanfang braucht)
+- Charisma (um Hoffnung und Zuversicht zu vermitteln)
+
+**Talente:**
+- Heilkunde (bei Versorgung und Heilung)
+- Menschenkenntnis (um Bedürfnisse und seelische Belastungen zu erkennen)
+- Überzeugen (um friedliche Wege und Veränderungen zu ermöglichen)
+- Lehren (bei der Begleitung und Förderung anderer)
+- Götter und Kulte (Kenntnis von Tsas Lehren und Festen)
+- Gelehrsamkeit (bei der Suche nach neuen Erkenntnissen)
+- Tierempathie (im fürsorglichen Umgang mit Tieren)
+
+### Liturgien für Tsa Geweihte
+
+- **0:** Zwölf Primärsegnungen
+- **1:** Göttliches Zeichen; Prophezeiung; Objektsegen; Gegenstände reparieren; Kälbchensegen; Wundersame Blütenpracht
+- **2:** Sprachverständigung; Tierempathie; Handwerk segnen; Heilwunder; Initiation; Objektweihe; Heiliger Befehl; Segensreicher Neuanfang
+- **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt; Eidechsenhaut; Verbergen
+- **4:** Liturgieeinweisung; Ordination; Befreiung
+- **5:** Anathema; Konsekration; Tsas Wunderbare Erneuerung
+- **6:** Tsas ewige Jugend
+
+## Phex - Gott der Diebe und Händler
+
+### Beschreibung
+
+Phex steht für Glück, Handel, List und alles, was im Verborgenen geschieht. Seine Geweihten vertrauen auf Klugheit und Gelegenheit, handeln geschickt und bewahren ihre Absichten. Manche wirken als Kaufleute, andere als Diebe oder Vermittler; entscheidend sind Eigenständigkeit, Können und der Reiz einer gelungenen Herausforderung.
+
+### Mirakel-Möglichkeiten
+
+**Eigenschaften:**
+- Mut (beim Eingehen kalkulierter Risiken)
+- Intuition (um günstige Gelegenheiten und Gefahren zu erkennen)
+- Charisma (bei Verhandlungen und überzeugenden Auftritten)
+
+**Talente:**
+- Gassenwissen (um sich in Städten und zwielichtigen Kreisen zurechtzufinden)
+- Schätzen (bei Handel und der Prüfung von Wertgegenständen)
+- Glücksspiel (bei Spielen um Glück und Geschick)
+- Diebstahl (bei heimlichem Zugriff auf eine Gelegenheit)
+- Schlösser knacken (beim Öffnen mechanischer Sicherungen)
+- Heimlichkeit (um unbemerkt zu bleiben)
+- Menschenkenntnis (um Absichten und Verhandlungsspielräume zu erkennen)
+
+### Liturgien für Phex Geweihte
+
+- **0:** Zwölf Primärsegnungen
+- **1:** Göttliches Zeichen; Prophezeiung; Objektsegen
+- **2:** Sprachverständigung; Handwerk segnen; Initiation; Objektweihe; Heiliger Befehl; Magiesicht; Auge des Händlers; Auge des Mondes; Blick für das Handwerk
+- **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt; Verbergen; Unverstellter Blick; Graues Siegel; Phexens Augenzwinkern; Phexens Elsterflug
+- **4:** Liturgieeinweisung; Ordination; Nebelgestalt; Phexens Sternenwurf
+- **5:** Anathema; Konsekration; Phexens Meisterschlüssel; Phexens Schatten
+- **6:** Schattenlarve
+
+## Peraine - Göttin der Landwirtschaft und Fruchtbarkeit
+
+### Beschreibung
+
+Peraine wacht über Ackerbau, Heilkunst und das Gedeihen allen Lebens. Ihre Geweihten pflegen Kranke, unterstützen Bauern und helfen einer Gemeinschaft durch Krankheit oder Missernte. Sie wissen, dass Wachstum Zeit braucht und Fürsorge aus Geduld, Wissen und täglicher Arbeit besteht.
+
+### Mirakel-Möglichkeiten
+
+**Eigenschaften:**
+- Klugheit (bei Heilkunst, Landwirtschaft und umsichtigem Rat)
+- Intuition (um Krankheiten und den Zustand von Pflanzen zu erkennen)
+- Charisma (um Menschen zu ermutigen und Fürsorge zu organisieren)
+
+**Talente:**
+- Heilkunde (bei der Behandlung von Kranken und Verletzten)
+- Wildnisleben (bei der Nutzung und Pflege des Landes)
+- Jagen (bei der Versorgung einer Gemeinschaft)
+- Gelehrsamkeit (bei Pflanzenkunde und überliefertem Heilwissen)
+- Götter und Kulte (Kenntnis von Peraine und ihren Riten)
+- Lehren (bei der Weitergabe von Heil- und Anbauwissen)
+- Schätzen (bei der Einschätzung von Vorräten und Ernten)
+
+### Liturgien für Peraine Geweihte
+
+- **0:** Zwölf Primärsegnungen
+- **1:** Göttliches Zeichen; Prophezeiung; Kälbchensegen; Mahlzeit segnen; Objektsegen
+- **2:** Sprachverständigung; Handwerk segnen; Heilwunder; Initiation; Objektweihe; Heiliger Befehl; Pflanzengespür; Kleiner Giftbann
+- **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt; Saat schützen; Speisen und Wasser reinigen; Segen der Heiligen Noiona
+- **4:** Liturgieeinweisung; Ordination
+- **5:** Anathema; Konsekration; Frühlingslobpreisung
+
+## Ingerimm - Gott des Feuers und Handwerks
+
+### Beschreibung
+
+Ingerimm steht für Feuer, Erz, Handwerk und das Schaffen mit den eigenen Händen. Seine Geweihten achten Können, Fleiß und die Beständigkeit eines gut gefertigten Werkes. Sie arbeiten häufig selbst als Handwerker und bewahren Wissen über Werkstoffe, Werkzeuge und die Kräfte tief unter der Erde.
+
+### Mirakel-Möglichkeiten
+
+**Eigenschaften:**
+- Mut (bei gefährlicher Arbeit und im Umgang mit Feuer)
+- Körperkraft (beim Schmieden, Bauen und Bearbeiten harter Materialien)
+- Charisma (um eine Werkstatt oder Baugemeinschaft anzuleiten)
+
+**Talente:**
+- Schätzen (bei der Prüfung von Material und Werkstücken)
+- Alchemie (bei der Arbeit mit Metallen und besonderen Stoffen)
+- Gelehrsamkeit (bei Baukunst und überliefertem Handwerkswissen)
+- Götter und Kulte (Kenntnis von Ingerimms Geboten und Riten)
+- Kriegskunst (bei Befestigungen und zweckmäßiger Bauplanung)
+- Jagen (bei der Beschaffung natürlicher Werkstoffe)
+
+### Liturgien für Ingerimm Geweihte
+
+- **0:** Zwölf Primärsegnungen
+- **1:** Göttliches Zeichen; Prophezeiung; Gegenstände reparieren; Heilige Schmiedeglut; Objektsegen
+- **2:** Sprachverständigung; Handwerk segnen; Initiation; Objektweihe; Heiliger Befehl; Blick für das Handwerk; Feuerhaut; Felsenschutz; Metall erhitzen; Segensreicher Neuanfang
+- **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Waliburias Wehr
+- **4:** Liturgieeinweisung; Ordination; Feuer lenken; Unterirdische Gefahr erspüren
+- **5:** Anathema; Konsekration; Lavaströme lenken; Schutz vor Ingerimms Zorn; Schöpferische Eingebung
+- **6:** Eherne Kraft – lodernder Zorn
+
+## Rahja - Göttin der Liebe und des Rausches
+
+### Beschreibung
+
+Rahja steht für Liebe, Schönheit, Sinnlichkeit, Kunst und Lebensfreude. Ihre Geweihten fördern Begegnungen, Versöhnung und den Genuss des Augenblicks. Sie achten auf die Freiheit und Einwilligung aller Beteiligten und sehen Freude nicht als Pflicht, sondern als Geschenk, das geteilt werden kann.
+
+### Mirakel-Möglichkeiten
+
+**Eigenschaften:**
+- Intuition (um Stimmungen und Wünsche einfühlsam wahrzunehmen)
+- Gewandtheit (bei Tanz, Kunst und anmutiger Bewegung)
+- Charisma (bei Auftritten, Begegnungen und Vermittlung)
+
+**Talente:**
+- Vortrag (bei Gesang, Dichtung und künstlerischer Darbietung)
+- Überzeugen (um Menschen zusammenzubringen und Streit zu schlichten)
+- Menschenkenntnis (um Gefühle und Grenzen zu respektieren)
+- Etikette (bei Festen, Begegnungen und höfischem Umgang)
+- Akrobatik (bei Tanz und körperlicher Darbietung)
+- Reiten (bei Reisen und festlichen Auftritten)
+- Götter und Kulte (Kenntnis von Rahjas Geboten und Festen)
+
+### Liturgien für Rahja Geweihte
+
+- **0:** Zwölf Primärsegnungen
+- **1:** Göttliches Zeichen; Prophezeiung; Gesegneter Schlaf; Objektsegen; Rausch lösen
+- **2:** Sprachverständigung; Handwerk segnen; Traumwirken; Initiation; Objektweihe; Heiliger Befehl; Rauschsegen; Heiliges Liebesspiel
+- **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt; Fest der Freude; Segen der Heiligen Noiona
+- **4:** Liturgieeinweisung; Ordination; Befreiung
+- **5:** Anathema; Konsekration; Khablas makelloser Leib
+- **6:** Rahjas Sinnlichkeit
 
 

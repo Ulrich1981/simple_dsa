@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple DSA</title>
+    <title>Simple DSA / Ars Magica</title>
     <style>
         :root {
-        --bg: #0f1420;
+        --bg: #eeeeee;
             --card: #182032;
             --text: #e6edf7;
             --muted: #a8b3c7;
@@ -40,6 +40,13 @@
             display: flex;
             flex-direction: column;
         }
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
         .nav-buttons, .nav-btn  {
             padding: 2px 2px;
             border: 1px solid #bbb;
@@ -75,21 +82,36 @@
             border-radius: 5px;
             flex: 1;
         }
+
+        .system-select {
+            background: #ffffff;
+            color: #111;
+            padding: 2px 6px;
+            border: 1px solid #bbb;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Simple DSA</h1>
-        <div class="nav-buttons">
+        <h1>Simple DSA / Ars Magica</h1>
+        <div class="nav-controls">
             <button class="nav-btn" onclick="showHome()">Home</button>
-            <button class="nav-btn" onclick="loadRulebook()">Regelwerk</button>
-            <button class="nav-btn" onclick="loadCharacterGenerator()">Charakter Generator</button>
+            <label for="systemSelect">System:</label>
+            <select id="systemSelect" class="system-select">
+                <option value="dsa">Simple DSA</option>
+                <option value="ars">Ars Magica</option>
+            </select>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="loadMode('rulebook')">Regelwerk</button>
+                <button class="nav-btn" onclick="loadMode('generator')">Charaktergenerator</button>
+            </div>
         </div>
     </div>
 
     <div class="content-area" id="contentArea">
         <div class="welcome">
-            <h2>Willkommen bei Simple DSA</h2>
+            <h2>Willkommen beim Charaktertool</h2>
             <p>Wähle ein Tool aus der obigen Navigation, um zu beginnen.</p>
         </div>
     </div>
@@ -119,23 +141,35 @@
         }
 
         // Load rulebook
-        function loadRulebook() {
-            setActiveButton('Rulebook');
+        function loadRulebook(system) {
             showLoading();
-            
-            // Option 1: Load as iframe (if it's an HTML file)
+
             document.getElementById('contentArea').innerHTML = 
-                '<iframe src="simple_dsa.html"></iframe>';
+                `<iframe src="${system === 'ars' ? 'ars_magica.md' : 'simple_dsa.md'}"></iframe>`;
         }
 
         // Load character generator
-        function loadCharacterGenerator() {
-            setActiveButton('Character Generator');
+        function loadCharacterGenerator(system) {
             showLoading();
             
             // Load your character generator page
             document.getElementById('contentArea').innerHTML = 
-                '<iframe src="character_generator/index.html"></iframe>';
+                `<iframe src="character_generator/index.html?system=${system}"></iframe>`;
+        }
+
+        function selectedSystem() {
+            const select = document.getElementById('systemSelect');
+            return (select && select.value) || 'dsa';
+        }
+
+        function loadMode(mode) {
+            const system = selectedSystem();
+            setActiveButton(mode === 'rulebook' ? 'Regelwerk' : 'Charaktergenerator');
+            if (mode === 'rulebook') {
+                loadRulebook(system);
+            } else {
+                loadCharacterGenerator(system);
+            }
         }
 
         // Show home page
@@ -143,11 +177,12 @@
             setActiveButton('Home');
             document.getElementById('contentArea').innerHTML = `
                 <div class="welcome">
-                    <h2>Willkommen bei Simple DSA</h2>
+                    <h2>Willkommen beim Charaktertool</h2>
                     <p>Wähle ein Tool aus der obigen Navigation, um zu beginnen.</p>
                     <ul style="text-align: left; max-width: 400px; margin: 0 auto;">
-                        <li><strong>Regelwerk:</strong> Sieh dir die vollständigen Spielregeln und Mechaniken an</li>
-                        <li><strong>Charakter Generator:</strong> Erstelle und passe deine Charaktere an</li>
+                        <li><strong>System:</strong> Wähle das gewünschte Regelsystem aus</li>
+                        <li><strong>Regelwerk:</strong> Öffnet das Regelwerk des gewählten Systems</li>
+                        <li><strong>Charaktergenerator:</strong> Öffnet den Generator des gewählten Systems</li>
                     </ul>
                 </div>
             `;
@@ -155,6 +190,18 @@
 
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
+            const select = document.getElementById('systemSelect');
+            if (select) {
+                select.addEventListener('change', () => {
+                    const active = document.querySelector('.nav-btn.active');
+                    if (!active) return;
+                    if (active.textContent === 'Regelwerk') {
+                        loadMode('rulebook');
+                    } else if (active.textContent === 'Charaktergenerator') {
+                        loadMode('generator');
+                    }
+                });
+            }
             showHome();
         });
     </script>

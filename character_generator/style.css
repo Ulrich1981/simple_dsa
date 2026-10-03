@@ -30,10 +30,14 @@ h3 {
 }
 
 header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   padding: 2px 2px;
   max-width: 1600px;
   background: var(--card);
   margin: 0 auto;
+  border-bottom: 1px solid var(--border);
 }
 main {
   padding: 2px;
@@ -94,6 +98,12 @@ input[type="file"] { padding: 2px; }
 .hint {
   color: var(--muted);
   font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.row-controls {
+  display: flex;
+  justify-content: flex-end;
   margin-bottom: 4px;
 }
 
@@ -253,7 +263,7 @@ input.num { width: 3ch; }
 @media print {
   @page { size: A4 portrait; margin: 8mm; }
   body { background: #fff; color: #000; font-size: 6pt; line-height: 1.2; }
-  header { padding: 2px 2px; border-bottom: 1px solid #ddd; }
+  header { position: static; top: auto; z-index: auto; padding: 2px 2px; border-bottom: 1px solid #ddd; }
   main { padding: 0; max-width: none; width: 100%; }
 
   .page-grid, .split-grid, .table-grid {

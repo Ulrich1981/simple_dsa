@@ -2,6 +2,7 @@
 
 let defs = null; // definitions.yaml
 let ui   = null; // layout.yaml
+let attributeSectionId = 'Eigenschaften';
 
 const state = {
   ap_total: 0,
@@ -21,15 +22,161 @@ const els = {
 
 // utils
 function parseNum(v){ const s=String(v??'').trim(); if(s==='') return 0; const n=Number(s.replace(',','.')); return isNaN(n)?0:n; }
+function normalizeProgressionValue(sec, value){
+  const raw = String(value ?? '').trim();
+  const specialValue = (sec?.allowed_text_values || []).find(item => String(item).toUpperCase() === raw.toUpperCase());
+  return specialValue ?? parseNum(value ?? 0);
+}
 function tri(n){ n=parseNum(n); if(n<0) n=0; return (n*(n+1))/2; }
 function get(o,p,d){ return p.split('.').reduce((x,k)=> x && (k in x) ? x[k] : undefined, o) ?? d; }
 function createDiv(text, cls){ const d=document.createElement('div'); if (text!==undefined) d.textContent=String(text); if(cls) d.className=cls; return d; }
 function setText(id,v){ const el=document.getElementById(id); if(el) el.textContent=String(v); }
 function setInput(id,v){ const el=document.getElementById(id); if(el && el.tagName==='INPUT'){ el.value=(v===0||v===undefined||v==='')?'':String(v); } }
-function makeNumInput(val,on){ const i=document.createElement('input'); i.type='text'; i.placeholder='0'; i.value=(val===0||val===undefined||val==='')?'':String(val); i.className='num'; i.addEventListener('input',()=>on(parseNum(i.value))); return i; }
+function makeNumInput(val,on,allowedTextValues=[]){ const i=document.createElement('input'); i.type='text'; i.placeholder='0'; i.value=(val===0||val===undefined||val==='')?'':String(val); i.className='num'; i.addEventListener('input',()=>{ const raw=String(i.value).trim(); const special=(allowedTextValues||[]).find(item=>String(item).toUpperCase()===raw.toUpperCase()); on(special ?? parseNum(raw)); }); return i; }
 function isNumericFieldType(type){ return type === 'number' || type === 'input.number_text'; }
 function normalizeFieldValue(type, value){ return isNumericFieldType(type) ? parseNum(value ?? 0) : (value ?? ''); }
 function formatComputedDisplay(main, bracket){ return `${main} (${bracket})`; }
+
+function getStateNumberByKey(stateKey, fallback = 0){
+  return parseNum(state.values[stateKey] ?? fallback);
+}
+
+function getStateTextByKey(stateKey, fallback = ''){
+  return String(state.values[stateKey] ?? fallback);
+}
+
+function evalProfileAgeLinearPoints(formula){
+  const p = formula.params || {};
+  const age = getStateNumberByKey(p.age_state_key || '', parseNum(p.default_age ?? 0));
+  const profile = getStateTextByKey(p.profile_state_key || '', String(p.default_profile ?? ''));
+  const profiles = p.profiles || {};
+
+  const fallbackCfg = {
+    base: parseNum(p.base ?? 0),
+    start_age: parseNum(p.start_age ?? 0),
+    per_year: parseNum(p.per_year ?? 0)
+  };
+  const selectedCfg = profiles[profile] || fallbackCfg;
+
+  const base = parseNum(selectedCfg.base ?? fallbackCfg.base ?? 0);
+  const startAge = parseNum(selectedCfg.start_age ?? fallbackCfg.start_age ?? 0);
+  const perYear = parseNum(selectedCfg.per_year ?? fallbackCfg.per_year ?? 0);
+  const years = Math.max(0, age - startAge);
+
+  return { value: parseNum(base + years * perYear) };
+}
+
+function evalSectionSignedTriBudget(formula){
+  const p = formula.params || {};
+  const sec = sections.find(s => s.id === p.section_id);
+  if (!sec) return null;
+
+  const budget = parseNum(p.budget ?? 0);
+  const includeGroups = !!p.include_groups;
+
+  let spent = 0;
+  (sec.items || []).forEach(it => {
+    const val = parseNum(state.values[generateKey(sec, it)] ?? it.value ?? 0);
+    const points = tri(Math.abs(val));
+    spent += val >= 0 ? points : -points;
+  });
+
+  if (includeGroups) {
+    (sec.groups || []).forEach(gr => {
+      const valueKeyPrefix = `${sec.id}-${gr.id}`;
+      (gr.items || []).forEach(it => {
+        const val = parseNum(state.values[generateKey(sec, it, 'value', valueKeyPrefix)] ?? it.value ?? 0);
+        const points = tri(Math.abs(val));
+        spent += val >= 0 ? points : -points;
+      });
+    });
+  }
+
+  return {
+    spent,
+    budget,
+    remaining: parseNum(budget - spent),
+    value: spent
+  };
+}
+
+const GLOBAL_FORMULA_HANDLERS = {
+  profile_age_linear_points: evalProfileAgeLinearPoints,
+  section_signed_tri_budget: evalSectionSignedTriBudget
+};
+
+function evaluateGlobalFormula(formulaId){
+  if (!formulaId) return null;
+  const formula = get(defs, `globals.formulas.${formulaId}`, null);
+  if (!formula) return null;
+
+  const handler = GLOBAL_FORMULA_HANDLERS[formula.type];
+  if (!handler) return null;
+
+  return handler(formula);
+}
+
+function getConfiguredApTotal(){
+  const cfg = get(defs, 'globals.ap_total_formula', null);
+  if (!cfg) return null;
+
+  const formulaId = typeof cfg === 'string' ? cfg : cfg.formula_id;
+  if (!formulaId) return null;
+
+  const result = evaluateGlobalFormula(formulaId);
+  if (!result || typeof result.value === 'undefined' || result.value === null) return null;
+
+  return {
+    value: parseNum(result.value),
+    readOnly: typeof cfg === 'object' ? cfg.read_only !== false : true,
+    title: typeof cfg === 'object' ? String(cfg.title || '') : ''
+  };
+}
+
+function renderTemplate(template, data){
+  return String(template || '').replace(/\{([a-zA-Z0-9_]+)\}/g, (_, key) => {
+    const v = data && Object.prototype.hasOwnProperty.call(data, key) ? data[key] : '';
+    return String(v);
+  });
+}
+
+function formatGlobalStatValue(statCfg, result){
+  if (result === null || typeof result === 'undefined') return '';
+  if (typeof statCfg?.template === 'string') {
+    const data = (result && typeof result === 'object') ? result : { value: result };
+    return renderTemplate(statCfg.template, data);
+  }
+  if (typeof result === 'object' && Object.prototype.hasOwnProperty.call(result, 'value')) {
+    return String(result.value);
+  }
+  return String(result);
+}
+
+function updateConfiguredStatsDisplay(){
+  const statsRow = document.querySelector('.stats');
+  if (!statsRow) return;
+
+  statsRow.querySelectorAll('.derived-stat').forEach(el => el.remove());
+
+  const stats = get(defs, 'globals.stats', []);
+  if (!Array.isArray(stats) || !stats.length) return;
+
+  stats.forEach((statCfg, idx) => {
+    const formulaId = statCfg?.formula_id;
+    if (!formulaId) return;
+
+    const result = evaluateGlobalFormula(formulaId);
+    const text = formatGlobalStatValue(statCfg, result);
+    if (!text) return;
+
+    const stat = document.createElement('div');
+    stat.className = 'stat derived-stat';
+    stat.id = `derivedStat${idx}`;
+    const label = String(statCfg.label || statCfg.id || formulaId);
+    stat.innerHTML = `<div>${label}:</div><div><span>${text}</span></div>`;
+    statsRow.appendChild(stat);
+  });
+}
 
 // formulas
 function basisFrom(list){
@@ -39,6 +186,7 @@ function basisFrom(list){
 
 function total(calc_id, basis, value){
   if (calc_id==='value_only') return parseNum(value);
+  if (calc_id==='level_cost') return parseNum(value);
   if (calc_id==='base_plus_value') return parseNum(basis) + parseNum(value);
   if (calc_id==='base_plus_value_minus_10') return parseNum(basis) + parseNum(value) - 10;
   if (calc_id==='weighted_base_value'){
@@ -66,6 +214,11 @@ function cpi(sectionCpi, groupOv, itemOv){
   const pick = ov => ov && typeof ov.cost_per_increment !== 'undefined' ? Number(ov.cost_per_increment) : undefined;
   const x = pick(itemOv) ?? pick(groupOv) ?? Number(sectionCpi ?? 0);
   return isNaN(x)?0:x;
+}
+
+function progressionApCost(calcId, value, costPerIncrement){
+  const amount = Math.max(0, parseNum(value));
+  return (calcId === 'level_cost' ? amount : tri(amount)) * costPerIncrement;
 }
 
 // Hilfsfunktion für konsistente Key-Generierung
@@ -102,33 +255,239 @@ function normalizeOption(opt){
   return { id, label };
 }
 
-function optionsFromSource(source){
+function cloneItemTemplate(template, id){
+  return {
+    ...template,
+    id,
+    label: template.label || '',
+    basis: Array.isArray(template.basis) ? [...template.basis] : [],
+    value: parseNum(template.value ?? 0),
+    fields: Array.isArray(template.fields)
+      ? template.fields.map(f => ({ ...f, value: f.value ?? '' }))
+      : undefined,
+    overrides: { ...(template.overrides || {}) }
+  };
+}
+
+function deriveRepeatableId(baseId, existingIds){
+  const ids = new Set(existingIds || []);
+  const m = String(baseId || '').match(/^(.*?)(\d+)$/);
+  if (m) {
+    const prefix = m[1];
+    let n = parseInt(m[2], 10) || 1;
+    while (ids.has(`${prefix}${n}`)) n += 1;
+    return `${prefix}${n}`;
+  }
+
+  let n = 1;
+  while (ids.has(`${baseId}_${n}`)) n += 1;
+  return `${baseId}_${n}`;
+}
+
+function getRepeatableConfig(sec){
+  const cfg = sec?.repeatable_rows;
+  if (!cfg || cfg.enabled === false) return null;
+  return {
+    enabled: true,
+    min_rows: Math.max(1, parseNum(cfg.min_rows ?? 1)),
+    template_item_id: cfg.template_item_id || null,
+    add_label: String(cfg.add_label || '+ Row'),
+    remove_label: String(cfg.remove_label || '-')
+  };
+}
+
+function getRepeatableTemplateItem(sec){
+  const cfg = getRepeatableConfig(sec);
+  if (!cfg) return null;
+  if (cfg.template_item_id) {
+    const t = (sec.items || []).find(it => it.id === cfg.template_item_id);
+    if (t) return t;
+  }
+  if ((sec.items || []).length) return sec.items[0];
+  return sec.repeatable_template || null;
+}
+
+function seedItemState(sec, it, valueKeyPrefix = null){
+  state.values[generateKey(sec, it, 'value', valueKeyPrefix)] = normalizeProgressionValue(sec, it.value ?? 0);
+  (it.fields || []).forEach(field => {
+    const key = generateKey(sec, it, field.id, valueKeyPrefix);
+    state.values[key] = normalizeFieldValue(field.type, field.value ?? '');
+  });
+}
+
+function dropItemState(sec, it, valueKeyPrefix = null){
+  delete state.values[generateKey(sec, it, 'value', valueKeyPrefix)];
+  delete state.values[generateKey(sec, it, 'label', valueKeyPrefix)];
+  (it.fields || []).forEach(field => {
+    delete state.values[generateKey(sec, it, field.id, valueKeyPrefix)];
+  });
+}
+
+function ensureRepeatableMinRows(sec){
+  const cfg = getRepeatableConfig(sec);
+  if (!cfg) return;
+  const template = getRepeatableTemplateItem(sec);
+  if (!template) return;
+
+  const existingIds = (sec.items || []).map(it => String(it.id));
+  while ((sec.items || []).length < cfg.min_rows) {
+    const id = deriveRepeatableId(template.id, existingIds);
+    existingIds.push(id);
+    const newItem = cloneItemTemplate(template, id);
+    sec.items.push(newItem);
+  }
+}
+
+function initializeRepeatableRows(sec){
+  const cfg = getRepeatableConfig(sec);
+  if (!cfg) return;
+
+  const template = getRepeatableTemplateItem(sec);
+  if (!template) return;
+
+  // Always start repeatable sections with exactly min_rows rows.
+  sec.items = [cloneItemTemplate(template, template.id)];
+
+  const existingIds = [String(template.id)];
+  while (sec.items.length < cfg.min_rows) {
+    const id = deriveRepeatableId(template.id, existingIds);
+    existingIds.push(id);
+    sec.items.push(cloneItemTemplate(template, id));
+  }
+}
+
+function addRepeatableRow(sec){
+  const cfg = getRepeatableConfig(sec);
+  if (!cfg) return;
+  const template = getRepeatableTemplateItem(sec);
+  if (!template) return;
+
+  const existingIds = (sec.items || []).map(it => String(it.id));
+  const newId = deriveRepeatableId(template.id, existingIds);
+  const newItem = cloneItemTemplate(template, newId);
+  sec.items.push(newItem);
+  seedItemState(sec, newItem);
+  render();
+  recalc();
+}
+
+function removeRepeatableRow(sec, itemId){
+  const cfg = getRepeatableConfig(sec);
+  if (!cfg) return;
+  if ((sec.items || []).length <= cfg.min_rows) return;
+
+  const idx = (sec.items || []).findIndex(it => it.id === itemId);
+  if (idx < 0) return;
+  const [removed] = sec.items.splice(idx, 1);
+  if (removed) dropItemState(sec, removed);
+  render();
+  recalc();
+}
+
+function restoreRepeatableItemsFromSave(currentSec, savedItems){
+  const cfg = getRepeatableConfig(currentSec);
+  if (!cfg || !Array.isArray(savedItems)) return;
+
+  const template = getRepeatableTemplateItem(currentSec);
+  if (!template) return;
+
+  const existing = new Set();
+  const rebuilt = savedItems.map(savedItem => {
+    const requestedId = String(savedItem?.id || '').trim();
+    const id = requestedId && !existing.has(requestedId)
+      ? requestedId
+      : deriveRepeatableId(template.id, Array.from(existing));
+    existing.add(id);
+    return cloneItemTemplate(template, id);
+  });
+
+  currentSec.items = rebuilt;
+  ensureRepeatableMinRows(currentSec);
+}
+
+function sourceItemsForSelect(source){
   if (!source?.section_id) return [];
   const sec = sections.find(s => s.id === source.section_id);
   if (!sec) return [];
 
-  let srcItems = [];
-  if (source.group_id) {
-    const grp = (sec.groups || []).find(g => g.id === source.group_id);
-    srcItems = grp?.items || [];
-  } else {
-    srcItems = sec.items || [];
+  let groupId = source.group_id || '';
+  if (source.group_id_by_state_key) {
+    const stateValue = String(state.values[source.group_id_by_state_key] ?? '');
+    groupId = source.group_id_map?.[stateValue] || '';
+    if (!groupId) return [];
   }
 
-  return srcItems.map(it => ({ id: String(it.id), label: String(it.label || it.id) }));
+  if (groupId) {
+    const group = (sec.groups || []).find(item => item.id === groupId);
+    return group?.items || [];
+  }
+
+  return sec.items || [];
 }
 
-function resolveSelectOptions(field){
+function findSelectSourceItem(source, itemId){
+  if (!itemId) return null;
+  return sourceItemsForSelect(source).find(item => String(item.id) === String(itemId)) || null;
+}
+
+function optionsFromSource(source, currentItem = null){
+  let srcItems = sourceItemsForSelect(source);
+  if (source?.exclude_selected_from_section && currentItem) {
+    const selectedSection = sections.find(sec => sec.id === source.exclude_selected_from_section);
+    const selectedFieldId = source.exclude_selected_field_id || 'name';
+    const selectedIds = new Set((selectedSection?.items || [])
+      .filter(item => item.id !== currentItem.id)
+      .map(item => String(state.values[generateKey(selectedSection, item, selectedFieldId)] ?? ''))
+      .filter(Boolean));
+    srcItems = srcItems.filter(item => !selectedIds.has(String(item.id)));
+  }
+
+  return srcItems.map(item => {
+    const label = String(item.label || item.id);
+    const levelLabel = source?.show_level && item.level !== undefined
+      ? ` (Stufe ${item.level})`
+      : '';
+    return { id: String(item.id), label: `${label}${levelLabel}` };
+  });
+}
+
+function resolveSelectOptions(field, currentItem = null){
   if (!field) return [];
   if (Array.isArray(field.options)) {
     return field.options.map(normalizeOption).filter(Boolean);
   }
   if (field.options_from) {
-    return optionsFromSource(field.options_from);
+    return optionsFromSource(field.options_from, currentItem);
   }
   return [];
 }
 
+function clearInvalidDynamicSelectValues(){
+  sections.forEach(sec => {
+    (sec.items || []).forEach(item => {
+      (item.fields || []).forEach(field => {
+        if (!field.options_from?.group_id_by_state_key) return;
+        const selectedKey = generateKey(sec, item, field.id);
+        const selectedId = String(state.values[selectedKey] ?? '');
+        if (!selectedId) return;
+
+        const sourceItem = findSelectSourceItem(field.options_from, selectedId);
+        if (!sourceItem) {
+          state.values[selectedKey] = '';
+          item.label = '';
+          if (field.on_change_set_value_from_source) {
+            state.values[generateKey(sec, item, 'value')] = 0;
+          }
+          return;
+        }
+
+        if (field.on_change_set_value_from_source) {
+          state.values[generateKey(sec, item, 'value')] = parseNum(sourceItem[field.on_change_set_value_from] ?? 0);
+        }
+      });
+    });
+  });
+}
 function getSectionColumns(sectionId, grouped = false){
   const pages = ui?.Seiten || [];
   for (const page of pages) {
@@ -177,6 +536,15 @@ function getSectionItemFieldValue(sectionId, itemId, fieldId){
   return parseNum(state.values[key] ?? 0);
 }
 
+function getSectionItemValue(sectionId, itemId){
+  const sec = sections.find(s => s.id === sectionId);
+  if (!sec) return 0;
+  const item = (sec.items || []).find(i => i.id === itemId);
+  if (!item) return 0;
+  const key = generateKey(sec, item);
+  return parseNum(state.values[key] ?? item.value ?? 0);
+}
+
 function getOwnFieldValue(sec, it, fieldId, valueKeyPrefix = null){
   if (!fieldId) return 0;
   const key = generateKey(sec, it, fieldId, valueKeyPrefix);
@@ -191,17 +559,32 @@ function findGroupByValueKeyPrefix(sec, valueKeyPrefix = null){
   return (sec.groups || []).find(gr => gr.id === groupId) || null;
 }
 
+function selectedLevelCostValue(sec, it){
+  const field = (it.fields || []).find(candidate => candidate?.options_from?.group_id_by_state_key);
+  if (!field) return null;
+  const selectedId = String(state.values[generateKey(sec, it, field.id)] ?? '');
+  if (!selectedId) return 0;
+  const sourceItem = findSelectSourceItem(field.options_from, selectedId);
+  return parseNum(sourceItem?.level ?? 0);
+}
+
 function computeBasisAndTotal(sec, it, valueKeyPrefix = null){
   const group = findGroupByValueKeyPrefix(sec, valueKeyPrefix);
   const itemBasis = (Array.isArray(it.basis) && it.basis.length) ? it.basis : (sec.basis || []);
-  const basis = group ? basisFrom(group.basis || []) : basisFrom(itemBasis);
+  const dynamicBasis = sec.basis_by_state
+    ? sec.basis_by_state.mapping?.[String(state.values[sec.basis_by_state.field] ?? '')]
+    : null;
+  const basis = group ? basisFrom(group.basis || []) : basisFrom(dynamicBasis || itemBasis);
+  const calcId = it.overrides?.calc_id || sec.calc_id;
   const valueKey = valueKeyPrefix
     ? generateKey(sec, it, 'value', valueKeyPrefix)
     : generateKey(sec, it);
-  const value = parseNum(state.values[valueKey] ?? it.value ?? 0);
-  const calcId = it.overrides?.calc_id || sec.calc_id;
-  const totalValue = total(calcId, basis, value);
-  return { basis, totalValue, value, calcId };
+  const selectedLevel = calcId === 'level_cost' ? selectedLevelCostValue(sec, it) : null;
+  const rawValue = selectedLevel ?? state.values[valueKey] ?? it.value ?? 0;
+  const displayValue = normalizeProgressionValue(sec, rawValue);
+  const value = parseNum(displayValue);
+  const totalValue = typeof displayValue === 'string' ? displayValue : total(calcId, basis, value);
+  return { basis, totalValue, value, displayValue, calcId };
 }
 
 function basisFormulaText(sec, it, valueKeyPrefix = null){
@@ -231,12 +614,107 @@ function formatDiceWithModifier(dice, mod){
   return n > 0 ? `${d}+${n}` : `${d}${n}`;
 }
 
+function burdenFromLoad(load){
+  const n = Math.max(0, parseNum(load));
+  return Math.floor(Math.sqrt(2 * n + 0.25) - 0.5);
+}
+
+function sumFormulaTerms(terms, sec, it, valueKeyPrefix = null){
+  return (Array.isArray(terms) ? terms : []).reduce((sum, term) => {
+    const coeff = parseNum(term?.coeff ?? 1);
+    const termValue = resolveFormulaTermValue(term, sec, it, valueKeyPrefix);
+    return sum + coeff * parseNum(termValue);
+  }, 0);
+}
+
+function resolveFormulaTermValue(term, sec, it, valueKeyPrefix = null){
+  const source = term?.source || 'constant';
+
+  if (source === 'constant') {
+    return parseNum(term?.value ?? 0);
+  }
+
+  if (source === 'own_field') {
+    return getOwnFieldValue(sec, it, term?.field_id, valueKeyPrefix);
+  }
+
+  if (source === 'own_value') {
+    const key = generateKey(sec, it, 'value', valueKeyPrefix);
+    return parseNum(state.values[key] ?? it.value ?? 0);
+  }
+
+  if (source === 'section_item_value') {
+    return getSectionItemValue(term?.section_id, term?.item_id);
+  }
+
+  if (source === 'section_item_field') {
+    return getSectionItemFieldValue(term?.section_id, term?.item_id, term?.field_id);
+  }
+
+  if (source === 'selected_section_item_value') {
+    const selectedKey = generateKey(sec, it, term?.field_id, valueKeyPrefix);
+    const selectedId = String(state.values[selectedKey] ?? '');
+    if (!selectedId) return 0;
+    return getSectionItemValue(term?.section_id, selectedId);
+  }
+
+  if (source === 'burden_from_terms') {
+    const load = sumFormulaTerms(term?.terms || [], sec, it, valueKeyPrefix);
+    return burdenFromLoad(load);
+  }
+
+  if (source === 'encumbrance_from_terms') {
+    const load = sumFormulaTerms(term?.terms || [], sec, it, valueKeyPrefix);
+    const burden = burdenFromLoad(load);
+    const strength = getSectionItemValue(term?.strength_section_id, term?.strength_item_id);
+    if (strength > 0) return Math.max(0, burden - strength);
+    return burden;
+  }
+
+  return 0;
+}
+
 function computeCellValue(sec, it, col, valueKeyPrefix = null){
   const formulaId = col?.formula_id;
   if (!formulaId) return '';
 
   const formula = get(defs, `globals.formulas.${formulaId}`, null);
   if (!formula) return '';
+
+  if (formula.type === 'burden_from_terms') {
+    const p = formula.params || {};
+    const load = sumFormulaTerms(p.terms || [], sec, it, valueKeyPrefix);
+    return String(burdenFromLoad(load));
+  }
+
+  if (formula.type === 'encumbrance_from_terms') {
+    const p = formula.params || {};
+    const load = sumFormulaTerms(p.terms || [], sec, it, valueKeyPrefix);
+    const burden = burdenFromLoad(load);
+    const strength = getSectionItemValue(p.strength_section_id, p.strength_item_id);
+    const encumbrance = strength > 0 ? Math.max(0, burden - strength) : burden;
+    return String(encumbrance);
+  }
+
+  if (formula.type === 'selected_section_item_value_plus_terms') {
+    const p = formula.params || {};
+    const selectedKey = generateKey(sec, it, p.selected_field_id || '', valueKeyPrefix);
+    const selectedId = String(state.values[selectedKey] ?? '');
+    const selectedValue = selectedId ? getSectionItemValue(p.source_section_id, selectedId) : 0;
+    const terms = sumFormulaTerms(p.terms || [], sec, it, valueKeyPrefix);
+    const scale = parseNum(p.scale ?? 1);
+    const offset = parseNum(p.offset ?? 0);
+    return String(parseNum((selectedValue + terms) * scale + offset));
+  }
+
+  if (formula.type === 'sum_terms' || formula.type === 'scaled_sum_terms') {
+    const p = formula.params || {};
+    const base = sumFormulaTerms(p.terms || [], sec, it, valueKeyPrefix);
+
+    const scale = formula.type === 'scaled_sum_terms' ? parseNum(p.scale ?? 1) : 1;
+    const offset = parseNum(p.offset ?? 0);
+    return String(parseNum(base * scale + offset));
+  }
 
   if (formula.type === 'selected_group_total_plus_field_minus_section_field') {
     const p = formula.params || {};
@@ -302,20 +780,35 @@ function computeCellValue(sec, it, col, valueKeyPrefix = null){
 
 // normalization
 let sections = []; // normalized view
+function isAttributeSection(sec){
+  return !!sec && sec.id === attributeSectionId;
+}
+
 function normalize(defs){
   sections = (defs.sections || []).map(sec => ({
     id: sec.id,
     label: sec.label || '',
     type: sec.type || 'table',
+    provides_attributes: !!sec.provides_attributes,
     basis: sec.basis || [],
+    basis_by_state: sec.basis_by_state || null,
     calc_id: sec.calc_id || 'base_plus_value',
     cost_cpi: sec.cost_per_increment ?? 0,
+    allowed_text_values: sec.allowed_text_values || [],
     exclude_from_ap: !!sec.exclude_from_ap,
+    include_in_ap_when: sec.include_in_ap_when || null,
+    repeatable_rows: sec.repeatable_rows || null,
+    repeatable_template: (() => {
+      const cfg = sec.repeatable_rows || null;
+      if (!cfg || cfg.enabled === false) return null;
+      const src = (sec.items || []).find(it => it.id === cfg.template_item_id) || (sec.items || [])[0] || null;
+      return src ? cloneItemTemplate(src, src.id) : null;
+    })(),
     items: (sec.items || []).map(it => ({
       ...it,
       id: it.id, label: it.label || '',
       basis: it.basis || [],
-      value: parseNum(it.value ?? 0),
+      value: normalizeProgressionValue(sec, it.value ?? 0),
 	  fields: Array.isArray(it.fields)
         ? it.fields.map(f => ({
             ...f,
@@ -332,6 +825,7 @@ function normalize(defs){
     groups: (sec.groups || []).map(gr => ({
       id: gr.id, label: gr.label || '',
       basis: gr.basis || [],
+      show_if: gr.show_if || null,
       overrides: typeof gr.cost_per_increment !== 'undefined' ? { cost_per_increment: gr.cost_per_increment } : {},
       items: (gr.items || []).map(it => ({
         ...it,
@@ -354,6 +848,9 @@ function normalize(defs){
     })),
     fields: (sec.fields || []) // nur für type: header
   }));
+
+  sections.forEach(sec => initializeRepeatableRows(sec));
+  sections.forEach(sec => ensureRepeatableMinRows(sec));
 }
 
 // state init
@@ -365,8 +862,9 @@ function init(defText, layoutText){
 
 normalize(defs);
 
-// Eigenschaften für state.attributes initialisieren
-const attrSec = sections.find(s => s.id === 'Eigenschaften');
+// Attributquelle bestimmen (explizit oder per Legacy-ID)
+const attrSec = sections.find(s => s.provides_attributes) || sections.find(s => s.id === 'Eigenschaften');
+attributeSectionId = attrSec?.id || 'Eigenschaften';
 state.attributes = {};
 if (attrSec) {
   (attrSec.items || []).forEach(it => {
@@ -383,7 +881,7 @@ sections.forEach(sec => {
   });
   
   (sec.items || []).forEach(it => {
-    state.values[generateKey(sec, it)] = parseNum(it.value ?? 0);
+    state.values[generateKey(sec, it)] = normalizeProgressionValue(sec, it.value ?? 0);
     
     (it.fields || []).forEach(field => {
       const key = generateKey(sec, it, field.id);
@@ -435,12 +933,29 @@ function updateVisibility() {
     
     // Check each page and section for visibility conditions
     ui.Seiten.forEach(page => {
+      const pageElement = document.querySelector(`[data-page-id="${page.id}"]`);
+      if (pageElement) {
+        pageElement.style.display = pageVisible(page, currentState) ? 'grid' : 'none';
+      }
+
         (page.bereiche || []).forEach(secRef => {
             const sectionElement = document.querySelector(`[data-section-ref="${secRef.ref}"]`);
             if (sectionElement && secRef.visibility) {
                 const shouldShow = evaluateVisibilityRules(secRef.visibility, currentState);
                 sectionElement.style.display = shouldShow ? 'block' : 'none';
             }
+
+          const section = sections.find(sec => sec.id === secRef.ref);
+          (section?.groups || []).forEach(group => {
+            if (!group.show_if) return;
+            const groupElement = document.querySelector(`[data-group-ref="${section.id}-${group.id}"]`);
+            if (!groupElement) return;
+
+            const shouldShow = group.show_if.rules
+              ? evaluateVisibilityRules(group.show_if, currentState)
+              : evaluateVisibilityRule(group.show_if, currentState);
+            groupElement.style.display = shouldShow ? '' : 'none';
+          });
         });
     });
 }
@@ -510,6 +1025,7 @@ function render(){
   (ui.Seiten || []).forEach(page => {
     const pageEl = document.createElement('div');
     pageEl.className = 'page page-grid';
+    pageEl.dataset.pageId = page.id || '';
 
     // Seite: Grid konfigurieren
     const gap = page.grid?.gap || '12px';
@@ -575,9 +1091,10 @@ function render(){
 }
 
 
-function pageVisible(page){
+function pageVisible(page, currentState = {}){
   const vis = page.visibility;
   if (!vis) return true;
+  if (vis.rules) return evaluateVisibilityRules(vis, currentState);
   if (vis.rule === 'values_gt_0'){
     const sec = sections.find(s=>s.id === vis.params?.section_id);
     if (!sec) return true;
@@ -593,7 +1110,12 @@ function pageVisible(page){
 
 
 function buildTable(items, sec, ref, opts = {}){
-  const { baseOverride = null, valueKeyPrefix = null, columns: overrideColumns = null } = opts;
+  const {
+    baseOverride = null,
+    valueKeyPrefix = null,
+    columns: overrideColumns = null,
+    rowActions = null
+  } = opts;
 
   // 1) Spalten-Konfiguration
   let columns = overrideColumns || get(ref, 'tabelle.columns', null);
@@ -619,7 +1141,7 @@ function buildTable(items, sec, ref, opts = {}){
     const m = String(width || '').trim().match(/^(\d+(?:\.\d+)?)ch$/i);
     return m ? Number(m[1]) : null;
   };
-  const columnTemplate = columns.map(col => {
+  const columnDefs = columns.map(col => {
     const header = String(col.header || col.key || '');
     const titleCh = Math.max(4, Math.min(24, header.length + 2));
 
@@ -636,12 +1158,15 @@ function buildTable(items, sec, ref, opts = {}){
     if (col.type === 'input.text') return 'minmax(8ch, 1fr)';
     if (col.type === 'computed') return 'minmax(8ch, 1fr)';
     return 'minmax(7ch, 1fr)';
-  }).join(' ');
+  });
+  if (rowActions) columnDefs.push('fit-content(8ch)');
+  const columnTemplate = columnDefs.join(' ');
   table.style.setProperty('--cols', columnTemplate);
   const push = node => table.appendChild(node);
 
   // 3) Header
   for (const col of columns) push(createDiv(col.header || col.key, 'header'));
+  if (rowActions) push(createDiv(rowActions.header || '', 'header'));
 
   // 4) Rows
   for (const it of items) {
@@ -695,17 +1220,17 @@ function buildTable(items, sec, ref, opts = {}){
         let initial;
 
         if (k === 'value') {
-          initial = parseNum(state.values[storeKey] ?? it.value ?? 0);
+          initial = state.values[storeKey] ?? it.value ?? 0;
         } else {
           const fld = Array.isArray(it.fields) ? it.fields.find(f => f.id === k) : null;
           initial = parseNum(state.values[storeKey] ?? (fld ? fld.value : 0));
         }
 
         const inp = makeNumInput(initial, v => {
-          state.values[storeKey] = v;
-          if (sec.id === 'Eigenschaften' && k === 'value') state.attributes[it.id] = v;
+          state.values[storeKey] = normalizeProgressionValue(sec, v);
+          if (isAttributeSection(sec) && k === 'value') state.attributes[it.id] = parseNum(v);
           recalc();
-        });
+        }, k === 'value' ? sec.allowed_text_values : []);
         inp.id = generateDisplayId('row-input', sec, it, k, valueKeyPrefix);
         if (col.input_width) {
           inp.style.width = col.input_width;
@@ -721,7 +1246,7 @@ function buildTable(items, sec, ref, opts = {}){
           const select = document.createElement('select');
           select.id = generateDisplayId('row-input', sec, it, k, valueKeyPrefix);
           
-          const options = resolveSelectOptions(field);
+          const options = resolveSelectOptions(field, it);
           const allowEmpty = field?.allow_empty !== false;
           const emptyLabel = field?.empty_label || '-- auswaehlen --';
           const currentValue = String(state.values[key] ?? field?.value ?? '');
@@ -749,6 +1274,58 @@ function buildTable(items, sec, ref, opts = {}){
           
           select.addEventListener('change', () => {
             state.values[key] = select.value;
+
+            // Generic hook: selecting an option can populate other fields in the same row.
+            const mapping = field?.on_change_set_fields || null;
+            let patch = mapping ? mapping[select.value] : null;
+
+            // Generic hook: mapping data can come from another section keyed by selected id.
+            // Generic hook: copy values from a selected catalog item into this row.
+            const sourceConfig = field?.on_change_set_fields_from || field?.options_from || null;
+            const sourceItem = select.value ? findSelectSourceItem(sourceConfig, select.value) : null;
+            if (sourceItem && Array.isArray(sourceItem.fields)) {
+              patch = patch || {};
+              sourceItem.fields.forEach(srcField => {
+                if (srcField?.id && srcField.id !== k) {
+                  patch[srcField.id] = srcField.value;
+                }
+              });
+            }
+
+            if (field?.on_change_set_value_from_source) {
+              const valueKey = generateKey(sec, it, 'value', valueKeyPrefix);
+              state.values[valueKey] = parseNum(sourceItem?.[field.on_change_set_value_from] ?? 0);
+            }
+
+            if (sourceItem && field.on_change_set_label_from_source !== false) {
+              it.label = String(sourceItem.label || '');
+              const labelDisplayId = generateDisplayId('row-input', sec, it, 'label', valueKeyPrefix);
+              const labelEl = document.getElementById(labelDisplayId);
+              if (labelEl) labelEl.value = it.label;
+            } else if (!select.value && field?.on_change_set_value_from_source) {
+              it.label = '';
+            }
+            if (patch && typeof patch === 'object') {
+              Object.entries(patch).forEach(([targetFieldId, targetValue]) => {
+                const targetKey = generateKey(sec, it, targetFieldId, valueKeyPrefix);
+                const targetField = Array.isArray(it.fields)
+                  ? it.fields.find(f => f.id === targetFieldId)
+                  : null;
+                const normalized = normalizeFieldValue(targetField?.type || 'number', targetValue);
+                state.values[targetKey] = normalized;
+
+                const targetDisplayId = generateDisplayId('row-input', sec, it, targetFieldId, valueKeyPrefix);
+                const targetEl = document.getElementById(targetDisplayId);
+                if (targetEl) {
+                  targetEl.value = String(normalized);
+                }
+              });
+            }
+
+            if (field?.rerender_on_change) {
+              clearInvalidDynamicSelectValues();
+              render();
+            }
             recalc();
           });
           
@@ -796,6 +1373,17 @@ function buildTable(items, sec, ref, opts = {}){
       }
     }
   }
+
+    if (rowActions) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = rowActions.removeLabel || '-';
+      btn.disabled = typeof rowActions.canRemove === 'function' ? !rowActions.canRemove(it) : false;
+      btn.addEventListener('click', () => {
+        if (typeof rowActions.remove === 'function') rowActions.remove(it);
+      });
+      push(btn);
+    }
   }
 
   return table;
@@ -842,6 +1430,11 @@ function renderDropdown(sec, ref) {
   // Änderungen speichern
   select.addEventListener('change', () => {
     state.values[key] = select.value;
+    if (ref.refresh_dependent_selects) {
+      clearInvalidDynamicSelectValues();
+      render();
+    }
+    recalc();
   });
   
   container.appendChild(label);
@@ -861,6 +1454,18 @@ function renderSection(sec, ref){
     if (sec.basis?.length){ const hint=createDiv(`Basis aus (${sec.basis.join(' + ')}) / 2, gerundet`,'hint'); card.appendChild(hint); }
     const formulaHint = sectionFormulaHint(sec);
     if (formulaHint) card.appendChild(createDiv(formulaHint, 'hint'));
+  }
+
+  const repeatableCfg = getRepeatableConfig(sec);
+  if (repeatableCfg && (sec.groups || []).length === 0) {
+    const controls = document.createElement('div');
+    controls.className = 'row-controls';
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.textContent = repeatableCfg.add_label;
+    addBtn.addEventListener('click', () => addRepeatableRow(sec));
+    controls.appendChild(addBtn);
+    card.appendChild(controls);
   }
 
   
@@ -893,7 +1498,16 @@ function renderSection(sec, ref){
       const chunk = items.slice(start, start + size);
       start += size;
       if (!chunk.length) continue;
-      container.appendChild(buildTable(chunk, sec, ref));
+      container.appendChild(buildTable(chunk, sec, ref, {
+        rowActions: repeatableCfg
+          ? {
+              header: '',
+              removeLabel: repeatableCfg.remove_label,
+              canRemove: () => (sec.items || []).length > repeatableCfg.min_rows,
+              remove: (it) => removeRepeatableRow(sec, it.id)
+            }
+          : null
+      }));
     }
 
     card.appendChild(container);
@@ -916,6 +1530,7 @@ function renderSection(sec, ref){
   (sec.groups || []).forEach(gr => {
     const gbox = document.createElement('div');
     gbox.className = 'group-card';
+    gbox.dataset.groupRef = `${sec.id}-${gr.id}`;
 
     const gh = document.createElement('h3');
     gh.textContent = gr.label;
@@ -947,9 +1562,15 @@ function renderSection(sec, ref){
 
 // recalc AP & totals
 function recalc(){
+  const configuredAp = getConfiguredApTotal();
+  if (configuredAp) {
+    state.ap_total = parseNum(configuredAp.value);
+  }
+
   let spent=0;
 sections.forEach(sec => {
-  const includeInAp = !sec.exclude_from_ap;
+  const includeInAp = !sec.exclude_from_ap &&
+    (!sec.include_in_ap_when || evaluateVisibilityRules(sec.include_in_ap_when, state.values));
   const secCpi = sec.cost_cpi;
   const flatComputedCols = getSectionColumns(sec.id, false).filter(col => col.type === 'computed');
   const groupComputedCols = getSectionColumns(sec.id, true).filter(col => col.type === 'computed');
@@ -961,10 +1582,10 @@ sections.forEach(sec => {
     const tot = metrics.totalValue;
     const k = cpi(secCpi, null, it.overrides);
 
-    if (includeInAp) spent += tri(value) * k;
+    if (includeInAp) spent += progressionApCost(metrics.calcId, value, k);
 
     setText(generateDisplayId('row-basis', sec, it, 'value'), basis);
-    setInput(generateDisplayId('row-input', sec, it, 'value'), value);
+    setInput(generateDisplayId('row-input', sec, it, 'value'), metrics.displayValue ?? value);
     setText(generateDisplayId('row-total', sec, it, 'value'), tot);
     flatComputedCols.forEach(col => {
       setText(generateDisplayId('row-computed', sec, it, col.key), computeCellValue(sec, it, col));
@@ -972,6 +1593,13 @@ sections.forEach(sec => {
   });
 
   (sec.groups || []).forEach(gr => {
+    if (gr.show_if) {
+      const visible = gr.show_if.rules
+        ? evaluateVisibilityRules(gr.show_if, state.values)
+        : evaluateVisibilityRule(gr.show_if, state.values);
+      if (!visible) return;
+    }
+
     const valueKeyPrefix = `${sec.id}-${gr.id}`;
     const basis = basisFrom(gr.basis || []);
     (gr.items || []).forEach(it => {
@@ -981,7 +1609,7 @@ sections.forEach(sec => {
       const tot = total(calcId, basis, value);
       const k = cpi(secCpi, gr.overrides, it.overrides);
 
-      if (includeInAp) spent += tri(value) * k;
+        if (includeInAp) spent += progressionApCost(calcId, value, k);
 
       setText(generateDisplayId('row-basis', sec, it, 'value', valueKeyPrefix), basis);
       setInput(generateDisplayId('row-input', sec, it, 'value', valueKeyPrefix), value);
@@ -1007,8 +1635,11 @@ sections.forEach(sec => {
   } else {
     ap.value=(state.ap_total===0?'':String(state.ap_total));
   }
+  ap.readOnly = !!configuredAp?.readOnly;
+  ap.title = configuredAp?.title || '';
   els.apSpent.textContent = String(spent);
   els.apRemaining.textContent = String(remaining);
+  updateConfiguredStatsDisplay();
   updateVisibility();
 }
 
@@ -1096,7 +1727,7 @@ function buildSave(){
       secOut.items = sec.items.map(it => {
         const itemOut = {
           id: it.id,
-          value: parseNum(state.values[generateKey(sec, it)] ?? it.value ?? 0)
+          value: normalizeProgressionValue(sec, state.values[generateKey(sec, it)] ?? it.value ?? 0)
         };
 
         const labelDisplayId = generateDisplayId('row-input', sec, it, 'label');
@@ -1172,7 +1803,7 @@ function syncUiFromStateAfterLoad() {
     });
 
     Object.keys(state.attributes).forEach(attrId => {
-      const displayId = generateDisplayId('row-input', { id: 'Eigenschaften' }, { id: attrId }, 'value');
+      const displayId = generateDisplayId('row-input', { id: attributeSectionId }, { id: attrId }, 'value');
       const element = document.getElementById(displayId);
       if (element) {
         element.value = state.attributes[attrId];
@@ -1203,19 +1834,23 @@ function applyCompactSaveData(saveData) {
       state.values[key] = normalizeFieldValue(type, savedField.value ?? '');
     });
 
+    if (Array.isArray(savedSec.items) && savedSec.items.length) {
+      restoreRepeatableItemsFromSave(currentSec, savedSec.items);
+    }
+
     (savedSec.items || []).forEach(savedItem => {
       const currentItem = currentSec.items?.find(it => it.id === savedItem.id);
       if (!currentItem) return;
 
       if (typeof savedItem.value !== 'undefined') {
-        state.values[generateKey(currentSec, savedItem)] = parseNum(savedItem.value ?? 0);
+        state.values[generateKey(currentSec, savedItem)] = normalizeProgressionValue(currentSec, savedItem.value ?? 0);
       }
 
       if (savedItem.label !== undefined) {
         state.values[generateKey(currentSec, savedItem, 'label')] = savedItem.label;
       }
 
-      if (currentSec.id === 'Eigenschaften' && typeof savedItem.value !== 'undefined') {
+      if (isAttributeSection(currentSec) && typeof savedItem.value !== 'undefined') {
         state.attributes[savedItem.id] = parseNum(savedItem.value ?? 0);
       }
 
@@ -1283,13 +1918,17 @@ function applySaveData(saveData) {
     });
 
     // Update direct items (no groups)
+    if (Array.isArray(savedSec.items) && savedSec.items.length) {
+      restoreRepeatableItemsFromSave(currentSec, savedSec.items);
+    }
+
     (savedSec.items || []).forEach(savedItem => {
       const currentItem = currentSec.items?.find(it => it.id === savedItem.id);
       if (!currentItem) return;
 
       // Update main value
       const mainKey = generateKey(currentSec, savedItem);
-      state.values[mainKey] = parseNum(savedItem.value ?? 0);
+      state.values[mainKey] = normalizeProgressionValue(currentSec, savedItem.value ?? 0);
 
       // Update item label if it exists in save data
       if (savedItem.label !== undefined) {
@@ -1297,8 +1936,8 @@ function applySaveData(saveData) {
         state.values[labelKey] = savedItem.label;
       }
 
-      // Update attributes if this is the Eigenschaften section
-      if (currentSec.id === 'Eigenschaften') {
+      // Update attributes if this is the configured attribute section
+      if (isAttributeSection(currentSec)) {
         state.attributes[savedItem.id] = parseNum(savedItem.value ?? 0);
       }
 
@@ -1344,9 +1983,15 @@ function applySaveData(saveData) {
 
 
 // Boot
-document.addEventListener('DOMContentLoaded', ()=>{
+function boot(){
   init(defText, layText);
   render();                     // baut DOM
   recalc();                     // berechnet AP/Basis/Gesamt
-  wireButtons();                    // Buttons/IO
-});
+  wireButtons();                // Buttons/IO
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', boot);
+} else {
+  boot();
+}

@@ -23,8 +23,8 @@ Seiten:
         tabelle:
           columns:
             - { key: "label", type: "input.text",        header: "Name" }
-            - { key: "race", type: "input.text",        header: "Rasse" }
-            - { key: "profession", type: "input.text",        header: "Profession" }
+            - { key: "race", type: "input.select",     header: "Rasse" }
+            - { key: "profession", type: "input.select", header: "Profession" }
             - { key: "culture", type: "input.text",        header: "Kultur" }
 
       - ref: Eigenschaften
@@ -82,9 +82,9 @@ Seiten:
         spalten: 1
         tabelle:
           columns:
-            - { key: "label", type: "label",            header: "Name" }
+            - { key: "label", type: "input.select",     header: "Sprache" }
             - { key: "base",  type: "computed",         header: "Basis", formula_id: "display_basis" }
-            - { key: "value", type: "input.text", header: "Wert", input_width: "3ch" }
+            - { key: "value", type: "input.number_text", header: "Wert", input_width: "3ch" }
             - { key: "total", type: "computed",         header: "Gesamt", formula_id: "display_total" }
 
       - ref: Waffen
@@ -140,8 +140,10 @@ Seiten:
     page_break_after: auto
     druck_header_footer: false
     visibility:
-      rule: "values_gt_0"
-      params: { section_id: "Zauber" }
+      logic: "or"
+      rules:
+        - { field: "Kopfzeile-character-race", operator: "equals", value: "Elf" }
+        - { field: "Kopfzeile-character-profession", operator: "in", values: ["Magier", "Magiedilettant"] }
     bereiche:
       - ref: Zauber
         titel_anzeigen: true
@@ -169,36 +171,74 @@ Seiten:
     page_break_after: auto
     druck_header_footer: false
     visibility:
-      rule: "values_gt_0"
-      params: { section_id: "gottheit" }
+      rules:
+        - { field: "Kopfzeile-character-profession", operator: "equals", value: "Geweihter" }
     bereiche:
       - ref: gottheit
         titel_anzeigen: false
+        refresh_dependent_selects: true
         grid_span:
           col_start: 1
-          col_span: 4
+          col_span: 2
         spalten: 1
         kompakt: true
         type: dropdown
 
-      - ref: liturgien
+      - ref: liturgiekenntnis
         titel_anzeigen: true
         visibility:
           rules:
-            - field: "gottheit"
-              operator: "equals"
-              value: "praios"
+            - { field: "Kopfzeile-character-profession", operator: "equals", value: "Geweihter" }
+            - { field: "gottheit", operator: "has_value" }
+          logic: "and"
+        grid_span:
+          col_start: 3
+          col_span: 2
+          row_span: 1
+        spalten: 1
+        kompakt: true
+        tabelle:
+          columns:
+            - { key: "label", type: "label",            header: "Talent" }
+            - { key: "base",  type: "computed",         header: "Basis", formula_id: "display_basis" }
+            - { key: "value", type: "input.number_text", header: "Wert" }
+            - { key: "total", type: "computed",         header: "Gesamt", formula_id: "display_total" }
+
+      - ref: grundsegnungen
+        titel_anzeigen: true
+        visibility:
+          rules:
+            - { field: "Kopfzeile-character-profession", operator: "equals", value: "Geweihter" }
+            - { field: "gottheit", operator: "has_value" }
+          logic: "and"
         grid_span:
           col_start: 1
-          col_span: 4
+          col_span: 2
           row_span: 1
-        spalten: 4
+        spalten: 2
         kompakt: true
-        gruppen:
-          group_columns: 4
+        tabelle:
           columns:
             - { key: "label", type: "label",            header: "Name" }
-            - { key: "level", type: "readonly_text",    header: "Grad" }
+            - { key: "level", type: "readonly_text",    header: "Stufe" }
+
+      - ref: erlernte_liturgien
+        titel_anzeigen: true
+        visibility:
+          rules:
+            - { field: "Kopfzeile-character-profession", operator: "equals", value: "Geweihter" }
+            - { field: "gottheit", operator: "has_value" }
+          logic: "and"
+        grid_span:
+          col_start: 3
+          col_span: 2
+          row_span: 1
+        spalten: 2
+        kompakt: true
+        tabelle:
+          columns:
+            - { key: "name",  type: "input.select", header: "Liturgie" }
+            - { key: "total", type: "computed",     header: "Stufe", formula_id: "display_total" }
 
 Einstellungen:
   typography:

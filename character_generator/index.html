@@ -22,11 +22,54 @@
 
   <main id="characterForm"></main>
 
-  <script src="definitions.js"></script>
-  <script src="layout.js"></script>
-
-  <!-- js-yaml + App -->
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
-  <script src="app.js"></script>
+  <script>
+    const SYSTEM_CONFIG = {
+      dsa: {
+        label: 'Simple DSA',
+        defs: 'simple_dsa_definitions.js',
+        layout: 'simple_dsa_layout.js'
+      },
+      ars: {
+        label: 'Ars Magica',
+        defs: 'ars_magica_definitions.js',
+        layout: 'ars_magica_layout.js'
+      }
+    };
+
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = src;
+        s.async = false;
+        s.onload = resolve;
+        s.onerror = () => reject(new Error(`Konnte ${src} nicht laden`));
+        document.body.appendChild(s);
+      });
+    }
+
+    function currentSystem() {
+      const params = new URLSearchParams(window.location.search);
+      const raw = params.get('system') || 'dsa';
+      return SYSTEM_CONFIG[raw] ? raw : 'dsa';
+    }
+
+    async function boot() {
+      const systemId = currentSystem();
+
+      const cfg = SYSTEM_CONFIG[systemId];
+      document.title = `Charaktergenerator - ${cfg.label}`;
+
+      await loadScript(cfg.defs);
+      await loadScript(cfg.layout);
+      await loadScript('app.js');
+    }
+
+    boot().catch(err => {
+      const root = document.getElementById('characterForm');
+      root.textContent = `Fehler beim Laden: ${err.message}`;
+      console.error(err);
+    });
+  </script>
 </body>
 </html>
