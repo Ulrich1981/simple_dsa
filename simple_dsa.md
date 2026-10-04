@@ -72,11 +72,11 @@ Simple DSA verwendet die klassischen 7 Eigenschaften des Schwarzen Auges. Zur be
 
 Umrechnung: Ein Held mit MU 14 im klassischen DSA hat in Simple DSA MU 7. Ein Wert von KO 8 entspricht KO 1. Diese Umrechnung funktioniert in beide Richtungen und macht Simple DSA-Charaktere mit dem klassischen System kompatibel.
 
-Wertebereich: Eigenschaften bewegen sich normalerweise zwischen 1 und 6. Werte von 0 oder darunter bedeuten schwere Behinderungen, Werte über 6 sind außergewöhnlich und meist übernatürlichen Ursprungs.
+Wertebereich: Eigenschaften bewegen sich zu Charakterstart normalerweise zwischen 1 und 6. Werte von 0 oder darunter bedeuten schwere Behinderungen, Werte über 6 sind außergewöhnlich für junge Charaktere.
 
 ## Ressourcen
 
-Neben den acht Eigenschaften besitzt jeder Charakter noch weitere Ressourcen, die sich aus den Eigenschaften ableiten:
+Neben den 7 Eigenschaften besitzt jeder Charakter noch weitere Ressourcen, die sich aus den Eigenschaften ableiten:
 
 ### Lebensenergie (LE)
 
@@ -130,11 +130,11 @@ In besonders brenzligen Situationen haben die Helden noch eine spezielle Ressour
 
 ## Abenteuerpunkte und Steigerung
 
-Jeder neue Charakter erhält 5000 Abenteuerpunkte (AP) zur Charaktererschaffung.
+Jeder neue Charakter erhält 4000 Abenteuerpunkte (AP) zur Charaktererschaffung.
 
 ### Steigerungskosten
 
-Alle Steigerungen folgen dem Dreieckszahl-Prinzip: Um einen Wert auf Stufe X zu bringen, kostet das X × (X+1) ÷ 2 × Faktor AP.
+Eine Steigerung um einen Punkt kostet neue Stufe x Faktor AP. Um einen Wert von 0 auf Stufe X zu bringen, kostet das X × (X+1) ÷ 2 × Faktor AP. Dadurch spielt es keine Rolle, ob man einen Wert zu Charakterstart erwirbt, oder später steigert.
 
 | Kategorie | Faktor | Beispiel (Stufe 3) |
 | --- | --- | --- |
@@ -143,12 +143,10 @@ Alle Steigerungen folgen dem Dreieckszahl-Prinzip: Um einen Wert auf Stufe X zu 
 | Heldenpunkte | 100 | 3×4÷2×100 = 600 AP |
 | Talente | 5 | 3×4÷2×5 = 30 AP |
 | Sprachen | 2 | 3×4÷2×1 = 12 AP |
-| Zauber | 5 | 3×4÷2×5 = 30 AP |
-| Liturgien | 50 (nicht kumulativ) | Stufe 3 = 150 AP |
+| Zauber | 3 | 3×4÷2×3 = 18 AP |
+| Liturgien | 100 (nicht kumulativ) | Stufe 3 = 300 AP |
 
-Wichtig: Die Kosten beziehen sich auf den neuen Wert, nicht auf die Differenz. Von 0 auf 3 zu steigern, kostet genauso viel, wie direkt auf 3 zu kaufen.
-
-Ausnahme Liturgien: Hier sind die Kosten nicht kumulativ. Jede Liturgie kostet Stufe × 50 AP.
+Ausnahme Liturgien: Hier sind die Kosten nicht kumulativ. Jede Liturgie kostet Stufe × 100 AP.
 
 ### Steigerungsgrenzen
 
@@ -174,7 +172,7 @@ Kann alle Talente erlernen, aber keine Zauber oder Liturgien.
 
 • Mindestinvestition: 1000 AP in Zauber und Magietheorie
 
-• Hauszauber müssen mindestens auf Wert 7 gesteigert werden
+• Mindestens ein Zauber muss auf mindestens Wert 7 erlernt werden
 
 • Astralenergie verfügbar
 
@@ -196,7 +194,7 @@ Kann alle Talente erlernen, aber keine Zauber oder Liturgien.
 
 ### Schritt 2: Eigenschaften
 
-Verteile AP auf die acht Eigenschaften. Denke daran: Diese bestimmen die Basiswerte aller Talente und Ressourcen.
+Verteile AP auf die 7 Eigenschaften. Denke daran: Diese bestimmen die Basiswerte aller Talente und Ressourcen.
 
 ### Schritt 3: Ressourcen
 
@@ -226,47 +224,51 @@ Notiere Herkunft, Familie, Motivation und andere Details, die deinen Charakter z
 
 Konzept: Kämpfender Geweihter der Kriegsgöttin Rondra
 
-Eigenschaften (1200 AP):
+Eigenschaften (1800 AP):
 
-• MU 4 (200 AP), KL 3 (120 AP), IN 3 (120 AP), CH 4 (200 AP)
+• MU 6 (420 AP), KL 3 (120 AP), IN 3 (120 AP), CH 5 (300 AP)
 
-• GE 4 (200 AP), KO 3 (120 AP), KK 4 (200 AP)
+• GE 5 (300 AP), KO 3 (120 AP), KK 6 (420 AP)
 
-Ressourcen (600 AP):
+Ressourcen (500 AP):
 
 • LE: Basis 6, Talentwert 2 (60 AP) = 2×6+3×2 = 18 gesamt
 
 • KE: Basis 6, Talentwert 3 (120 AP) = 2×6+3×3 = 21 gesamt
 
-• MR: Basis 5, Talentwert 1 (20 AP) = 2×5+3×1 = 13 gesamt
+• MR: Basis 5, Talentwert 1 (20 AP) = 5+3-10 = -2 gesamt
 
-• HP: Talentwert 2 (600 AP) = 2 gesamt
+• HP: Talentwert 2 (300 AP) = 2 gesamt
 
-Talente (900 AP):
+Talente (710 AP):
 
-• Nahkampf allgemein 5 (75 AP)
+• bewaffneter Nahkampf 9 (225 AP)
 
-• Schwerter 4 (50 AP)
+• waffenloser Kampf 6 (105 AP)
 
-• Athletik 3 (30 AP)
+• Athletik 7 (140 AP)
 
-• Überreden 3 (30 AP)
+• Überreden 5 (75 AP)
 
-• Götter & Kulte 3 (30 AP)
+• Götter & Kulte 6 (105 AP)
 
-• Etikette 1 (5 AP)
+• Etikette 4 (50 AP)
 
 • Einschüchtern 2 (15 AP)
 
-Liturgien (1300 AP):
+Liturgien (1025 AP):
 
-• Liturgiekenntnis 4 (200 AP)
+• Liturgiekenntnis 9 (225 AP)
 
-• Unbeugsamkeit 3 (150 AP)
+• Göttliches Zeichen 1 (100 AP)
 
-• Schutzsegen 3 (150 AP)
+• Objektsegen 1 (100 AP)
 
-• Heilwunder 2 (100 AP)
+• Heiliger Befehl 2 (200 AP)
+
+• Objektweihe 2 (200 AP)
+
+• Wetter und Gewässer (200)
 
 • Plus 12 Primärsegnungen (kostenlos)
 
@@ -418,13 +420,12 @@ Als Orientierung für Spielleiter:
 
 | Schwierigkeit | Modifikator | Beispiel |
 | --- | --- | --- |
-| Sehr einfach | +5 | Offene Tür öffnen |
-| Einfach | +2 | Bekannten Weg finden |
+| Einfach | +5 | Bekannten Weg finden |
 | Normal | ±0 | Standardsituation |
-| Schwer | -3 | Bei Regen klettern |
-| Sehr schwer | -6 | Komplizierte Falle entschärfen |
-| Extrem schwer | -10 | Meisterwerk erschaffen |
-| Nahezu unmöglich | -15 | Legendäre Heldentat |
+| Schwer | -5 | Bei Regen klettern |
+| Sehr schwer | -10 | Komplizierte Falle entschärfen |
+| Extrem schwer | -15 | Meisterwerk erschaffen |
+| Nahezu unmöglich | -20 | Legendäre Heldentat |
 
 ## Besondere Situationen
 
@@ -434,7 +435,7 @@ Mehrere Charaktere können bei einer Aufgabe zusammenarbeiten:
 
 • Hauptakteur führt die Probe durch
 
-• Helfer führen Hilfsproben durch (meist einfacher)
+• Helfer führen Hilfsproben durch
 
 • Jede gelungene Hilfsprobe gibt +1 auf die Hauptprobe
 
@@ -442,11 +443,9 @@ Mehrere Charaktere können bei einer Aufgabe zusammenarbeiten:
 
 ### Wiederholte Proben
 
-• Gescheiterte Proben können wiederholt werden
+• Gescheiterte Proben können einmalig wiederholt werden
 
-• Jeder Wiederholungsversuch hat -2 Erschwernis (kumulativ)
-
-• Bei kritischem Fehlschlag (20) ist keine weitere Wiederholung möglich
+• Der Wiederholungsversuch hat -5 Erschwernis
 
 ### Zeitdruck
 
