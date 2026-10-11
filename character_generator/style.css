@@ -281,6 +281,9 @@ input.num { width: 3ch; }
     width: 100%;
     min-width: 0;
   }
+  .table-grid {
+    grid-template-columns: var(--cols-print, var(--cols, repeat(1, minmax(0, 1fr))));
+  }
 
   .table-grid > div,
   .table-grid input,
@@ -299,7 +302,7 @@ input.num { width: 3ch; }
     overflow-wrap: anywhere;
   }
 
-  .toolbar, input[type="file"] { display: none !important; }
+  .toolbar, .row-controls, input[type="file"] { display: none !important; }
   .card, .group-card { page-break-inside: auto; box-shadow: none; }
   .print-page-break-before { page-break-before: always; }
   .print-page-break-after  { page-break-after: always; }

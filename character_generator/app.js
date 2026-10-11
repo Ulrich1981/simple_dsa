@@ -1174,14 +1174,16 @@ function buildTable(items, sec, ref, opts = {}){
     if (col.type === 'computed') return 'minmax(8ch, 1fr)';
     return 'minmax(7ch, 1fr)';
   });
+  const printColumnTemplate = columnDefs.join(' ');
   if (rowActions) columnDefs.push('fit-content(8ch)');
   const columnTemplate = columnDefs.join(' ');
   table.style.setProperty('--cols', columnTemplate);
+  if (rowActions) table.style.setProperty('--cols-print', printColumnTemplate);
   const push = node => table.appendChild(node);
 
   // 3) Header
   for (const col of columns) push(createDiv(col.header || col.key, 'header'));
-  if (rowActions) push(createDiv(rowActions.header || '', 'header'));
+  if (rowActions) push(createDiv(rowActions.header || '', 'header print-hide'));
 
   // 4) Rows
   for (const it of items) {
@@ -1393,6 +1395,7 @@ function buildTable(items, sec, ref, opts = {}){
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.textContent = rowActions.removeLabel || '-';
+      btn.className = 'print-hide';
       btn.disabled = typeof rowActions.canRemove === 'function' ? !rowActions.canRemove(it) : false;
       btn.addEventListener('click', () => {
         if (typeof rowActions.remove === 'function') rowActions.remove(it);
