@@ -80,7 +80,7 @@ Neben den 7 Eigenschaften besitzt jeder Charakter noch weitere Ressourcen, die s
 
 ### Lebensenergie (LE)
 
-**• Basiswert:** (KO + KK + GE) ÷ 2 (aufgerundet)
+**• Basiswert:** (KO + KO + KK) ÷ 2 (aufgerundet)
 
 **• Gesamtwert:** 2 × Basiswert + 3 × Talentwert
 
@@ -170,7 +170,7 @@ Kann alle Talente erlernen, aber keine Zauber oder Liturgien.
 
 ### Magier
 
-• Mindestinvestition: 1000 AP in Zauber und Magietheorie
+• Mindestinvestition: 1000 AP in Zauber, Astralpunkte und Magietheorie
 
 • Mindestens ein Zauber muss auf mindestens Wert 7 erlernt werden
 
@@ -178,7 +178,7 @@ Kann alle Talente erlernen, aber keine Zauber oder Liturgien.
 
 ### Geweihter
 
-• Mindestinvestition: 1000 AP in Liturgien + Liturgiekenntnis
+• Mindestinvestition: 1000 AP in Liturgien, Karmapunkte und Liturgiekenntnis
 
 • Segnungen: Erhält automatisch alle 12 Primärsegnungen
 
@@ -198,25 +198,21 @@ Verteile AP auf die 7 Eigenschaften. Denke daran: Diese bestimmen die Basiswerte
 
 ### Schritt 3: Ressourcen
 
-Berechne die Basiswerte automatisch. Entscheide, ob du Ressourcen durch Talentwerte verstärken möchtest (besonders Heldenpunkte sind oft eine gute Investition).
+Berechne die Basiswerte automatisch. Entscheide, ob du Ressourcen durch Talentwerte verstärken möchtest.
 
-### Schritt 4: Charaktertyp
-
-Wähle zwischen gewöhnlichem Helden, Magiedilettant, Magier oder Geweihtem. Erfülle die jeweiligen Mindestanforderungen.
-
-### Schritt 5: Talente
+### Schritt 4: Talente
 
 Verteile die restlichen AP auf Talente. Konzentriere dich auf wenige Kernkompetenzen statt alles ein bisschen zu können.
 
-### Schritt 6: Zauber/Liturgien
+### Schritt 5: Zauber/Liturgien
 
 Falls zutreffend, wähle und steigere deine übernatürlichen Fähigkeiten.
 
-### Schritt 7: Ausrüstung
+### Schritt 6: Ausrüstung
 
 Wähle passende Ausrüstung für deinen Charakter (siehe Ausrüstungskapitel).
 
-### Schritt 8: Hintergrund
+### Schritt 7: Hintergrund
 
 Notiere Herkunft, Familie, Motivation und andere Details, die deinen Charakter zum Leben erwecken.
 
@@ -224,41 +220,51 @@ Notiere Herkunft, Familie, Motivation und andere Details, die deinen Charakter z
 
 Konzept: Kämpfender Geweihter der Kriegsgöttin Rondra
 
-Eigenschaften (1800 AP):
+Eigenschaften (1760 AP):
 
 • MU 6 (420 AP), KL 3 (120 AP), IN 3 (120 AP), CH 5 (300 AP)
 
-• GE 5 (300 AP), KO 3 (120 AP), KK 6 (420 AP)
+• GE 5 (300 AP), KO 4 (200 AP), KK 5 (300 AP)
 
-Ressourcen (500 AP):
+Ressourcen (560 AP):
 
-• LE: Basis 6, Talentwert 2 (60 AP) = 2×6+3×2 = 18 gesamt
+• LE: Basis 7, Talentwert 3 (120 AP) = 2×7+3×3 = 23 gesamt
 
-• KE: Basis 6, Talentwert 3 (120 AP) = 2×6+3×3 = 21 gesamt
+• KE: Basis 7, Talentwert 3 (120 AP) = 2×7+3×3 = 23 gesamt
 
-• MR: Basis 5, Talentwert 1 (20 AP) = 5+3-10 = -2 gesamt
+• MR: Basis 7, Talentwert 1 (20 AP) = 7+1-10 = -2 gesamt
 
 • HP: Talentwert 2 (300 AP) = 2 gesamt
 
-Talente (710 AP):
+Talente (680 AP):
 
-• bewaffneter Nahkampf 9 (225 AP)
+• bewaffneter Nahkampf 8 (180 AP)
 
 • waffenloser Kampf 6 (105 AP)
 
-• Athletik 7 (140 AP)
+• Athletik 6 (105 AP)
 
-• Überreden 5 (75 AP)
+• Überzeugen 5 (75 AP)
 
 • Götter & Kulte 6 (105 AP)
 
 • Etikette 4 (50 AP)
 
-• Einschüchtern 2 (15 AP)
+• Sinnesschärfe 3 (30 AP)
 
-Liturgien (1025 AP):
+• Reiten 2 (15 AP)
 
-• Liturgiekenntnis 9 (225 AP)
+• Kriegskunst 2 (15 AP)
+
+Sprachen (20 AP):
+
+• Garethi (M)
+
+• Tulamydia 4 (20 AP)
+
+Liturgien (980 AP):
+
+• Liturgiekenntnis 8 (180 AP)
 
 • Göttliches Zeichen 1 (100 AP)
 
@@ -268,7 +274,7 @@ Liturgien (1025 AP):
 
 • Objektweihe 2 (200 AP)
 
-• Wetter und Gewässer (200)
+• Wetter und Gewässer 2 (200)
 
 • Plus 12 Primärsegnungen (kostenlos)
 
@@ -318,7 +324,7 @@ Modifikatoren verändern die Schwelle je nach Umständen:
 
 • Erschwernisse: -1 bis -20 (schwierige Umstände)
 
-Erschwernisse werden vom Gesamtwert (Basiswert + Talentwert) abgezogen, nicht nur vom Talentwert.
+Erschwernisse werden vom Gesamtwert (Basiswert + Talentwert) abgezogen, nicht vom Talentwert.
 
 ## Automatischer Erfolg
 
@@ -471,6 +477,12 @@ Nahkampf funktioniert über vergleichende Proben. Beide Kämpfer würfeln gleich
 
 • Beide Proben scheitern: Niemand trifft, der Kampf geht weiter
 
+### Defensiv kämpfen
+
+Ein Kämpfer kann sich vor der vergleichenden Probe entscheiden, defensiv zu kämpfen. Er legt die Höhe des Malus vor dem Wurf fest; dieser wird von seinem Talentwert abgezogen.
+
+Gewinnt der offensive Kämpfer, richtet er nur dann Schaden an, wenn die Qualitätsdifferenz mindestens doppelt so hoch ist wie der Malus des defensiven Kämpfers. Ist sie kleiner, erhält niemand Schaden.
+
 ### Schaden
 
 Der Gewinner richtet Schaden an:
@@ -495,11 +507,7 @@ Beispiel: Alrik kämpft gegen 3 Orks. Er führt eine vergleichende Probe gegen 2
 
 ### Grundprinzip
 
-Jede Nahkampfwaffe wird durch Waffenpunkte definiert, die auf verschiedene Eigenschaften verteilt werden:
-
-• Einhändige Waffen: 4 Waffenpunkte
-
-• Zweihändige Waffen: 6 Waffenpunkte
+Jede Nahkampfwaffe wird durch Waffenpunkte definiert, die auf verschiedene Eigenschaften verteilt werden. Jede Waffe hat 6 Waffenpunkte, die beliebig verteilft werden können:
 
 ### Waffeneigenschaften
 
@@ -507,52 +515,40 @@ Grundschaden: 1W6
 
 Schadensbonus (Mindestschaden bei jedem Treffer vor Rüstung):
 
-• 0 Punkte: +0
-
-• 1 Punkt: +1
-
-• 2 Punkte: +2
-
-• 3 Punkte: +3
-
-• 4 Punkte: +4
-
-• 5 Punkte: +5
-
-• 6 Punkte: +6
+• 0-6 Punkte: +0-+6 Schadensbonus
 
 Schwellwerterhöhung (Präzision/Balance):
 
-• 0 Punkte: +0 auf Nahkampfproben
-
-• 1 Punkt: +1 auf Nahkampfproben
-
-• 2 Punkte: +2 auf Nahkampfproben
-
-• 3 Punkte: +3 auf Nahkampfproben
+• 0-6 Punkte: +0-+6 auf Nahkampfproben
 
 Parade (Parierwaffe/Schild):
 
-Reduziert nach verlorenem Duell den Schaden des Gegners um den Wert. Reduziert nicht unter den Schadensbonus der gegnerischen Waffe
+Reduziert nach verlorenem Duell den Schaden des Gegners um den Wert.
 
-• 0 Punkte: 0 Punkte Qualitätsreduzierung
+• 0-6 Punkte: 0-6 Punkte Qualitätsreduzierung
 
-• 1 Punkt: 1 Punkte Qualitätsreduzierung
+Verbergen:
 
-• 2 Punkte: 2 Punkte Qualitätsreduzierung
+• 0 Punkte: Die Waffe ist sehr groß und kann nicht verborgen werden. Außerdem kann man mit der Waffe nicht in beengter Umgebung kämpfen (z.B. Kriegshammer, Schwert und Schild).
+
+• 1 Punkt: Die Waffe ist zu groß, um sie zu verbergen, aber klein genug, um sie in beengter Umgebung zu verwenden (z.B. Rapier, Knüppel)
+
+• 2 Punkte: Die Waffe ist klein genug, um verborgen getragen zu werden zu können. Aufmerksame Personen können eine vergleichende Sinnesschärfe Probe gegen Heimlichkeit des Charakters ablegen, um die Waffe zu entdecken (z.B. Dolch).
+
+• 4 Punkte: Die Waffe ist so klein und verborgen, dass selbst bei einer Durchsuchung eine vergleichende Probe abgelegt werden muss, um die Waffe zu entdecken (z.B. Messer im Gehstock)
 
 ### Beispielwaffen
 
-| Waffe | Schaden | Schwellwert | Parade | Gesamt |
+| Waffe | Schaden | Schwellwert | Parade | Verbergen |
 | --- | --- | --- | --- | --- |
-| Dolch (1H) | +1 | +3 | 0 | 4 WP |
-| Kurzschwert (1H) | +2 | +2 | 0 | 4 WP |
-| Langschwert (1H) | +3 | +1 | 0 | 4 WP |
-| Streitkolben (1H) | +4 | 0 | 0 | 4 WP |
-| Schwert und Schild (2H) | +3 | +1 | 2 | 6 WP |
-| Zweihänder (2H) | +5 | +1 | 0 | 6 WP |
-| Kriegshammer (2H) | +6 | 0 | 0 | 6 WP |
-| Hellebarde (2H) | +3 | +2 | 1 | 6 WP |
+| Dolch (1H) | +1 | +3 | 0 | 2 |
+| Kurzschwert (1H) | +2 | +2 | 0 | 2 |
+| Langschwert (1H) | +3 | +2 | 0 | 1 |
+| Streitkolben (1H) | +5 | 0 | 0 | 1 |
+| Schwert und Schild (2H) | +3 | +1 | 2 | 0 |
+| Zweihänder (2H) | +5 | +1 | 0 | 0 |
+| Kriegshammer (2H) | +6 | 0 | 0 | 0 |
+| Hellebarde (2H) | +3 | +2 | 1 | 0 |
 
 ## Fernkampf
 
@@ -594,11 +590,7 @@ Darüber hinaus ist kein gezielter Schuss möglich.
 
 ### Grundprinzip
 
-Jede Fernkampfwaffe wird durch Waffenpunkte definiert, die auf verschiedene Eigenschaften verteilt werden:
-
-• Bögen/Armbrüste: 8 Waffenpunkte
-
-• Wurfwaffen/Schleudern: 6 Waffenpunkte
+Jede Fernkampfwaffe wird durch Waffenpunkte definiert, die auf verschiedene Eigenschaften verteilt werden. Jede Waffe hat 6 Waffenpunkte, die beliebig verteilft werden können.
 
 ### Waffeneigenschaften
 
@@ -626,20 +618,30 @@ Geschwindigkeit (Nachladezeit):
 
 Präzision:
 
-• 0 Punkte: +0 auf Fernkampfproben bis 3 Punkte: +3 auf Fernkampfproben
+• 0-6 Punkte: +0-+6 auf Fernkampfproben
+
+Verbergen:
+
+• 0 Punkte: Die Waffe ist sehr groß und kann nicht verborgen werden. Außerdem kann man mit der Waffe nicht in beengter Umgebung kämpfen (z.B. Kriegshammer, Schwert und Schild).
+
+• 1 Punkt: Die Waffe ist zu groß, um sie zu verbergen, aber klein genug, um sie in beengter Umgebung zu verwenden (z.B. Rapier, Knüppel)
+
+• 2 Punkte: Die Waffe ist klein genug, um verborgen getragen zu werden zu können. Aufmerksame Personen können eine vergleichende Sinnesschärfe Probe gegen Heimlichkeit des Charakters ablegen, um die Waffe zu entdecken (z.B. Dolch).
+
+• 4 Punkte: Die Waffe ist so klein und verborgen, dass selbst bei einer Durchsuchung eine vergleichende Probe abgelegt werden muss, um die Waffe zu entdecken (z.B. Messer im Gehstock)
 
 ### Beispielwaffen
 
-| Waffe | Schaden | Präzision | Geschw. | WP |
+| Waffe | Schaden | Präzision | Geschw. | Verbergen |
 | --- | --- | --- | --- | --- |
-| Kurzbogen | 2 (1W6+2) | 1 (+1) | 3 (1 KR) | 6 |
-| Langbogen | 3 (1W6+3) | 1 (+1) | 2 (2 KR) | 6 |
-| Kompositbogen | 3 (1W6+3) | 2 (+2) | 1 (3 KR) | 6 |
-| Leichte Armbrust | 5 (1W6+5) | 1 (+1) | 1 (3 KR) | 6 |
-| Schwere Armbrust | 6 (1W6+6) | 0 | 0 (4 KR) | 6 |
-| Wurfmesser | 1 (1W6+1) | 1 (+1) | 3 (1 KR) | 4 |
-| Wurfspeer | 3 (1W6+3) | 0 | 1 (3 KR) | 4 |
-| Schleuder | 2 (1W6+2) | 1 (+1) | 1 (3 KR) | 4 |
+| Kurzbogen | +2 | +1 | 3 (1 KR) | 0 |
+| Langbogen | +3 | +1 | 2 (2 KR) | 0 |
+| Kompositbogen | +3 | +2 | 1 (3 KR) | 0 |
+| Leichte Armbrust | +4 | +1 | 1 (3 KR) | 1 |
+| Schwere Armbrust | +6 | 0 | 0 (4 KR) | 0 |
+| Wurfmesser | +1 | +1 | 3 (1 KR) | 2 |
+| Wurfspeer | +3 | 0 | 2 (2 KR) | 1 |
+| Schleuder | +2 | +1 | 1 (3 KR) | 2 |
 
 ## Fernkampf-Modifikatoren
 
@@ -723,11 +725,11 @@ Außerdem reduzieren sie die Schwelle für Kampfproben um die Höhe ihres Rüstu
 
 | Rüstung | RS | Malus | Kampf | Kosten | Beschreibung |
 | --- | --- | --- | --- | --- | --- |
-| Lederrüstung | 1 | -1 | -1 | Günstig | Leichte, flexible Rüstung |
-| Verstärkte Lederrüstung | 2 | -2 | -2 | Günstig | Mit Metallbeschlägen verstärkt |
-| Kettenhemd | 3 | -3 | -3 | Teuer | Metallringe, guter Schutz |
-| Schuppenpanzer | 4 | -4 | -4 | Teuer | Überlappende Metallschuppen |
-| Plattenpanzer | 5 | -5 | -5 | Extrem teuer | Vollständiger Metallschutz |
+| Lederrüstung | 1 | -1 | -0 | Günstig | Leichte, flexible Rüstung |
+| Verstärkte Lederrüstung | 2 | -2 | -1 | Günstig | Mit Metallbeschlägen verstärkt |
+| Kettenhemd | 3 | -3 | -1 | Teuer | Metallringe, guter Schutz |
+| Schuppenpanzer | 4 | -4 | -2 | Teuer | Überlappende Metallschuppen |
+| Plattenpanzer | 5 | -5 | -2 | Extrem teuer | Vollständiger Metallschutz |
 
 ## Kampfbeispiel
 
@@ -778,7 +780,7 @@ Heilkundige können Verletzungen behandeln und die Regeneration beschleunigen.
 
 ## Heilung durch Tränke
 
-Heiltränke bieten schnelle, aber teure Heilung. Um einen HEiltrank zu brauen, werden magische Heilkräuter benötigt (Wirselkraut etc.).
+Heiltränke bieten schnelle, aber teure Heilung. Um einen Heiltrank zu brauen, werden magische Heilkräuter benötigt (Wirselkraut etc.).
 
 ### Heiltrank-Wirkung
 **Heilung:** Qualität des Tranks LE
