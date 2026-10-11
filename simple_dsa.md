@@ -711,8 +711,6 @@ Verbergen:
 
 Rüstungen reduzieren eingehenden Schaden um ihren Rüstungsschutz-Wert.
 
-Schaden kann nie unter 1 fallen - selbst die beste Rüstung verhindert nicht jeden Schaden.
-
 ### Rüstungsmalus
 
 Rüstungen geben einen Malus auf körperliche Proben in Höhe ihres Rüstungsschutzes.
@@ -1852,7 +1850,7 @@ Alle zwölf Formen sind jedem Geweihten des Zwölferkreises automatisch bekannt.
 
 - **Sprachverständigung** — **Gottheiten:** alle Zwölfgötter. Ermöglicht zwei oder mehr Beteiligten, eine gesprochene Sprache für kurze Zeit zu verstehen und zu sprechen. QP bestimmen Reichweite und Zahl der Personen; es überträgt keine Gedanken.
 - **Tierempathie** — **Gottheiten:** Efferd, Tsa. Lässt den Geweihten für kurze Zeit die Gefühle eines Tieres wahrnehmen; gelegentlich zeigen sich flüchtige Gedankenbilder. Efferds Ausprägung richtet sich auf Meerestiere, Tsas auf Tiere allgemein. Sie ermöglicht keine Kontrolle und zunächst keine sprachähnliche Verständigung. Wird die Liturgie auf Stufe III erhöht, kann sie eine geistige Verständigung ermöglichen; wie viel ein Tier mitteilen kann, hängt von seiner natürlichen Intelligenz ab.
-- **Handwerk segnen** — **Gottheiten:** alle Zwölfgötter. Stärkt eine einzelne Probe in einem für die Gottheit passenden Talent, auch bei handwerklicher oder künstlerischer Arbeit. Bei der Herstellung eines Gegenstands kann der Segen die Qualität verbessern, aber er ersetzt weder Können noch Material.
+- **Handwerk segnen** — **Gottheit:** Ingerimm. Segnet die Herstellung eines einzelnen handwerklichen Gegenstands. Nach einer gelungenen Herstellung erhöht sich die Qualität des Werkstücks um QP÷2. Die Liturgie verändert weder die Probe noch deren Erfolg und ersetzt weder Können noch Material.
 - **Heilwunder** — **Gottheiten:** Peraine, Tsa. Heilt und stärkt ein Lebewesen. Auf Stufe II lindert es gewöhnliche Verletzungen und unterstützt natürliche Heilung; auf Stufe IV kann es ein sterbendes Wesen stabilisieren; auf Stufe V kann es verlorene Lebenskraft zurückgeben; auf Stufe VI kann es ein schweres oder sonst unheilbares Leiden heilen, sofern die Gottheit zustimmt. Das Nachwachsen eines verlorenen Körperteils ist ein eigenes Tsa-Wunder. Pro Anwendung wird eine Ausprägung gewählt. Es erweckt keine lange Verstorbenen wieder und ersetzt keine gewöhnliche Behandlung.
 - **Wetter und Gewässer** — **Gottheiten:** Efferd, Firun, Rondra. Verändert Wetter- und Wasserbedingungen. Auf Stufe II kann es örtlich den Wind wenden; auf Stufe III Regen über einem Feld auslösen oder eine Nebelfront erschaffen beziehungsweise tilgen; auf Stufe IV Wetter in einem begrenzten Gebiet lenken; auf Stufe V einen heftigen Schnee- oder Eissturm hervorrufen oder eine große sichtbare Wasserfläche aufwühlen beziehungsweise beruhigen. Pro Anwendung wird eine Ausprägung gewählt; QP bestimmen Ausdehnung und Dauer.
 - **Traumwirken** — **Gottheiten:** Boron, Rahja. Wirkt durch Träume. Auf Stufe II kann es einen Einblick in das letzte Traumbild eines Schlafenden gewähren oder dessen Traum-Erinnerungen erkunden; auf Stufe III kann es eine warnende oder erschreckende Traumvision senden; auf Stufe IV kann die Geweihte in einen Traum eintreten und einer kranken Person dort seelisch beistehen. Pro Anwendung wird eine Ausprägung gewählt; Eindrücke bleiben bruchstückhaft, und Träume erzwingen keine Handlung.
@@ -2021,7 +2019,7 @@ Praios ist der Herr der Sonne und des Lichts, Hüter der Zeit und oberster Richt
 
 - **0:** Zwölf Primärsegnungen
 - **1:** Göttliches Zeichen; Prophezeiung; Blendstrahl; Innere Ruhe; Objektsegen
-- **2:** Sprachverständigung; Handwerk segnen; Initiation; Objektweihe; Heiliger Befehl; Lehnseid; Magiesicht; Goldene Rüstung
+- **2:** Sprachverständigung; Initiation; Objektweihe; Heiliger Befehl; Lehnseid; Magiesicht; Goldene Rüstung
 - **3:** Zauber- und Fluchbruch; Exorzismus; Furcht lösen und bannen; Seelenprüfung; Vision; Argelions Mantel; Licht des Herrn; Praios’ Mahnung; Ordnender Blick; Unverstellter Blick
 - **4:** Magiebann; Dunkelheit vertreiben; Seelenheilung; Wille zur Wahrheit; Liturgieeinweisung; Ordination
 - **5:** Anathema; Konsekration; Zerschmetternder Bannstrahl; Argelions bannende Hand; Garafans Gleißende Schwingen
@@ -2053,7 +2051,7 @@ Rondra steht für Mut, Ehre und den offenen Kampf. Ihre Geweihten stellen sich G
 
 - **0:** Zwölf Primärsegnungen
 - **1:** Göttliches Zeichen; Prophezeiung; Objektsegen
-- **2:** Sprachverständigung; Handwerk segnen; Initiation; Objektweihe; Heiliger Befehl; Wetter und Gewässer
+- **2:** Sprachverständigung; Initiation; Objektweihe; Heiliger Befehl; Wetter und Gewässer
 - **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt
 - **4:** Liturgieeinweisung; Ordination
 - **5:** Anathema; Konsekration; Rondras wundersame Rüstung; Segnung der Schlacht
@@ -2085,7 +2083,7 @@ Efferd herrscht über Meer, Wind und wechselhaftes Wetter. Seine Geweihten begle
 
 - **0:** Zwölf Primärsegnungen
 - **1:** Göttliches Zeichen; Prophezeiung; Objektsegen
-- **2:** Sprachverständigung; Tierempathie; Handwerk segnen; Initiation; Objektweihe; Heiliger Befehl; Wetter und Gewässer; Gesegneter Fang; Ruf der Gefährten
+- **2:** Sprachverständigung; Tierempathie; Initiation; Objektweihe; Heiliger Befehl; Wetter und Gewässer; Gesegneter Fang; Ruf der Gefährten
 - **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt; Bootssegen; Mannschaftssegen
 - **4:** Liturgieeinweisung; Ordination
 - **5:** Anathema; Konsekration
@@ -2116,7 +2114,7 @@ Travia schützt Herd, Familie, Ehe und Gastfreundschaft. Ihre Geweihten nehmen R
 
 - **0:** Zwölf Primärsegnungen
 - **1:** Göttliches Zeichen; Prophezeiung; Mahlzeit segnen; Objektsegen
-- **2:** Sprachverständigung; Handwerk segnen; Initiation; Objektweihe; Heiliger Befehl; Nahrung erschaffen; Heimstein verorten; Treue des Tiergefährten; Feuerhaut
+- **2:** Sprachverständigung; Initiation; Objektweihe; Heiliger Befehl; Nahrung erschaffen; Heimstein verorten; Treue des Tiergefährten; Feuerhaut
 - **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt; Freundliche Aufnahme; Segnung des Heimes; Schwellenbann; Speisen und Wasser reinigen; Segen der Heiligen Noiona
 - **4:** Liturgieeinweisung; Ordination
 - **5:** Anathema; Konsekration; Gebet der sicheren Zuflucht
@@ -2148,7 +2146,7 @@ Boron wacht über Tod, Schlaf und die Ruhe der Seelen. Seine Geweihten begleiten
 
 - **0:** Zwölf Primärsegnungen
 - **1:** Göttliches Zeichen; Prophezeiung; Gesegneter Schlaf; Ruf zur Ruhe; Objektsegen
-- **2:** Sprachverständigung; Handwerk segnen; Traumwirken; Initiation; Objektweihe; Heiliger Befehl; Kräuterwissen; Geisterblick; Tiefschlaf; Grabweihung
+- **2:** Sprachverständigung; Traumwirken; Initiation; Objektweihe; Heiliger Befehl; Kräuterwissen; Geisterblick; Tiefschlaf; Grabweihung
 - **3:** Zauber- und Fluchbruch; Exorzismus; Furcht lösen und bannen; Seelenprüfung; Vision; Tiergestalt; Hauch Borons; Siegel Borons; Segen der Heiligen Noiona
 - **4:** Liturgieeinweisung; Ordination; Nemekaths Zwiesprache
 - **5:** Anathema; Konsekration
@@ -2179,7 +2177,7 @@ Hesinde steht für Wissen, Weisheit, Magie und die Kunst des Denkens. Ihre Gewei
 
 - **0:** Zwölf Primärsegnungen
 - **1:** Göttliches Zeichen; Prophezeiung; Sprechende Symbole; Objektsegen
-- **2:** Sprachverständigung; Handwerk segnen; Initiation; Objektweihe; Heiliger Befehl; Magiesicht; Gift erkennen
+- **2:** Sprachverständigung; Initiation; Objektweihe; Heiliger Befehl; Magiesicht; Gift erkennen
 - **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt; Argelions Mantel; Ordnender Blick; Hesindes Fingerzeig; Aura der Form; Unverstellter Blick; Graues Siegel
 - **4:** Zauberspiegel; Seelenheilung; Liturgieeinweisung; Ordination; Alchimistische Erkenntnis
 - **5:** Anathema; Konsekration; Argelions bannende Hand; Schöpferische Eingebung
@@ -2210,7 +2208,7 @@ Firun verkörpert die unerbittliche Natur, die Jagd und die Kälte des Winters. 
 
 - **0:** Zwölf Primärsegnungen
 - **1:** Göttliches Zeichen; Prophezeiung; Objektsegen
-- **2:** Sprachverständigung; Handwerk segnen; Initiation; Objektweihe; Heiliger Befehl; Wetter und Gewässer
+- **2:** Sprachverständigung; Initiation; Objektweihe; Heiliger Befehl; Wetter und Gewässer
 - **3:** Zauber- und Fluchbruch; Exorzismus; Furcht lösen und bannen; Seelenprüfung; Vision; Tiergestalt
 - **4:** Liturgieeinweisung; Ordination
 - **5:** Anathema; Konsekration
@@ -2241,7 +2239,7 @@ Tsa steht für Leben, Wandel, Heilung und jeden Neuanfang. Ihre Geweihten helfen
 
 - **0:** Zwölf Primärsegnungen
 - **1:** Göttliches Zeichen; Prophezeiung; Objektsegen; Gegenstände reparieren; Kälbchensegen; Wundersame Blütenpracht
-- **2:** Sprachverständigung; Tierempathie; Handwerk segnen; Heilwunder; Initiation; Objektweihe; Heiliger Befehl; Segensreicher Neuanfang
+- **2:** Sprachverständigung; Tierempathie; Heilwunder; Initiation; Objektweihe; Heiliger Befehl; Segensreicher Neuanfang
 - **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt; Eidechsenhaut; Verbergen
 - **4:** Liturgieeinweisung; Ordination; Befreiung
 - **5:** Anathema; Konsekration; Tsas Wunderbare Erneuerung
@@ -2273,7 +2271,7 @@ Phex steht für Glück, Handel, List und alles, was im Verborgenen geschieht. Se
 
 - **0:** Zwölf Primärsegnungen
 - **1:** Göttliches Zeichen; Prophezeiung; Objektsegen
-- **2:** Sprachverständigung; Handwerk segnen; Initiation; Objektweihe; Heiliger Befehl; Magiesicht; Auge des Händlers; Auge des Mondes; Blick für das Handwerk
+- **2:** Sprachverständigung; Initiation; Objektweihe; Heiliger Befehl; Magiesicht; Auge des Händlers; Auge des Mondes; Blick für das Handwerk
 - **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt; Verbergen; Unverstellter Blick; Graues Siegel; Phexens Augenzwinkern; Phexens Elsterflug
 - **4:** Liturgieeinweisung; Ordination; Nebelgestalt; Phexens Sternenwurf
 - **5:** Anathema; Konsekration; Phexens Meisterschlüssel; Phexens Schatten
@@ -2305,7 +2303,7 @@ Peraine wacht über Ackerbau, Heilkunst und das Gedeihen allen Lebens. Ihre Gewe
 
 - **0:** Zwölf Primärsegnungen
 - **1:** Göttliches Zeichen; Prophezeiung; Kälbchensegen; Mahlzeit segnen; Objektsegen
-- **2:** Sprachverständigung; Handwerk segnen; Heilwunder; Initiation; Objektweihe; Heiliger Befehl; Pflanzengespür; Kleiner Giftbann
+- **2:** Sprachverständigung; Heilwunder; Initiation; Objektweihe; Heiliger Befehl; Pflanzengespür; Kleiner Giftbann
 - **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt; Saat schützen; Speisen und Wasser reinigen; Segen der Heiligen Noiona
 - **4:** Liturgieeinweisung; Ordination
 - **5:** Anathema; Konsekration; Frühlingslobpreisung
@@ -2367,7 +2365,7 @@ Rahja steht für Liebe, Schönheit, Sinnlichkeit, Kunst und Lebensfreude. Ihre G
 
 - **0:** Zwölf Primärsegnungen
 - **1:** Göttliches Zeichen; Prophezeiung; Gesegneter Schlaf; Objektsegen; Rausch lösen
-- **2:** Sprachverständigung; Handwerk segnen; Traumwirken; Initiation; Objektweihe; Heiliger Befehl; Rauschsegen; Heiliges Liebesspiel
+- **2:** Sprachverständigung; Traumwirken; Initiation; Objektweihe; Heiliger Befehl; Rauschsegen; Heiliges Liebesspiel
 - **3:** Zauber- und Fluchbruch; Exorzismus; Seelenprüfung; Vision; Tiergestalt; Fest der Freude; Segen der Heiligen Noiona
 - **4:** Liturgieeinweisung; Ordination; Befreiung
 - **5:** Anathema; Konsekration; Khablas makelloser Leib

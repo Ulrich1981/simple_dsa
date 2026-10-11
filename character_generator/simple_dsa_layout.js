@@ -102,6 +102,7 @@ Seiten:
             - { key: "f1",    type: "input.number_text", header: "Schaden+" }
             - { key: "f2",    type: "input.number_text", header: "Präzision" }
             - { key: "f3",    type: "input.number_text", header: "Parade/Nachladen" }
+            - { key: "verbergen", type: "input.number_text", header: "Verbergen" }
             - { key: "angriffswert", type: "computed",   header: "Angriff", formula_id: "weapon_attack_value" }
             - { key: "schaden_wurf", type: "computed",   header: "Schaden", formula_id: "weapon_damage_roll" }
             - { key: "paradewert", type: "computed",     header: "Reduzierung", formula_id: "weapon_parry_value" }

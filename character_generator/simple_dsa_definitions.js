@@ -44,7 +44,7 @@ sections:
     label: "Charakter"
     type: "header"
     items:
-      # Jede Zeile: frei beschreibbarer Name und drei Werte
+      # Jede Zeile: frei beschreibbarer Name und Waffenwerte
       - id: character
         label: ""                  # frei befüllbar
         fields:                    # zusätzliche Felder in dieser Zeile
@@ -225,6 +225,7 @@ sections:
           - { id: f1, type: "number", value: "" }
           - { id: f2, type: "number", value: "" }
           - { id: f3, type: "number", value: "" } 
+          - { id: verbergen, type: "number", value: "" }
   - id: Rüstung
     label: "Rüstung"
     calc_id: "value_only"          # keine Berechnung
