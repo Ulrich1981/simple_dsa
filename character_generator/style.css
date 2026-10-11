@@ -120,6 +120,17 @@ input[type="file"] { padding: 2px; }
   word-wrap: break-word;     /* lange Wörter umbrechen */
   overflow-wrap: anywhere;   /* bricht auch sehr lange Tokens (IDs) */
 }
+.print-select-control {
+  display: grid;
+  min-width: 0;
+}
+.print-select-control > * {
+  grid-area: 1 / 1;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.print-select-value { display: none; }
 
 /* Header etwas größer, aber weiterhin bruchfähig */
 .table-grid .header {
@@ -275,6 +286,17 @@ input.num { width: 3ch; }
   .table-grid input,
   .table-grid select {
     min-width: 0;
+  }
+  .print-select-control > select { display: none !important; }
+  .print-select-value {
+    display: block;
+    min-height: 1.2em;
+    padding: 1px 2px;
+    border-bottom: 1px solid #777;
+    color: #000;
+    background: #fff;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .toolbar, input[type="file"] { display: none !important; }

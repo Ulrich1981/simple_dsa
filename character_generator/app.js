@@ -30,6 +30,16 @@ function normalizeProgressionValue(sec, value){
 function tri(n){ n=parseNum(n); if(n<0) n=0; return (n*(n+1))/2; }
 function get(o,p,d){ return p.split('.').reduce((x,k)=> x && (k in x) ? x[k] : undefined, o) ?? d; }
 function createDiv(text, cls){ const d=document.createElement('div'); if (text!==undefined) d.textContent=String(text); if(cls) d.className=cls; return d; }
+function createPrintSelectControl(select){
+  const wrapper = document.createElement('div');
+  wrapper.className = 'print-select-control';
+  const printValue = createDiv(select.value ? select.selectedOptions[0]?.textContent || '' : '', 'print-select-value');
+  select.addEventListener('change', () => {
+    printValue.textContent = select.value ? select.selectedOptions[0]?.textContent || '' : '';
+  });
+  wrapper.append(select, printValue);
+  return wrapper;
+}
 function setText(id,v){ const el=document.getElementById(id); if(el) el.textContent=String(v); }
 function setInput(id,v){ const el=document.getElementById(id); if(el && el.tagName==='INPUT'){ el.value=(v===0||v===undefined||v==='')?'':String(v); } }
 function makeNumInput(val,on,allowedTextValues=[]){ const i=document.createElement('input'); i.type='text'; i.placeholder='0'; i.value=(val===0||val===undefined||val==='')?'':String(val); i.className='num'; i.addEventListener('input',()=>{ const raw=String(i.value).trim(); const special=(allowedTextValues||[]).find(item=>String(item).toUpperCase()===raw.toUpperCase()); on(special ?? parseNum(raw)); }); return i; }
@@ -1334,7 +1344,7 @@ function buildTable(items, sec, ref, opts = {}){
             recalc();
           });
           
-          push(select);
+          push(createPrintSelectControl(select));
           break;
         }
       case 'readonly_text': {
@@ -1443,7 +1453,7 @@ function renderDropdown(sec, ref) {
   });
   
   container.appendChild(label);
-  container.appendChild(select);
+  container.appendChild(createPrintSelectControl(select));
   return container;
 }
 
