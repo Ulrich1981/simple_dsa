@@ -768,6 +768,11 @@ function computeCellValue(sec, it, col, valueKeyPrefix = null){
     return String(parseNum(ownVal + sectionVal));
   }
 
+  if (formula.type === 'section_item_field') {
+    const p = formula.params || {};
+    return String(getSectionItemFieldValue(p.section_id, p.item_id, p.field_id));
+  }
+
   if (formula.type === 'dice_plus_field') {
     const p = formula.params || {};
     const ownVal = getOwnFieldValue(sec, it, p.own_field_id, valueKeyPrefix);

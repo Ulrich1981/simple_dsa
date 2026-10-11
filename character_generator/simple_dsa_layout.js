@@ -116,8 +116,8 @@ Seiten:
         kompakt: true
         tabelle:
           columns:
-            - { key: "label",  type: "input.text",        header: "Name" }
-            - { key: "armor",  type: "input.number_text", header: "Rüstung" }
+            - { key: "armor_type", type: "input.select", header: "Rüstung" }
+            - { key: "armor", type: "computed", header: "RS", formula_id: "armor_rs" }
 
       - ref: Ausrüstung
         titel_anzeigen: true

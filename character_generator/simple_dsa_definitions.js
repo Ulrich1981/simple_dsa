@@ -24,7 +24,7 @@ globals:
         add_field_id: "f2"
         subtract_section_id: "Rüstung"
         subtract_item_id: "armor_1"
-        subtract_field_id: "armor"
+        subtract_field_id: "kampf"
         bracket: "selected_value"
     weapon_parry_value:
       type: "field_plus_section_field"
@@ -33,6 +33,12 @@ globals:
         section_id: "Rüstung"
         item_id: "armor_1"
         section_field_id: "armor"
+    armor_rs:
+      type: "section_item_field"
+      params:
+        section_id: "Rüstung"
+        item_id: "armor_1"
+        field_id: "armor"
     weapon_damage_roll:
       type: "dice_plus_field"
       params:
@@ -226,6 +232,48 @@ sections:
           - { id: f2, type: "number", value: "" }
           - { id: f3, type: "number", value: "" } 
           - { id: verbergen, type: "number", value: "" }
+  - id: Rüstungskatalog
+    label: "Rüstungskatalog"
+    calc_id: "value_only"
+    cost_per_increment: 0
+    exclude_from_ap: true
+    items:
+      - id: lederruestung
+        label: "Lederrüstung"
+        value: 1
+        fields:
+          - { id: armor, type: "number", value: 1 }
+          - { id: malus, type: "number", value: 1 }
+          - { id: kampf, type: "number", value: 0 }
+      - id: verstaerkte_lederruestung
+        label: "Verstärkte Lederrüstung"
+        value: 2
+        fields:
+          - { id: armor, type: "number", value: 2 }
+          - { id: malus, type: "number", value: 2 }
+          - { id: kampf, type: "number", value: 1 }
+      - id: kettenhemd
+        label: "Kettenhemd"
+        value: 3
+        fields:
+          - { id: armor, type: "number", value: 3 }
+          - { id: malus, type: "number", value: 3 }
+          - { id: kampf, type: "number", value: 1 }
+      - id: schuppenpanzer
+        label: "Schuppenpanzer"
+        value: 4
+        fields:
+          - { id: armor, type: "number", value: 4 }
+          - { id: malus, type: "number", value: 4 }
+          - { id: kampf, type: "number", value: 2 }
+      - id: plattenpanzer
+        label: "Plattenpanzer"
+        value: 5
+        fields:
+          - { id: armor, type: "number", value: 5 }
+          - { id: malus, type: "number", value: 5 }
+          - { id: kampf, type: "number", value: 2 }
+
   - id: Rüstung
     label: "Rüstung"
     calc_id: "value_only"          # keine Berechnung
@@ -236,7 +284,19 @@ sections:
       - id: armor_1
         label: ""                  # frei befüllbar
         fields:                    # zusätzliche Felder in dieser Zeile
-          - { id: armor, type: "number", value: "" }
+          - id: armor_type
+            type: "select"
+            value: ""
+            allow_empty: true
+            empty_label: "-- Rüstung auswählen --"
+            options_from:
+              section_id: "Rüstungskatalog"
+            on_change_set_label_from_source: false
+            on_change_set_fields:
+              "": { armor: 0, malus: 0, kampf: 0 }
+          - { id: armor, type: "number", value: 0 }
+          - { id: malus, type: "number", value: 0 }
+          - { id: kampf, type: "number", value: 0 }
   - id: Ausrüstung
     label: "Ausrüstung"
     calc_id: "value_only"          # keine Berechnung
