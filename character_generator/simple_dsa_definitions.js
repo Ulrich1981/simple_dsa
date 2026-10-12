@@ -34,11 +34,10 @@ globals:
         item_id: "armor_1"
         section_field_id: "armor"
     armor_rs:
-      type: "section_item_field"
+      type: "sum_terms"
       params:
-        section_id: "Rüstung"
-        item_id: "armor_1"
-        field_id: "armor"
+        terms:
+          - { source: "section_item_field", section_id: "Rüstung", item_id: "armor_1", field_id: "armor" }
     weapon_damage_roll:
       type: "dice_plus_field"
       params:

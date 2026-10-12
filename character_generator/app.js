@@ -30,13 +30,17 @@ function normalizeProgressionValue(sec, value){
 function tri(n){ n=parseNum(n); if(n<0) n=0; return (n*(n+1))/2; }
 function get(o,p,d){ return p.split('.').reduce((x,k)=> x && (k in x) ? x[k] : undefined, o) ?? d; }
 function createDiv(text, cls){ const d=document.createElement('div'); if (text!==undefined) d.textContent=String(text); if(cls) d.className=cls; return d; }
+function syncPrintSelectValue(select){
+  const printValue = select.parentElement?.querySelector('.print-select-value');
+  if (printValue) {
+    printValue.textContent = select.value ? select.selectedOptions[0]?.textContent || '' : '';
+  }
+}
 function createPrintSelectControl(select){
   const wrapper = document.createElement('div');
   wrapper.className = 'print-select-control';
   const printValue = createDiv(select.value ? select.selectedOptions[0]?.textContent || '' : '', 'print-select-value');
-  select.addEventListener('change', () => {
-    printValue.textContent = select.value ? select.selectedOptions[0]?.textContent || '' : '';
-  });
+  select.addEventListener('change', () => syncPrintSelectValue(select));
   wrapper.append(select, printValue);
   return wrapper;
 }
@@ -390,8 +394,6 @@ function removeRepeatableRow(sec, itemId){
   if (idx < 0) return;
   const [removed] = sec.items.splice(idx, 1);
   if (removed) dropItemState(sec, removed);
-  render();
-  recalc();
 }
 
 function restoreRepeatableItemsFromSave(currentSec, savedItems){
@@ -778,11 +780,6 @@ function computeCellValue(sec, it, col, valueKeyPrefix = null){
     return String(parseNum(ownVal + sectionVal));
   }
 
-  if (formula.type === 'section_item_field') {
-    const p = formula.params || {};
-    return String(getSectionItemFieldValue(p.section_id, p.item_id, p.field_id));
-  }
-
   if (formula.type === 'dice_plus_field') {
     const p = formula.params || {};
     const ownVal = getOwnFieldValue(sec, it, p.own_field_id, valueKeyPrefix);
@@ -917,8 +914,6 @@ sections.forEach(sec => {
   });
 });
 
-  render();
-  recalc();
 }
 
 
@@ -991,45 +986,48 @@ function evaluateVisibilityRules(visibility, currentState) {
 }
 
 function evaluateVisibilityRule(rule, currentState) {
-    if (!rule.field) return true;
-    
-    const fieldValue = currentState[rule.field] || '';
-    const operator = rule.operator || 'equals';
-    
-    switch (operator) {
-        case 'equals':
-            return fieldValue === (rule.value || '');
-            
-        case 'not_equals':
-            return fieldValue !== (rule.value || '');
-            
-        case 'in':
-            return Array.isArray(rule.values) && rule.values.includes(fieldValue);
-            
-        case 'not_in':
-            return Array.isArray(rule.values) && !rule.values.includes(fieldValue);
-            
-        case 'has_value':
-            return fieldValue !== '' && fieldValue !== null && fieldValue !== undefined;
-            
-        case 'is_empty':
-            return fieldValue === '' || fieldValue === null || fieldValue === undefined;
-            
-        case 'greater_than':
-            return parseNum(fieldValue) > parseNum(rule.value || 0);
-            
-        case 'less_than':
-            return parseNum(fieldValue) < parseNum(rule.value || 0);
-            
-        case 'greater_equal':
-            return parseNum(fieldValue) >= parseNum(rule.value || 0);
-            
-        case 'less_equal':
-            return parseNum(fieldValue) <= parseNum(rule.value || 0);
-            
-        default:
-            return true;
-    }
+  if (!rule.field) return true;
+
+  const fieldValue = currentState[rule.field];
+  const normalizedValue = String(fieldValue ?? '');
+  const expectedValue = String(rule.value ?? '');
+  const hasValue = fieldValue !== '' && fieldValue !== null && fieldValue !== undefined;
+  const operator = rule.operator || 'equals';
+
+  switch (operator) {
+    case 'equals':
+      return normalizedValue === expectedValue;
+
+    case 'not_equals':
+      return normalizedValue !== expectedValue;
+
+    case 'in':
+      return Array.isArray(rule.values) && rule.values.some(value => String(value) === normalizedValue);
+
+    case 'not_in':
+      return Array.isArray(rule.values) && !rule.values.some(value => String(value) === normalizedValue);
+
+    case 'has_value':
+      return hasValue;
+
+    case 'is_empty':
+      return !hasValue;
+
+    case 'greater_than':
+      return parseNum(fieldValue) > parseNum(rule.value ?? 0);
+
+    case 'less_than':
+      return parseNum(fieldValue) < parseNum(rule.value ?? 0);
+
+    case 'greater_equal':
+      return parseNum(fieldValue) >= parseNum(rule.value ?? 0);
+
+    case 'less_equal':
+      return parseNum(fieldValue) <= parseNum(rule.value ?? 0);
+
+    default:
+      return true;
+  }
 }
 
 function render(){
@@ -1116,7 +1114,11 @@ function pageVisible(page, currentState = {}){
     let any=false;
     (sec.items||[]).forEach(it=>{ if (parseNum(state.values[it.id])>0) any=true; });
     (sec.groups||[]).forEach(gr=>{
-      (gr.items||[]).forEach(it=>{ if (parseNum(state.values[it.id])>0) any=true; });
+      const valueKeyPrefix = `${sec.id}-${gr.id}`;
+      (gr.items||[]).forEach(it=>{
+        const valueKey = generateKey(sec, it, 'value', valueKeyPrefix);
+        if (parseNum(state.values[valueKey]) > 0) any = true;
+      });
     });
     return any;
   }
@@ -1335,6 +1337,7 @@ function buildTable(items, sec, ref, opts = {}){
                 const targetEl = document.getElementById(targetDisplayId);
                 if (targetEl) {
                   targetEl.value = String(normalized);
+                  if (targetEl.tagName === 'SELECT') syncPrintSelectValue(targetEl);
                 }
               });
             }
@@ -1805,198 +1808,92 @@ function buildSave(){
   return out;
 }
 
-// Helper function to convert state key to display ID
-function keyToDisplayId(key) {
-  return `row-input-${key}`;
+function applySavedItemFields(currentSec, currentItem, savedItem, valueKeyPrefix = null){
+  (savedItem.fields || []).forEach(savedField => {
+    const currentField = (currentItem.fields || []).find(field => field.id === savedField.id);
+    const type = savedField.type || currentField?.type || 'number';
+    const key = generateKey(currentSec, savedItem, savedField.id, valueKeyPrefix);
+    state.values[key] = normalizeFieldValue(type, savedField.value ?? '');
+  });
 }
 
-function syncUiFromStateAfterLoad() {
-  setTimeout(() => {
-    Object.keys(state.values).forEach(key => {
-      const displayId = keyToDisplayId(key);
-      const element = document.getElementById(displayId);
-      if (element) {
-        element.value = state.values[key];
-      }
-    });
+function applySavedSectionData(currentSec, savedSec, preserveMissingValues){
+  if (typeof savedSec.selected_value !== 'undefined') {
+    state.values[currentSec.id] = savedSec.selected_value;
+  }
 
-    Object.keys(state.attributes).forEach(attrId => {
-      const displayId = generateDisplayId('row-input', { id: attributeSectionId }, { id: attrId }, 'value');
-      const element = document.getElementById(displayId);
-      if (element) {
-        element.value = state.attributes[attrId];
-      }
-    });
+  (savedSec.fields || []).forEach(savedField => {
+    const currentField = (currentSec.fields || []).find(field => field.id === savedField.id);
+    const type = savedField.type || currentField?.type || 'number';
+    const key = generateKey(currentSec, { id: savedField.id }, savedField.id);
+    state.values[key] = normalizeFieldValue(type, savedField.value ?? '');
+  });
 
-    recalc();
-  }, 100);
+  if (Array.isArray(savedSec.items) && savedSec.items.length) {
+    restoreRepeatableItemsFromSave(currentSec, savedSec.items);
+  }
+
+  (savedSec.items || []).forEach(savedItem => {
+    const currentItem = currentSec.items?.find(item => item.id === savedItem.id);
+    if (!currentItem) return;
+
+    const hasValue = typeof savedItem.value !== 'undefined';
+    if (hasValue || !preserveMissingValues) {
+      state.values[generateKey(currentSec, savedItem)] = normalizeProgressionValue(currentSec, savedItem.value ?? 0);
+    }
+    if (savedItem.label !== undefined) {
+      state.values[generateKey(currentSec, savedItem, 'label')] = savedItem.label;
+    }
+    if (isAttributeSection(currentSec) && (hasValue || !preserveMissingValues)) {
+      state.attributes[savedItem.id] = parseNum(savedItem.value ?? 0);
+    }
+    applySavedItemFields(currentSec, currentItem, savedItem);
+  });
+
+  (savedSec.groups || []).forEach(savedGroup => {
+    const currentGroup = currentSec.groups?.find(group => group.id === savedGroup.id);
+    if (!currentGroup) return;
+
+    const valueKeyPrefix = `${currentSec.id}-${savedGroup.id}`;
+    (savedGroup.items || []).forEach(savedItem => {
+      const currentItem = currentGroup.items?.find(item => item.id === savedItem.id);
+      if (!currentItem) return;
+
+      if (typeof savedItem.value !== 'undefined' || !preserveMissingValues) {
+        const key = generateKey(currentSec, savedItem, 'value', valueKeyPrefix);
+        state.values[key] = parseNum(savedItem.value ?? 0);
+      }
+      if (savedItem.label !== undefined) {
+        state.values[generateKey(currentSec, savedItem, 'label', valueKeyPrefix)] = savedItem.label;
+      }
+      applySavedItemFields(currentSec, currentItem, savedItem, valueKeyPrefix);
+    });
+  });
 }
 
-function applyCompactSaveData(saveData) {
+function applyCompactSaveData(saveData){
   if (typeof saveData.ap_total !== 'undefined') {
     state.ap_total = parseNum(saveData.ap_total);
   }
-
   (saveData.sections || []).forEach(savedSec => {
-    const currentSec = sections.find(s => s.id === savedSec.id);
-    if (!currentSec) return;
-
-    if (typeof savedSec.selected_value !== 'undefined') {
-      state.values[currentSec.id] = savedSec.selected_value;
-    }
-
-    (savedSec.fields || []).forEach(savedField => {
-      const currentField = (currentSec.fields || []).find(f => f.id === savedField.id);
-      const type = savedField.type || currentField?.type || 'number';
-      const key = generateKey(currentSec, { id: savedField.id }, savedField.id);
-      state.values[key] = normalizeFieldValue(type, savedField.value ?? '');
-    });
-
-    if (Array.isArray(savedSec.items) && savedSec.items.length) {
-      restoreRepeatableItemsFromSave(currentSec, savedSec.items);
-    }
-
-    (savedSec.items || []).forEach(savedItem => {
-      const currentItem = currentSec.items?.find(it => it.id === savedItem.id);
-      if (!currentItem) return;
-
-      if (typeof savedItem.value !== 'undefined') {
-        state.values[generateKey(currentSec, savedItem)] = normalizeProgressionValue(currentSec, savedItem.value ?? 0);
-      }
-
-      if (savedItem.label !== undefined) {
-        state.values[generateKey(currentSec, savedItem, 'label')] = savedItem.label;
-      }
-
-      if (isAttributeSection(currentSec) && typeof savedItem.value !== 'undefined') {
-        state.attributes[savedItem.id] = parseNum(savedItem.value ?? 0);
-      }
-
-      (savedItem.fields || []).forEach(savedField => {
-        const currentField = (currentItem.fields || []).find(f => f.id === savedField.id);
-        const type = savedField.type || currentField?.type || 'number';
-        const fieldKey = generateKey(currentSec, savedItem, savedField.id);
-        state.values[fieldKey] = normalizeFieldValue(type, savedField.value ?? '');
-      });
-    });
-
-    (savedSec.groups || []).forEach(savedGroup => {
-      const currentGroup = currentSec.groups?.find(g => g.id === savedGroup.id);
-      if (!currentGroup) return;
-
-      const valueKeyPrefix = `${savedSec.id}-${savedGroup.id}`;
-      (savedGroup.items || []).forEach(savedItem => {
-        const currentItem = currentGroup.items?.find(it => it.id === savedItem.id);
-        if (!currentItem) return;
-
-        if (typeof savedItem.value !== 'undefined') {
-          const mainKey = generateKey(currentSec, savedItem, 'value', valueKeyPrefix);
-          state.values[mainKey] = parseNum(savedItem.value ?? 0);
-        }
-
-        if (savedItem.label !== undefined) {
-          state.values[generateKey(currentSec, savedItem, 'label', valueKeyPrefix)] = savedItem.label;
-        }
-
-        (savedItem.fields || []).forEach(savedField => {
-          const currentField = (currentItem.fields || []).find(f => f.id === savedField.id);
-          const type = savedField.type || currentField?.type || 'number';
-          const fieldKey = generateKey(currentSec, savedItem, savedField.id, valueKeyPrefix);
-          state.values[fieldKey] = normalizeFieldValue(type, savedField.value ?? '');
-        });
-      });
-    });
+    const currentSec = sections.find(sec => sec.id === savedSec.id);
+    if (currentSec) applySavedSectionData(currentSec, savedSec, true);
   });
 }
 
-function applySaveData(saveData) {
+function applySaveData(saveData){
   if (saveData?.save_format === 'character_state_v2') {
     applyCompactSaveData(saveData);
-    syncUiFromStateAfterLoad();
     return;
   }
 
-  // Apply loaded save data to current state
-  
-  // Update globals
   if (saveData.globals && saveData.globals.ap_total !== undefined) {
     state.ap_total = parseNum(saveData.globals.ap_total);
   }
-
-  // Update all sections from save data
   (saveData.sections || []).forEach(savedSec => {
-    // Find corresponding section in current definitions
-    const currentSec = sections.find(s => s.id === savedSec.id);
-    if (!currentSec) return;
-
-    // Update section fields
-    (savedSec.fields || []).forEach(savedField => {
-      const key = generateKey(currentSec, { id: savedField.id }, savedField.id);
-      state.values[key] = normalizeFieldValue(savedField.type, savedField.value ?? '');
-    });
-
-    // Update direct items (no groups)
-    if (Array.isArray(savedSec.items) && savedSec.items.length) {
-      restoreRepeatableItemsFromSave(currentSec, savedSec.items);
-    }
-
-    (savedSec.items || []).forEach(savedItem => {
-      const currentItem = currentSec.items?.find(it => it.id === savedItem.id);
-      if (!currentItem) return;
-
-      // Update main value
-      const mainKey = generateKey(currentSec, savedItem);
-      state.values[mainKey] = normalizeProgressionValue(currentSec, savedItem.value ?? 0);
-
-      // Update item label if it exists in save data
-      if (savedItem.label !== undefined) {
-        const labelKey = generateKey(currentSec, savedItem, 'label');
-        state.values[labelKey] = savedItem.label;
-      }
-
-      // Update attributes if this is the configured attribute section
-      if (isAttributeSection(currentSec)) {
-        state.attributes[savedItem.id] = parseNum(savedItem.value ?? 0);
-      }
-
-      // Update custom fields
-      (savedItem.fields || []).forEach(savedField => {
-        const fieldKey = generateKey(currentSec, savedItem, savedField.id);
-        state.values[fieldKey] = normalizeFieldValue(savedField.type, savedField.value ?? '');
-      });
-    });
-
-    // Update groups
-    (savedSec.groups || []).forEach(savedGroup => {
-      const currentGroup = currentSec.groups?.find(g => g.id === savedGroup.id);
-      if (!currentGroup) return;
-
-      const valueKeyPrefix = `${savedSec.id}-${savedGroup.id}`;
-      
-      (savedGroup.items || []).forEach(savedItem => {
-        const currentItem = currentGroup.items?.find(it => it.id === savedItem.id);
-        if (!currentItem) return;
-
-        // Update main value
-        const mainKey = generateKey(currentSec, savedItem, 'value', valueKeyPrefix);
-        state.values[mainKey] = parseNum(savedItem.value ?? 0);
-
-        // Update item label if it exists in save data
-        if (savedItem.label !== undefined) {
-          const labelKey = generateKey(currentSec, savedItem, 'label', valueKeyPrefix);
-          state.values[labelKey] = savedItem.label;
-        }
-
-        // Update custom fields
-        (savedItem.fields || []).forEach(savedField => {
-          const fieldKey = generateKey(currentSec, savedItem, savedField.id, valueKeyPrefix);
-          state.values[fieldKey] = normalizeFieldValue(savedField.type, savedField.value ?? '');
-        });
-      });
-    });
+    const currentSec = sections.find(sec => sec.id === savedSec.id);
+    if (currentSec) applySavedSectionData(currentSec, savedSec, false);
   });
-
-  syncUiFromStateAfterLoad();
 }
 
 
