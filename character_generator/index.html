@@ -12,6 +12,12 @@
       <button id="printBtn">Drucken</button>
       <button id="saveBtn">Speichern</button>
       <input id="fileInput" type="file" accept=".sav,.yaml,.yml">
+      <span id="sampleCharacterControls" hidden>
+        <select id="sampleCharacterSelect" aria-label="Beispielcharakter auswählen">
+          <option value="">-- Beispielcharakter auswählen --</option>
+        </select>
+        <button id="loadSampleCharacterBtn" type="button" disabled>Beispiel laden</button>
+      </span>
     </div>
     <div class="stats">
       <div class="stat"><div>AP gesamt:</div><div id="apTotal"></div></div>
@@ -28,7 +34,11 @@
       dsa: {
         label: 'Simple DSA',
         defs: 'simple_dsa_definitions.js',
-        layout: 'simple_dsa_layout.js'
+        layout: 'simple_dsa_layout.js',
+        examples: [
+          { label: 'Alrik von Eichenwacht (Krieger)', url: 'examples/alrik-von-eichenwacht.sav' },
+          { label: 'Ilyra Falkenstern (Legendäre Magierin)', url: 'examples/ilyra-falkenstern.sav' }
+        ]
       },
       ars: {
         label: 'Ars Magica',
@@ -59,6 +69,7 @@
 
       const cfg = SYSTEM_CONFIG[systemId];
       document.title = `Charaktergenerator - ${cfg.label}`;
+      window.CHARACTER_EXAMPLES = cfg.examples || [];
 
       await loadScript(cfg.defs);
       await loadScript(cfg.layout);

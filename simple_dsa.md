@@ -132,6 +132,19 @@ In besonders brenzligen Situationen haben die Helden noch eine spezielle Ressour
 
 Jeder neue Charakter erhält 4000 Abenteuerpunkte (AP) zur Charaktererschaffung.
 
+### Machtniveau und Start-AP
+
+Die folgenden Richtwerte helfen dabei, das gewünschte Machtniveau einer Gruppe festzulegen. Alle Figuren einer Gruppe sollten mit demselben AP-Budget beginnen.
+
+| Start-AP | Machtniveau | Einordnung |
+| ---: | --- | --- |
+| 3.000 | Aufstrebend | Unerfahrene Abenteurer mit ersten Schwerpunkten |
+| 4.000 | Kompetent | Standard: vielseitige Helden mit klaren Stärken |
+| 6.000 | Erfahren | Routiniert und in mehreren Bereichen stark |
+| 10.000 | Heroisch | Außergewöhnliche Figuren für große Herausforderungen |
+| 15.000 | Überlebensgroß | Helden, deren Taten die Region prägen |
+| 20.000 | Legendär | Figuren für Kampagnen von weltbewegendem Maßstab |
+
 ### Steigerungskosten
 
 Eine Steigerung um einen Punkt kostet neue Stufe x Faktor AP. Um einen Wert von 0 auf Stufe X zu bringen, kostet das X × (X+1) ÷ 2 × Faktor AP. Dadurch spielt es keine Rolle, ob man einen Wert zu Charakterstart erwirbt, oder später steigert.
@@ -2370,5 +2383,3 @@ Rahja steht für Liebe, Schönheit, Sinnlichkeit, Kunst und Lebensfreude. Ihre G
 - **4:** Liturgieeinweisung; Ordination; Befreiung
 - **5:** Anathema; Konsekration; Khablas makelloser Leib
 - **6:** Rahjas Sinnlichkeit
-
-

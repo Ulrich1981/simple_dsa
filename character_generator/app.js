@@ -17,7 +17,10 @@ const els = {
   apRemaining: document.getElementById('apRemaining'),
   printBtn: document.getElementById('printBtn'),
   saveBtn: document.getElementById('saveBtn'),
-  fileInput: document.getElementById('fileInput')
+  fileInput: document.getElementById('fileInput'),
+  sampleControls: document.getElementById('sampleCharacterControls'),
+  sampleSelect: document.getElementById('sampleCharacterSelect'),
+  loadSampleBtn: document.getElementById('loadSampleCharacterBtn')
 };
 
 // utils
@@ -1679,17 +1682,54 @@ function wireButtons(){
     els.fileInput.addEventListener('change',(e)=>{
       const f=e.target.files?.[0]; if(!f) return;
       const r=new FileReader();
-      r.onload=()=>{ // lädt ein vollständiges Save in generischer Struktur
-        const doc = jsyaml.load(r.result);
-        // Re-initialize with original definitions and layout, then load character data
-        init(defText, layText);
-        applySaveData(doc);
-        render();
-        recalc();
+      r.onload=()=>{
+        try {
+          loadCharacterDocument(jsyaml.load(r.result));
+        } catch (error) {
+          console.error('Charakterdatei konnte nicht geladen werden.', error);
+          alert(`Charakterdatei konnte nicht geladen werden: ${error.message}`);
+        } finally {
+          els.fileInput.value = '';
+        }
+      };
+      r.onerror=()=>{
+        console.error('Charakterdatei konnte nicht gelesen werden.', r.error);
+        alert('Charakterdatei konnte nicht gelesen werden.');
+        els.fileInput.value = '';
       };
       r.readAsText(f);
     });
     els.fileInput.__wired=true;
+  }
+
+  if (els.sampleControls && els.sampleSelect && els.loadSampleBtn && !els.sampleControls.__wired){
+    const examples = Array.isArray(window.CHARACTER_EXAMPLES) ? window.CHARACTER_EXAMPLES : [];
+    els.sampleControls.hidden = examples.length === 0;
+    examples.forEach((example, index) => {
+      const option = document.createElement('option');
+      option.value = String(index);
+      option.textContent = example.label;
+      els.sampleSelect.appendChild(option);
+    });
+    els.sampleSelect.addEventListener('change', () => {
+      els.loadSampleBtn.disabled = els.sampleSelect.value === '';
+    });
+    els.loadSampleBtn.addEventListener('click', async () => {
+      const example = examples[Number(els.sampleSelect.value)];
+      if (!example) return;
+
+      try {
+        const response = await fetch(example.url);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status} beim Laden von ${example.label}`);
+        }
+        loadCharacterDocument(jsyaml.load(await response.text()));
+      } catch (error) {
+        console.error(`Beispielcharakter "${example.label}" konnte nicht geladen werden.`, error);
+        alert(`Beispielcharakter konnte nicht geladen werden: ${error.message}`);
+      }
+    });
+    els.sampleControls.__wired=true;
   }
 
   if (!wireButtons.__visibilityWired){
@@ -1704,6 +1744,15 @@ function wireButtons(){
   }
 }
 
+function loadCharacterDocument(doc){
+  if (!doc || typeof doc !== 'object' || !Array.isArray(doc.sections)) {
+    throw new Error('Die Datei enthält keine gültigen Charakterdaten.');
+  }
+  init(defText, layText);
+  applySaveData(doc);
+  render();
+  recalc();
+}
 
 async function saveSav(){
   const out = buildSave();                      // dein Save-Objekt
@@ -1842,6 +1891,7 @@ function applySavedSectionData(currentSec, savedSec, preserveMissingValues){
       state.values[generateKey(currentSec, savedItem)] = normalizeProgressionValue(currentSec, savedItem.value ?? 0);
     }
     if (savedItem.label !== undefined) {
+      currentItem.label = savedItem.label;
       state.values[generateKey(currentSec, savedItem, 'label')] = savedItem.label;
     }
     if (isAttributeSection(currentSec) && (hasValue || !preserveMissingValues)) {
@@ -1864,6 +1914,7 @@ function applySavedSectionData(currentSec, savedSec, preserveMissingValues){
         state.values[key] = parseNum(savedItem.value ?? 0);
       }
       if (savedItem.label !== undefined) {
+        currentItem.label = savedItem.label;
         state.values[generateKey(currentSec, savedItem, 'label', valueKeyPrefix)] = savedItem.label;
       }
       applySavedItemFields(currentSec, currentItem, savedItem, valueKeyPrefix);

@@ -1,0 +1,81 @@
+save_format: character_state_v2
+ap_total: 4000
+sections:
+  - id: Kopfzeile
+    items:
+      - id: character
+        label: Alrik von Eichenwacht
+        fields:
+          - { id: race, type: select, value: Mensch }
+          - { id: profession, type: select, value: Krieger }
+          - { id: culture, type: text, value: Mittelreich }
+  - id: Eigenschaften
+    items:
+      - { id: MU, value: 7 }
+      - { id: KL, value: 6 }
+      - { id: IN, value: 6 }
+      - { id: CH, value: 5 }
+      - { id: GE, value: 7 }
+      - { id: KK, value: 7 }
+      - { id: KO, value: 6 }
+  - id: Talente
+    groups:
+      - id: kampf
+        items:
+          - { id: bewaffneter_nahkampf, value: 3 }
+          - { id: schusswaffen, value: 1 }
+      - id: koerper
+        items:
+          - { id: reiten, value: 2 }
+          - { id: schwimmen, value: 1 }
+          - { id: akrobatik, value: 1 }
+      - id: gesellschaft
+        items:
+          - { id: etikette, value: 1 }
+          - { id: ueberzeugen, value: 1 }
+      - id: wissen
+        items:
+          - { id: kriegskunst, value: 2 }
+          - { id: heilkunde, value: 1 }
+      - id: natur
+        items:
+          - { id: wildnisleben, value: 2 }
+          - { id: sinnesschaerfe, value: 2 }
+          - { id: jagen, value: 1 }
+  - id: Sprachen
+    items:
+      - id: sprache_01
+        value: 1
+        fields:
+          - { id: label, type: select, value: Garethi }
+  - id: Waffen
+    items:
+      - id: weapon_1
+        label: Langschwert
+        fields:
+          - { id: kampftalent, type: select, value: bewaffneter_nahkampf }
+          - { id: f1, type: number, value: 2 }
+          - { id: f2, type: number, value: 1 }
+          - { id: f3, type: number, value: 0 }
+          - { id: verbergen, type: number, value: 0 }
+      - id: weapon_2
+        label: Jagdbogen
+        fields:
+          - { id: kampftalent, type: select, value: schusswaffen }
+          - { id: f1, type: number, value: 1 }
+          - { id: f2, type: number, value: 0 }
+          - { id: f3, type: number, value: 0 }
+          - { id: verbergen, type: number, value: 0 }
+  - id: Rüstung
+    items:
+      - id: armor_1
+        label: Kettenhemd
+        fields:
+          - { id: armor_type, type: select, value: kettenhemd }
+          - { id: armor, type: number, value: 3 }
+          - { id: malus, type: number, value: 3 }
+          - { id: kampf, type: number, value: 1 }
+  - id: Ausrüstung
+    items:
+      - { id: gear_1, label: Reisegepäck }
+      - { id: gear_2, label: Verbandszeug und Feldflasche }

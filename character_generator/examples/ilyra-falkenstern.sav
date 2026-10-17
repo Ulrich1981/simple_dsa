@@ -1,0 +1,110 @@
+save_format: character_state_v2
+ap_total: 20000
+sections:
+  - id: Kopfzeile
+    items:
+      - id: character
+        label: Ilyra Falkenstern
+        fields:
+          - { id: race, type: select, value: Mensch }
+          - { id: profession, type: select, value: Magier }
+          - { id: culture, type: text, value: Gareth }
+  - id: Eigenschaften
+    items:
+      - { id: MU, value: 10 }
+      - { id: KL, value: 14 }
+      - { id: IN, value: 13 }
+      - { id: CH, value: 12 }
+      - { id: GE, value: 8 }
+      - { id: KK, value: 7 }
+      - { id: KO, value: 9 }
+  - id: Ressourcen
+    items:
+      - { id: LE, value: 8 }
+      - { id: AE, value: 15 }
+      - { id: MR, value: 6 }
+      - { id: Heldenpunkte, value: 3 }
+  - id: Talente
+    groups:
+      - id: kampf
+        items:
+          - { id: bewaffneter_nahkampf, value: 5 }
+      - id: koerper
+        items:
+          - { id: akrobatik, value: 4 }
+          - { id: reiten, value: 4 }
+          - { id: schwimmen, value: 4 }
+      - id: gesellschaft
+        items:
+          - { id: etikette, value: 9 }
+          - { id: lehren, value: 9 }
+          - { id: menschenkenntnis, value: 9 }
+          - { id: schaetzen, value: 8 }
+          - { id: ueberzeugen, value: 9 }
+          - { id: vortrag, value: 8 }
+      - id: wissen
+        items:
+          - { id: alchemie, value: 10 }
+          - { id: goetter_und_kulte, value: 8 }
+          - { id: gelehrsamkeit, value: 11 }
+          - { id: heilkunde, value: 9 }
+          - { id: magiekunde, value: 12 }
+          - { id: prophezeihen, value: 9 }
+      - id: natur
+        items:
+          - { id: sinnesschaerfe, value: 10 }
+  - id: Zauber
+    groups:
+      - id: antimagie
+        items:
+          - { id: magischer_schutz, value: 12 }
+          - { id: zauberbann, value: 14 }
+          - { id: magieresistenz, value: 12 }
+      - id: beschwoerung_elementarer_kraefte
+        items:
+          - { id: elementarbeschwoerung, value: 10 }
+          - { id: elementarkontrolle, value: 14 }
+          - { id: elementarschutz, value: 12 }
+          - { id: elementarangriff, value: 15 }
+      - id: bewegung
+        items:
+          - { id: telekinese, value: 12 }
+          - { id: teleportation, value: 10 }
+      - id: heilung
+        items:
+          - { id: wundheilung, value: 10 }
+      - id: hellsicht
+        items:
+          - { id: magieerkennung, value: 14 }
+          - { id: sinnesverstaerkung, value: 10 }
+          - { id: fernwahrnehmung, value: 12 }
+          - { id: gedanken_gedaechtnis_lesung, value: 10 }
+      - id: illusion
+        items:
+          - { id: sinnesillusion, value: 10 }
+  - id: Sprachen
+    items:
+      - id: sprache_01
+        value: 10
+        fields:
+          - { id: label, type: select, value: Tulamydia }
+      - id: sprache_02
+        value: 7
+        fields:
+          - { id: label, type: select, value: Bosparano }
+      - id: sprache_03
+        value: 6
+        fields:
+          - { id: label, type: select, value: Isdira }
+      - id: sprache_04
+        value: 5
+        fields:
+          - { id: label, type: select, value: Rogolan }
+      - id: sprache_05
+        value: 3
+        fields:
+          - { id: label, type: select, value: Zhayad }
+      - id: sprache_06
+        value: M
+        fields:
+          - { id: label, type: select, value: Garethi }
