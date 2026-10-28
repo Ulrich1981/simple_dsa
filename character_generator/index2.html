@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Charaktergenerator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+  <header>
+    <div class="toolbar">
+      <button id="printBtn">Drucken</button>
+      <button id="saveBtn">Speichern</button>
+      <input id="fileInput" type="file" accept=".sav,.yaml,.yml">
+      <span id="sampleCharacterControls" hidden>
+        <select id="sampleCharacterSelect" aria-label="Beispielcharakter auswählen">
+          <option value="">-- Beispielcharakter auswählen --</option>
+        </select>
+        <button id="loadSampleCharacterBtn" type="button" disabled>Beispiel laden</button>
+      </span>
+    </div>
+    <div class="stats">
+      <div class="stat"><div>AP gesamt:</div><div id="apTotal"></div></div>
+      <div class="stat"><div>AP ausgegeben:</div><div><span id="apSpent">0</span></div></div>
+      <div class="stat"><div>AP verbleibend:</div><div><span id="apRemaining">0</span></div></div>
+    </div>
+  </header>
+
+  <main id="characterForm"></main>
+
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <script>
+    const SYSTEM_CONFIG = {
+      dsa: {
+        label: 'Simple DSA',
+        defs: 'simple_dsa_definitions2.js',
+        layout: 'simple_dsa_layout2.js',
+        examples: [
+          { label: 'Alrik von Eichenwacht (Krieger)', url: 'examples/alrik-von-eichenwacht.sav' },
+          { label: 'Ilyra Falkenstern (Legendäre Magierin)', url: 'examples/ilyra-falkenstern.sav' }
+        ]
+      },
+      ars: {
+        label: 'Ars Magica',
+        defs: 'ars_magica_definitions.js',
+        layout: 'ars_magica_layout.js'
+      }
+    };
+
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = src;
+        s.async = false;
+        s.onload = resolve;
+        s.onerror = () => reject(new Error(`Konnte ${src} nicht laden`));
+        document.body.appendChild(s);
+      });
+    }
+
+    function currentSystem() {
+      const params = new URLSearchParams(window.location.search);
+      const raw = params.get('system') || 'dsa';
+      return SYSTEM_CONFIG[raw] ? raw : 'dsa';
+    }
+
+    async function boot() {
+      const systemId = currentSystem();
+
+      const cfg = SYSTEM_CONFIG[systemId];
+      document.title = `Charaktergenerator - ${cfg.label}`;
+      window.CHARACTER_EXAMPLES = cfg.examples || [];
+
+      await loadScript(cfg.defs);
+      await loadScript(cfg.layout);
+      await loadScript('app2.js');
+
+      const form = document.getElementById('characterForm');
+      const fitToWidth = () => {
+        const width = form.offsetWidth;
+        if (width) document.documentElement.style.setProperty('--view-scale', String(document.documentElement.clientWidth / width));
+      };
+      const resizeObserver = new ResizeObserver(fitToWidth);
+      resizeObserver.observe(form);
+      resizeObserver.observe(document.documentElement);
+      window.addEventListener('resize', fitToWidth);
+      fitToWidth();
+    }
+
+    boot().catch(err => {
+      const root = document.getElementById('characterForm');
+      root.textContent = `Fehler beim Laden: ${err.message}`;
+      console.error(err);
+    });
+  </script>
+</body>
+</html>

@@ -55,33 +55,35 @@ sections:
           - { id: sinnesschaerfe, value: 10 }
   - id: Zauber
     groups:
-      - id: antimagie
+      - id: metamagie
         items:
-          - { id: magischer_schutz, value: 12 }
-          - { id: zauberbann, value: 14 }
-          - { id: magieresistenz, value: 12 }
-      - id: beschwoerung_elementarer_kraefte
+          - { id: magischer_schutz, value: 7 }
+          - { id: magieresistenz, value: 10 }
+          - { id: bann, value: 10 }
+      - id: geistmagie
         items:
-          - { id: elementarbeschwoerung, value: 10 }
-          - { id: elementarkontrolle, value: 14 }
-          - { id: elementarschutz, value: 12 }
-          - { id: elementarangriff, value: 15 }
-      - id: bewegung
+          - { id: gedankenlesen, value: 6 }
+      - id: erkenntnismagie
         items:
-          - { id: telekinese, value: 12 }
-          - { id: teleportation, value: 10 }
-      - id: heilung
+          - { id: wahrnehmung, value: 10 }
+          - { id: analyse, value: 12 }
+      - id: illusionsmagie
         items:
-          - { id: wundheilung, value: 10 }
-      - id: hellsicht
+          - { id: illusion, value: 6 }
+      - id: lebensmagie
         items:
-          - { id: magieerkennung, value: 14 }
-          - { id: sinnesverstaerkung, value: 10 }
-          - { id: fernwahrnehmung, value: 12 }
-          - { id: gedanken_gedaechtnis_lesung, value: 10 }
-      - id: illusion
+          - { id: heilung, value: 8 }
+          - { id: vitalitaet, value: 10 }
+      - id: bewegungsmagie
         items:
-          - { id: sinnesillusion, value: 10 }
+          - { id: fortbewegung, value: 15 }
+          - { id: telekinese, value: 10 }
+      - id: stoffmagie
+        items:
+          - { id: elementare_manipulation, value: 12 }
+      - id: beschwoerung
+        items:
+          - { id: elementarbeschwoerung, value: 8 }
   - id: Sprachen
     items:
       - id: sprache_01

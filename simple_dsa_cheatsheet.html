@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple DSA - Cheatsheet</title>
+  <style>
+    :root { --ink: #202722; --muted: #515c55; --accent: #226447; --line: #c5cfc8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: #e8edeb; font: 14px/1.4 "Trebuchet MS", sans-serif; }
+    .toolbar { max-width: 1000px; margin: 12px auto; padding: 0 20px; display: flex; gap: 16px; align-items: center; }
+    button { padding: 6px 14px; cursor: pointer; font: inherit; }
+    a { color: var(--accent); }
+    .sheet { max-width: 1000px; margin: 12px auto; padding: 24px; background: white; }
+    header { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; border-bottom: 3px solid var(--accent); margin-bottom: 12px; }
+    h1 { margin: 0 0 6px; font: bold 28px Georgia, serif; }
+    header p { margin: 0; color: var(--muted); }
+    .columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 24px; }
+    section { min-width: 0; }
+    h2 { margin: 0 0 5px; color: var(--accent); font: bold 18px Georgia, serif; border-bottom: 1px solid var(--line); }
+    h3 { font-size: 14px; margin: 7px 0 3px; }
+    p { margin: 4px 0; }
+    ul { margin: 4px 0; padding-left: 18px; }
+    li { margin-bottom: 3px; }
+    .formula { border-left: 3px solid var(--accent); padding-left: 8px; font-weight: bold; }
+    table { width: 100%; border-collapse: collapse; margin: 5px 0; font-size: 13px; }
+    th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 3px 5px; vertical-align: top; overflow-wrap: anywhere; }
+    th { background: #edf3ef; }
+    .wide { grid-column: 1 / -1; }
+    .small, footer { font-size: 12px; color: var(--muted); }
+    footer { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 6px; }
+    @media screen and (max-width: 650px) {
+      .sheet { margin: 8px; padding: 16px; }
+      .columns { grid-template-columns: minmax(0, 1fr); }
+      header { display: block; }
+      header p { margin-bottom: 6px; }
+      h1 { font-size: 25px; }
+      .toolbar { flex-wrap: wrap; }
+    }
+    @media print {
+      @page { size: A4 portrait; margin: 10mm; }
+      body { background: white; font-size: 8pt; line-height: 1.15; }
+      .toolbar { display: none; }
+      .sheet { max-width: none; margin: 0; padding: 0; }
+      .sheet + .sheet { break-before: page; }
+      .columns { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 14px; }
+      header { margin-bottom: 8px; }
+      h1 { font-size: 17pt; }
+      h2 { font-size: 11pt; break-after: avoid; }
+      h3 { font-size: 8pt; margin: 4px 0 2px; break-after: avoid; }
+      p { margin: 2px 0; }
+      ul { margin: 3px 0; }
+      li { margin-bottom: 1px; }
+      table { font-size: 7.5pt; margin: 3px 0; }
+      th, td { padding: 2px 4px; }
+      section, tr { break-inside: avoid; }
+      .small, footer { font-size: 7pt; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="toolbar" aria-label="Dokument">
+    <button type="button" onclick="window.print()">Drucken</button>
+  </nav>
+  <main>
+    <article class="sheet" aria-label="Proben und Kampf">
+      <header><h1>Simple DSA · Cheatsheet</h1><p>1 / 2 · Proben &amp; Kampf</p></header>
+      <div class="columns">
+        <section>
+          <h2>Proben</h2>
+          <p class="formula">Basis = (E1 + E2 + E3) / 2, aufgerundet<br>Schwelle = Basis + Talentwert ± Modifikatoren</p>
+          <p>Mit <strong>1W20 unter die Schwelle</strong> würfeln. Ab Schwelle 20 automatischer Erfolg; für die Qualität darf gewürfelt werden.</p>
+          <p class="formula">Grund-QP = min(Schwelle − Wurf, Talentwert)<br>Qualität = Grund-QP + 2xfreiwillige Erschwernis</p>
+          <p>Vor der Probe ansagen: Erschwernis senkt die Schwelle, maximal um den Talentwert. Bei Erfolg gibt sie den doppelten Bonus auf QP. Talentwert höchstens Basis, außer durch Heldenpunkte oder Artefakte. Gilt auch für Zauber, Liturgien, Kampf.</p>
+          <p><strong>Ohne Talent:</strong> einzelne Eigenschaft × 3 oder Summe dreier Eigenschaften, ohne Halbierung.</p>
+          <h3>Vergleichende Probe</h3>
+          <ul>
+            <li>Beide erfolgreich: höhere QP gewinnen.</li>
+            <li>Nur einer erfolgreich: dieser gewinnt.</li>
+            <li>Beide scheitern: niemand gewinnt.</li>
+            <li>Qualitätsgewinn: Differenz der beiden Qualitäten.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Modifikatoren &amp; Heldenpunkte</h2>
+          <table><thead><tr><th>Schwierigkeit</th><th>Auf die Schwelle</th></tr></thead><tbody>
+            <tr><td>Einfach / normal / schwer</td><td>+5 / 0 / −5</td></tr>
+            <tr><td>Sehr / extrem schwer</td><td>−10 / −15</td></tr>
+            <tr><td>Nahezu unmöglich</td><td>−20</td></tr>
+          </tbody></table>
+          <p><strong>Teamwork:</strong> +1 je gelungener Hilfsprobe, maximal +3. <strong>Wiederholung:</strong> einmal, Schwelle −5.</p>
+          <p><strong>Zeit:</strong> schnell −3, hastig −6, bedächtig +2 bei doppelter Zeit.</p>
+          <p><strong>HP vor dem Wurf:</strong> je Punkt +5 Talentwert; erhöht Schwelle und maximale QP.</p>
+          <p><strong>HP nach dem Wurf:</strong> je Punkt +5 Schwelle; Talentwert und Grund-QP-Limit bleiben unverändert.</p>
+          <p class="small">HP sind verbraucht; Regeneration durch Abenteuer-Belohnungen oder besondere Ereignisse, nicht durch tägliche Ruhe.</p>
+        </section>
+        <section>
+          <h2>Nahkampf</h2>
+          <p>Beide würfeln gleichzeitig vergleichend. Der Gewinner verursacht Schaden.</p>
+          <p class="formula">Trefferschaden = (QP-Differenz / 2, aufgerundet)<br>− gegnerische Parade + Waffenschaden</p>
+          <p>Mindestens Schadensbonus der Waffe <strong>vor Rüstung</strong>. Waffenschaden normalerweise 1W6 + Bonus. Anschließend gegnerischen RS abziehen.</p>
+          <p><strong>Defensiv:</strong> vor dem Wurf Malus vom eigenen Talentwert abziehen. Gewinnt der offensive Gegner, trifft er nur, wenn die QP-Differenz mindestens dem doppelten Malus entspricht.</p>
+          <p><strong>Überzahl:</strong> −5 Schwelle pro zusätzlichem Gegner, gegen den vergleichend gewürfelt wird. Weitere Gegner würfeln einfache Proben; bei Erfolg normaler Waffenschaden.</p>
+        </section>
+        <section>
+          <h2>Fernkampf</h2>
+          <p class="formula">Schwelle = Basis + Fernkampftalent<br>+ Waffenpräzision − Erschwernisse</p>
+          <p class="formula">Schaden = Waffenschaden + (QP / 2, aufgerundet)<br>− gegnerische Parade − RS</p>
+          <table><thead><tr><th>Entfernung</th><th>Erschwernis</th></tr></thead><tbody>
+            <tr><td>Bis Grundreichweite</td><td>0</td></tr>
+            <tr><td>Bis doppelte Grundreichweite</td><td>5</td></tr>
+            <tr><td>Bis vierfache Grundreichweite</td><td>10</td></tr>
+          </tbody></table>
+          <p class="small">Darüber hinaus kein gezielter Schuss. Erschwernisse werden von der Schwelle abgezogen.</p>
+        </section>
+        <section>
+          <h2>Fernkampf: Erschwernisse</h2>
+          <table><thead><tr><th>Umstand</th><th>Erschwernis</th></tr></thead><tbody>
+            <tr><td>Ziel: Apfel / Ratte / Katze</td><td>15 / 10 / 5</td></tr>
+            <tr><td>Ziel: Mensch / Pferd / Drache</td><td>0 / −2 / −5</td></tr>
+            <tr><td>Ziel: Schritt / Lauf / Galopp</td><td>2 / 5 / 10</td></tr>
+            <tr><td>Schütze bewegt / beide bewegt</td><td>5 / 7</td></tr>
+            <tr><td>Deckung: 25 % / 50 % / 75 %</td><td>2 / 5 / 10</td></tr>
+            <tr><td>Schießscharte</td><td>8</td></tr>
+            <tr><td>Dämmerung / Mond / Sterne</td><td>2 / 5 / 10</td></tr>
+            <tr><td>Nebel oder Regen / starker Regen</td><td>3 / 5</td></tr>
+            <tr><td>Wind: leicht / mäßig / stark / Sturm</td><td>1 / 3 / 5 / 10</td></tr>
+          </tbody></table>
+          <p class="small">Stockfinster: ohne besondere Fähigkeiten unmöglich. Negative Erschwernisse erleichtern die Probe.</p>
+        </section>
+        <section>
+          <h2>Rüstung &amp; Heilung</h2>
+          <table><thead><tr><th>Rüstung</th><th>RS</th><th>Körper</th><th>Kampf</th></tr></thead><tbody>
+            <tr><td>Leder</td><td>1</td><td>−1</td><td>0</td></tr>
+            <tr><td>Verstärktes Leder</td><td>2</td><td>−2</td><td>−1</td></tr>
+            <tr><td>Kettenhemd</td><td>3</td><td>−3</td><td>−1</td></tr>
+            <tr><td>Schuppenpanzer</td><td>4</td><td>−4</td><td>−2</td></tr>
+            <tr><td>Plattenpanzer</td><td>5</td><td>−5</td><td>−2</td></tr>
+          </tbody></table>
+          <p><strong>Körper:</strong> Athletik, Klettern, Schwimmen, Körperbeherrschung, Ausweichen, Schleichen.</p>
+          <p><strong>Regeneration:</strong> jeweiliger LE-/AE-/KE-Talentwert / 2 (aufgerundet) pro Tag; Ruhe und Nahrung, Meditation bzw. Gebet.</p>
+          <p><strong>Heilkunde:</strong> 10 Minuten, Verbandszeug, einmal täglich je Patient. QP / 2 LE (aufgerundet) über Nacht.</p>
+          <p><strong>Trank / Heilzauber:</strong> QP LE sofort. <strong>0 LE:</strong> bewusstlos, ohne Hilfe sterbend.</p>
+          <p><strong>Kritische Verletzung:</strong> möglich bei mehr als halber maximaler LE als Einzelschaden. Heilkunde −5; Heilzauber ab QP 6. Verlorene Gliedmaßen erfordern Vollständige Wiederherstellung.</p>
+        </section>
+      </div>
+      <footer>MU Mut · KL Klugheit · IN Intuition · CH Charisma · GE Gewandtheit · KO Konstitution · KK Körperkraft</footer>
+    </article>
+    <article class="sheet" aria-label="Magie, Liturgien und Steigerung">
+      <header><h1>Simple DSA · Cheatsheet</h1><p>2 / 2 · Magie &amp; Entwicklung</p></header>
+      <div class="columns">
+        <section>
+          <h2>Zauber wirken</h2>
+          <p class="formula">Schwelle = Basis + Zauberwert − Erschwernis<br>QP = min(Schwelle − Wurf, Zauberwert)</p>
+          <p><strong>Erfolg:</strong> volle AsP. <strong>Misserfolg:</strong> halbe AsP. Jeder Grundzauber besitzt ein festes Profil aus Erschwernis, Kosten, Zauberdauer, Reichweite und Wirkungsdauer.</p>
+          <p><strong>Modifikationen:</strong> Aufschläge addieren und auf Erschwernis, Kosten und Zauberdauer verteilen. Eine zusätzliche Erschwerniskategorie bedeutet +5 Erschwernis.</p>
+          <p class="formula">Positive Aufschläge insgesamt höchstens<br>Zauberwert / 3, abgerundet</p>
+          <p>Elementwahl, besondere Wirkungen, Reichweite und Dauer zählen mit. Besondere Modifikatoren benötigen passende Ausbildung oder Quelle, aber keinen eigenen Talentwert und keine anderen Modifikatoren als Voraussetzung.</p>
+        </section>
+        <section>
+          <h2>Allgemeine Zaubermodifikatoren</h2>
+          <table><thead><tr><th>Änderung</th><th>Aufschlag</th></tr></thead><tbody>
+            <tr><td>Bereich, etwa 5 Schritt Radius</td><td>+2 Kategorien</td></tr>
+            <tr><td>Selektiver Bereich, etwa 5 Schritt</td><td>+3, Bereich enthalten</td></tr>
+            <tr><td>Weiteres Ziel</td><td>+1 je Ziel</td></tr>
+            <tr><td>Reichweite / Wirkungsdauer erhöhen</td><td>+1 je Kategorie</td></tr>
+            <tr><td>Erschwernis, Kosten oder Zauberdauer senken</td><td>+1 je gesenkter Kategorie</td></tr>
+          </tbody></table>
+          <p>Enthaltene Wirkungen nicht doppelt bezahlen; eigenständige Erweiterungen addieren. Eine Sofortwirkung wird durch längere Dauer nicht wiederholt.</p>
+          <p><strong>Elementwahl:</strong> Feuer ↔ Luft ↔ Eis ↔ Wasser ↔ Erz ↔ Humus ↔ Feuer. Eigenes Element ohne Aufschlag; angrenzend +1, missgünstig +2, gegenüber +3 Kategorien.</p>
+        </section>
+        <section class="wide">
+          <h2>Magische Kategorien</h2>
+          <table><thead><tr><th>Kat.</th><th>Erschwernis</th><th>AsP</th><th>Zauberdauer</th><th>Reichweite</th><th>Wirkungsdauer</th></tr></thead><tbody>
+            <tr><td>0</td><td>−10</td><td>2</td><td>1 KR</td><td>Selbst</td><td>Sofort / 1 KR</td></tr>
+            <tr><td>1</td><td>−5</td><td>5</td><td>3 KR</td><td>Berührung</td><td>3 KR</td></tr>
+            <tr><td>2</td><td>0</td><td>10</td><td>1 Min</td><td>Nah</td><td>1 Min</td></tr>
+            <tr><td>3</td><td>5</td><td>15</td><td>5 Min</td><td>Sicht</td><td>5 Min</td></tr>
+            <tr><td>4</td><td>10</td><td>20</td><td>1 Std</td><td>Nahe bekannte Orte*</td><td>1 Std</td></tr>
+            <tr><td>5</td><td>15</td><td>25</td><td>6 Std</td><td>Ferne bekannte Orte*</td><td>6 Std</td></tr>
+            <tr><td>6</td><td>20</td><td>30</td><td>24 Std</td><td>nicht verfügbar</td><td>24 Std</td></tr>
+            <tr><td>7</td><td>25</td><td>35</td><td>nicht verfügbar</td><td>nicht verfügbar</td><td>1 Woche</td></tr>
+            <tr><td>8</td><td>30</td><td>40</td><td>nicht verfügbar</td><td>nicht verfügbar</td><td>1 Monat</td></tr>
+            <tr><td>9</td><td>35</td><td>45</td><td>nicht verfügbar</td><td>nicht verfügbar</td><td>Permanent*</td></tr>
+            <tr><td>10</td><td>40</td><td>50</td><td>nicht verfügbar</td><td>nicht verfügbar</td><td>nicht verfügbar</td></tr>
+          </tbody></table>
+          <p class="small">KR = Kampfrunde. * Bekannte Orte nur für ausdrücklich geeignete Wirkungen, etwa Botschaften, Teleportation oder Objektsuche. Permanente Bindungen folgen den Sonderregeln des Grundzaubers. Artefaktbindung: Kosten des gespeicherten Zaubers kommen unverändert hinzu.</p>
+        </section>
+        <section>
+          <h2>Liturgien</h2>
+          <p class="formula">Schwelle = Basis + Liturgiekenntniswert<br>− Erschwernis; QP höchstens Kenntniswert</p>
+          <p>Gottheit muss die Liturgie gewähren. Eine Ausprägung wählen; verwendete Stufe mindestens deren Mindeststufe und höchstens eigener Weihegrad.</p>
+          <table><thead><tr><th>Stufe</th><th>Erschwernis</th><th>KP aus KE</th></tr></thead><tbody>
+            <tr><td>0 / I</td><td>0 / 0</td><td>2 / 5</td></tr>
+            <tr><td>II / III</td><td>5 / 10</td><td>10 / 15</td></tr>
+            <tr><td>IV</td><td>15</td><td>20, davon 1 permanent</td></tr>
+            <tr><td>V</td><td>20</td><td>25, davon 3 permanent</td></tr>
+            <tr><td>VI</td><td>25</td><td>30, davon 5 permanent</td></tr>
+          </tbody></table>
+          <p><strong>Erfolg:</strong> volle Kosten. <strong>Misserfolg:</strong> halbe Kosten. Maximal Kenntniswert / 3 Modifikationskategorien, abgerundet.</p>
+          <p><strong>Modifikatoren:</strong> Bereich +2 Grade; Zielzahl verzehnfachen +1 Grad; Reichweite / Dauer +1 Grad je Kategorie. Aufschläge laut Regeltext auf Erschwernis, Kosten und Zauberdauer verteilbar.</p>
+        </section>
+        <section>
+          <h2>AP &amp; Ressourcen</h2>
+          <p class="formula">Nächste Stufe: neue Stufe × Faktor AP<br>Von 0 auf X: X × (X + 1) / 2 × Faktor AP</p>
+          <table><thead><tr><th>Kategorie</th><th>Faktor</th></tr></thead><tbody>
+            <tr><td>Eigenschaften / Ressourcen</td><td>20</td></tr>
+            <tr><td>Talente / Zauber</td><td>5</td></tr>
+            <tr><td>Sprachen</td><td>2</td></tr>
+            <tr><td>Heldenpunkte</td><td>100</td></tr>
+            <tr><td>Liturgie, nicht kumulativ</td><td>Stufe × 100 AP</td></tr>
+          </tbody></table>
+          <p><strong>Start:</strong> standardmäßig 4000 AP.</p>
+          <p><strong>LE / AE / KE:</strong> 2 × Basis + 3 × Ressourcenwert. Basis jeweils halbe Eigenschaftssumme, aufgerundet:</p>
+          <p>LE: KO + KO + KK · AE: KL + IN + CH<br>KE: MU + IN + CH · MR: MU + KL + KO</p>
+          <p><strong>MR gesamt:</strong> Basis + MR-Wert − 10.<br><strong>HP gesamt:</strong> gekaufter HP-Wert.</p>
+        </section>
+      </div>
+      <footer>Grundlage: <a href="simple_dsa.md">Simple-DSA-Regelwerk</a>.</footer>
+    </article>
+  </main>
+</body>
+</html>
