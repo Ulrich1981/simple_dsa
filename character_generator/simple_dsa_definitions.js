@@ -316,130 +316,542 @@ sections:
   - id: Zauber
     label: "Zauber"
     calc_id: "base_plus_value"
-    cost_per_increment: 3
+    cost_per_increment: 5
+    item_details: {
+      "magischer_schutz": {
+        "basis": "KL, IN, CH",
+        "erschwernis": "0",
+        "kosten": "10",
+        "zauberdauer": "3 KR",
+        "reichweite": "Berührung",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Rüstung gegen direkten Magieschaden und verzauberte Waffen.",
+        "qualitaet": "RS gegen Magie = QP/2 (aufgerundet).",
+        "modifikatoren": [
+          "Unsichtbar (+1 Kategorie): Schutz nicht sichtbar."
+        ]
+      },
+      "magieresistenz": {
+        "basis": "KL, IN, CH",
+        "erschwernis": "0",
+        "kosten": "10",
+        "zauberdauer": "3 KR",
+        "reichweite": "Berührung",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Erhöht MR; erschwert gegen das Ziel gerichtete Zauber.",
+        "qualitaet": "Zusätzliche MR = QP/2 (aufgerundet).",
+        "modifikatoren": [
+          "Reflektierend (+2 Kategorien): Zauber zurückwerfen.",
+          "Absorption (+3 Kategorien): Zauberenergie in AsP wandeln."
+        ]
+      },
+      "bann": {
+        "basis": "KL, IN, CH",
+        "erschwernis": "5",
+        "kosten": "15",
+        "zauberdauer": "3 KR",
+        "reichweite": "Nah",
+        "wirkungsdauer": "1 Std",
+        "wirkung": "Beendet Zauber und permanente Beschwörungsbindungen; bannt Dämonen, beendet Untotenbelebung. Geister nur für die Wirkungsdauer fernhalten.",
+        "qualitaet": "QP ≥ Zauberqualität bzw. Wesenmacht.",
+        "modifikatoren": [
+          "Vernichtung (+4 Kategorien): Magie oder unkörperliches Wesen zerstören; materieller Träger bleibt."
+        ]
+      },
+      "artefaktbindung": {
+        "basis": "KL, IN, CH",
+        "erschwernis": "10",
+        "kosten": "20 + gespeicherter Zauber",
+        "zauberdauer": "1 Std",
+        "reichweite": "Berührung",
+        "wirkungsdauer": "1 Monat",
+        "wirkung": "Speichert einen bekannten Zauber einmalig in Gegenstand/Trank. Dessen volle Kosten kommen hinzu; Profil und Wirkungsdauer bleiben beim Auslösen erhalten.",
+        "qualitaet": "Gespeicherte Zauberstärke höchstens QP.",
+        "modifikatoren": [
+          "Ladungen (+1 Kategorie/Ladung): Zusätzliche Wirkungen.",
+          "Trigger (+1 Kategorie): Berührung, Kommandowort oder Situation als Auslöser.",
+          "Permanenz (+1 Kategorie, 1 AsP permanent / 10 AsP): Dauerhafte Bindung; je angefangene 10 gespeicherte AsP 1 AsP permanent. Daueraktiv nur mit Wirkungsdauer Permanent; Sofortzauber bleiben einzelne Ladungen.",
+          "Intelligentes Artefakt (+5 Kategorien): Aktiviert sich selbstständig."
+        ]
+      },
+      "zauberumformung": {
+        "basis": "KL, IN, CH",
+        "erschwernis": "0",
+        "kosten": "10",
+        "zauberdauer": "3 KR",
+        "reichweite": "Nah",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Bestehenden Zauber umkehren oder aufheben; vergleichende Probe gegen ursprüngliche Qualität. Umformung endet mit dem ersten der beiden Zauber; Aufhebung bleibt.",
+        "qualitaet": "Umgekehrte Zauberstärke höchstens QP."
+      },
+      "einfluss": {
+        "basis": "MU, IN, CH",
+        "erschwernis": "5",
+        "kosten": "10",
+        "zauberdauer": "3 KR",
+        "reichweite": "Nah",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Lenkt Gefühle und Verhalten, keine Befehle ohne Modifikator. Unfreiwillig: MR als Erschwernis; mehrere Ziele: höchste MR +1 je weiterer Person.",
+        "qualitaet": "QP 1–2: Impuls; 3–5: stark lenkend; 6+: überwältigend. Beeinträchtigte Aktionen: −QP/2. Kein Zwang gegen Selbsterhaltung/Überzeugungen.",
+        "modifikatoren": [
+          "Geisteskontrolle (+2 Kategorien): QP/2 einfache Befehle; keine Selbstgefährdung.",
+          "Verstärkt (+4 Kategorien): Auch komplexe/selbstgefährdende Beeinflussung; QP/2 Befehle, Kontrolle enthalten.",
+          "Subtil (+3 Kategorien): Beeinflussung erscheint selbstgewollt; QP/2 einfache Befehle enthalten, keine Selbstgefährdung."
+        ]
+      },
+      "bewusstseinstruebung": {
+        "basis": "MU, IN, CH",
+        "erschwernis": "5",
+        "kosten": "10",
+        "zauberdauer": "3 KR",
+        "reichweite": "Nah",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Stört Konzentration; Schlaf nur mit Modifikator. Unfreiwillig: MR wie bei Einfluss.",
+        "qualitaet": "Erschwernis für alle Proben des Ziels = QP/2.",
+        "modifikatoren": [
+          "Gedächtnislücken (+2 Kategorien): Informationen/Erlebnisse vergessen, auch bei Schlaf und Träumen.",
+          "Schlaf (+1 Kategorie): Schlaftiefe QP; Schmerz weckt. 1 Std Schlaf: zusätzlich +2 Dauerkategorien.",
+          "Traumkontrolle (+3 Kategorien): Schlaf samt Traumsteuerung; Tiefe QP, Schmerz weckt.",
+          "Unaufweckbar (+4 Kategorien): Schlaf mit Tiefe QP; nur Zauberbruch weckt."
+        ]
+      },
+      "zwang": {
+        "basis": "MU, IN, CH",
+        "erschwernis": "5",
+        "kosten": "10",
+        "zauberdauer": "3 KR",
+        "reichweite": "Nah",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Erzwingt eine Handlung/Unterlassung oder wahre Antworten aus bekanntem Wissen; MR wie Einfluss. Antworten beenden den Zauber nicht. Körperumbau gehört zu Metamorphose.",
+        "qualitaet": "QP/2 Fragen. QP 1–2: knapp; 3–5: Zusammenhänge; 6+: Details. Lähmung: QP 1–2 lässt Sprechen zu, ab QP 6 vollständig.",
+        "modifikatoren": [
+          "Selektiv (-1 Kategorie): Nur eine Funktion oder Teilhandlung.",
+          "Verstärkt (+1 Kategorie): Vollständiger Zwang; Lähmung auch der Sprache.",
+          "Schmerzlos (+1 Kategorie): Keine zusätzliche Angst/Panik.",
+          "Vollständigkeit (+1 Kategorie): Kein Umgehen durch Auslassungen oder Ersatzhandlungen.",
+          "Subtil (+2 Kategorien): Zwang erscheint als eigene Entscheidung."
+        ]
+      },
+      "gedankenlesen": {
+        "basis": "MU, IN, CH",
+        "erschwernis": "5",
+        "kosten": "10",
+        "zauberdauer": "1 Min",
+        "reichweite": "Berührung",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Liest Gedanken/Erinnerungen gegen MR. Keine objektive Wahrheit; Irrtümer bleiben. Freiwilliger Austausch: Geistiger Kontakt.",
+        "qualitaet": "QP 1–2: aktuelle Gedanken/Absichten; 3–5: jüngere Erinnerungen; 6+: ältere Fragmente.",
+        "modifikatoren": [
+          "Verstärkt (+1 Kategorie): Tiefere/ältere Erinnerungen, detaillierter",
+          "Gefühle (-1 Kategorie): Liest nur Gefühle; Lügen erkennen",
+          "Oberflächengedanken (-2 Kategorien): Nur aktuelle, bewusste Gedanken",
+          "Traumlesung (+2 Kategorien): Liest Träume und Unterbewusstsein"
+        ]
+      },
+      "geistiger_kontakt": {
+        "basis": "MU, IN, CH",
+        "erschwernis": "0",
+        "kosten": "10",
+        "zauberdauer": "3 KR",
+        "reichweite": "Nah",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Sendet freiwillige Eindrücke/Botschaften oder befragt Gegenstände. Unwillige Empfänger wehren mit MR ab; kein Gedankenlesen. Bekannte Orte durch Reichweitenerhöhung; dauernder Austausch nur mit Bund-Modifikator, je ein Ziel.",
+        "qualitaet": "Lebende: QP 1–2 grob, 3–5 eindeutig, 6+ nuanciert; keine Ergänzung/Korrektur. Objekte: QP/2 kurze Antworten, Komplexität QP, Ereignisalter QP Monate. Bundstärke QP.",
+        "modifikatoren": [
+          "Emotionaler Link (-1 Kategorie): Nur Gefühle.",
+          "Vollständiges Teilen (+2 Kategorien): Alle Sinne gleichzeitig.",
+          "Einseitig (+0 Kategorien): Nur senden oder empfangen.",
+          "Verstärkend (+2 Kategorien): Intensivere Eindrücke/Gefühle.",
+          "Traumbotschaft (+1 Kategorie): Erscheint als Traum/natürliches Zeichen.",
+          "Antwortfunktion (+1 Kategorie): Unmittelbare Rückantwort.",
+          "Geistbund (+1 Kategorie): Wechselseitiger Bund, gemeinsames Zaubern; keine AsP-Teilung.",
+          "Kraftteilung (+2 Kategorien): Bund, gemeinsames Zaubern und AsP teilen.",
+          "Gedankenaustausch (+2 Kategorien): Bund, volle Telepathie, gemeinsames Zaubern.",
+          "Kampfkoordination (+3 Kategorien): Bund, perfekte Kampfkoordination, gemeinsames Zaubern.",
+          "Detaillierte Antworten (+2 Kategorien): Ausführliche, zusammenhängende Auskünfte.",
+          "Emotionale Eindrücke (+1 Kategorie): Gefühle zu Informationen erschließen.",
+          "Lebewesenbefragung (+1 Kategorie): Auch Pflanzen/einfache Tiere, ihrem Verständnis gemäß."
+        ]
+      },
+      "wahrnehmung": {
+        "basis": "KL, IN, IN",
+        "erschwernis": "0",
+        "kosten": "10",
+        "zauberdauer": "3 KR",
+        "reichweite": "Selbst",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Verstärkt einen eigenen Sinn. Fernwahrnehmung nur mit Modifikator; Zielort innerhalb der separat erhöhten Reichweite.",
+        "qualitaet": "Sinnesbonus = QP.",
+        "modifikatoren": [
+          "Mehrfachsinne (+1 Kategorie pro zusätzlichem Sinn): Weitere Sinne, auch fern/in der Vergangenheit.",
+          "Übersinnlich (+3 Kategorien): Übernatürliche Eindrücke, z. B. Auren.",
+          "Selektiv (+1 Kategorie): Störende Eindrücke ausblenden.",
+          "Fernwahrnehmung (+1 Kategorie): Sinn verlagern, auch unsichtbare Orte; Klarheit QP. Reichweite ab Selbst separat, Sicht +3.",
+          "Objektsuche (+2 Kategorien): Bekanntes Objekt finden, auch an bekannten Orten; Reichweite ab Selbst separat, Klarheit QP.",
+          "Unbekannte Orte (+3 Kategorien): Unbekannten Ort erkunden; Klarheit QP.",
+          "Vergangenheitssicht (+4 Kategorien): Vergangenes sehen; Fernwahrnehmung enthalten, Klarheit QP."
+        ]
+      },
+      "analyse": {
+        "basis": "KL, IN, IN",
+        "erschwernis": "0",
+        "kosten": "10",
+        "zauberdauer": "3 KR",
+        "reichweite": "Nah",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Erkennt grobe Art von Magie, Wesen und Material; bei Elementen gilt Elementwahl. Formeln, Strukturen, Schwächen und Kampfwerte nur mit passendem Modifikator.",
+        "qualitaet": "QP Merkmale bzw. Details im gewählten Untersuchungsfeld; ersetzt keine Modifikatoren.",
+        "modifikatoren": [
+          "Verstärkt (+1 Kategorie): Art/Stärke genauer bestimmen.",
+          "Astralsicht (+3 Kategorien): Astrale Strukturen und Bindungen sehen.",
+          "Magieanalyse (+2 Kategorien): Zauberformeln und magische Schwächen erkennen.",
+          "Durchdringend (+2 Kategorien): Illusionen/Verschleierungen durchschauen.",
+          "Kampfwerte (+1 Kategorie): Kampfwerte und Fertigkeiten erkennen.",
+          "Schwachstellen (+2 Kategorien): Verwundbarkeiten/Angriffspunkte erkennen.",
+          "Potenzial (+3 Kategorien): Verborgene Fähigkeiten erkennen.",
+          "Analytisch (+1 Kategorie): Genaue Zusammensetzung/Eigenschaften bestimmen."
+        ]
+      },
+      "illusion": {
+        "basis": "IN, CH, GE",
+        "erschwernis": "0",
+        "kosten": "5",
+        "zauberdauer": "3 KR",
+        "reichweite": "Nah",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Täuscht einen Sinn. Weitere Sinne/Flächen nur mit Modifikatoren. Unplausible Illusionen sind leichter zu durchschauen.",
+        "qualitaet": "Realismus, Komplexität und Widerstand gegen Sinnesschärfe = QP.",
+        "modifikatoren": [
+          "Mehrsinnig (+1 Kategorie je zusätzlichem Sinn): Betrifft mehrere Sinne gleichzeitig",
+          "Detailgrad (+1 Kategorie): Realistischere, konsistente Details",
+          "Sinnzerstörung (+1 Kategorie): Nimmt den Sinn komplett weg",
+          "Bewegte Illusion (+2 Kategorien): Illusion kann sich bewegen und verändern",
+          "Interaktive Illusion (+3 Kategorien): Illusion reagiert auf Berührung und Interaktion",
+          "Komplexität (+1-2 Kategorien): Verschachtelte Muster; größere Zonen separat."
+        ]
+      },
+      "maskierung": {
+        "basis": "IN, CH, GE",
+        "erschwernis": "0",
+        "kosten": "10",
+        "zauberdauer": "3 KR",
+        "reichweite": "Berührung",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Täuscht Erscheinung/Kleidung oder löscht Spuren, während der Dauer auch neue. Gelöschte Spuren bleiben fort. Verkleidung ohne Substanz, durch Interaktion entlarvbar. Unsichtbarkeit/Kopien nur mit Modifikatoren.",
+        "qualitaet": "Tarnung, magischer Entdeckungswiderstand und Spurensuche-Erschwernis = QP; Kopien gegen Sinnesschärfe.",
+        "modifikatoren": [
+          "Detailgrad (+1 Kategorie): Stimmige Feinheiten von Erscheinung/Spuren.",
+          "Mehrsinnig (+1 Kategorie je zusätzlichem Sinn): Weitere Sinne verändern/dämpfen.",
+          "Größenänderung (+1 Kategorie): Scheinbare Größe von Ziel/Kopien/Spuren ändern.",
+          "Unsichtbarkeit (+1 Kategorie): Optisch unsichtbar; Geräusche/Gerüche/Spuren bleiben.",
+          "Bewegungsanpassung (+2 Kategorien): Unsichtbar auch bei schneller Bewegung.",
+          "Objektunsichtbarkeit (+2 Kategorien): Unsichtbar samt getragenen/berührten Objekten.",
+          "Selektive Sichtbarkeit (+3 Kategorien): Nur für gewählte Personen unsichtbar.",
+          "Doppelgänger (+1 Kategorie): Bewegungsnachahmende Kopie erschwert Angriffe/Zielwahl.",
+          "Mehrere Doppelgänger (+1 Kategorie für die erste Kopie, +1 pro weiterer Kopie): Mehrere nachahmende Kopien.",
+          "Unabhängige Bewegung (+3 Kategorien): Selbstständig bewegte Kopie.",
+          "Substanzielle Kopien (+4 Kategorien): Nachahmende Kopie mit begrenzter physischer Wirkung.",
+          "Medium (+1 Kategorie): Weiteres Trägermedium; weitere Sinne stattdessen Mehrsinnig, nicht doppelt.",
+          "Astrale Verwischung (+2 Kategorien): Astrale Signaturen von Ziel/Kopien/Spuren tarnen."
+        ],
+        "hinweis": "Mehrere Personen: Mehrere Ziele; Unsichtbarkeit nur einmal bezahlen."
+      },
+      "zeichensetzung": {
+        "basis": "IN, CH, GE",
+        "erschwernis": "0",
+        "kosten": "10",
+        "zauberdauer": "3 KR",
+        "reichweite": "Nah",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Verschlüsselte Schrift (etwa ein Blatt, Schlüssel nötig), Ruf oder Klang für die Wirkungsdauer. Rufe übertönen Umgebung; größere Distanz separat. Verstandenes bleibt bekannt.",
+        "qualitaet": "Verschlüsselung bzw. Lautstärke/Klarheit = QP.",
+        "modifikatoren": [
+          "Selbstzerstörung (+1 Kategorie): Erlischt nach Nutzung/unbefugtem Zugriff.",
+          "Bedingte Wahrnehmbarkeit (+1 Kategorie): Nur unter festgelegten Bedingungen wahrnehmbar.",
+          "Lebende Zeichen (+3 Kategorien): Aktualisierung/Antworten aus hinterlegtem Wissen.",
+          "Gerichtet (+1 Kategorie): Nur für bestimmte Personen wahrnehmbar.",
+          "Kodierte Botschaft (+1 Kategorie): Zusätzliche Information verstecken.",
+          "Nachahmung (+1 Kategorie): Handschrift, Stimme oder Klang imitieren."
+        ]
+      },
+      "heilung": {
+        "basis": "IN, CH, KO",
+        "erschwernis": "0",
+        "kosten": "10",
+        "zauberdauer": "1 Min",
+        "reichweite": "Berührung",
+        "wirkungsdauer": "Sofort",
+        "wirkung": "Heilt je Anwendung Wunden, ein Gift, Krankheit oder mentale Belastung; schwere Verletzungen ab QP 6. Giftart meist nötig, Kontakt-/Atemgifte ggf. Zusatzaufwand. Darf LE-Maximum überschreiten. Vorbeugender Schutz braucht erhöhte Dauer ab Kat. 0.",
+        "qualitaet": "Heilung bzw. maximale Gift-/Krankheitsstufe = QP. Mentaler Folgeschutz = QP, Dauer separat.",
+        "modifikatoren": [
+          "Vollständige Wiederherstellung (+4 Kategorien): Verlorene körperliche/geistige Strukturen, Gliedmaßen kurz nach Verletzung.",
+          "Umfassende Behandlung (+2 Kategorien): Alle Ursachen derselben Leidensart; Stärke durch QP begrenzt.",
+          "Präventiv (+1 Kategorie): Rückfallschutz; Schutzdauer zusätzlich erhöhen.",
+          "Übernatürliche Heilung (+3 Kategorien): Auch übernatürliche Ursachen; kein Zauberbann.",
+          "Symptomlinderung (-1 Kategorie): Nur Beschwerden lindern, keine LE-/Ursachenheilung.",
+          "Tiefenheilung (+3 Kategorien): Chronische Folgen/Phobien/Traumata; keine Gliedmaßen.",
+          "Gedächtnisheilung (+2 Kategorien): Verlorene/unterdrückte Erinnerungen wiederherstellen.",
+          "Persönlichkeitsheilung (+4 Kategorien): Beschädigte/gespaltene Persönlichkeit heilen."
+        ]
+      },
+      "vitalitaet": {
+        "basis": "IN, CH, KO",
+        "erschwernis": "0",
+        "kosten": "10",
+        "zauberdauer": "3 KR",
+        "reichweite": "Berührung",
+        "wirkungsdauer": "1 Std",
+        "wirkung": "Stärkt Erholung oder Schutz gegen eine Umwelt-/Elementbelastung. Erholung einmal bei nächster Regeneration innerhalb der Dauer; nur höchste QP, bis LE-Maximum. 24 Std: +2 Dauerkategorien. Elementwahl beachten; Zonen separat, keine Luft/Nahrung/Wasser.",
+        "qualitaet": "Regenerationsbonus, Umwelt-Widerstandsbonus oder Elementarschutz/-resistenz = QP.",
+        "modifikatoren": [
+          "Vollimmunität (+3 Kategorien): Gewählte Belastung vollständig abwehren.",
+          "Mehrfachschutz (+2 Kategorien pro zusätzlicher Belastungsart): Weitere Belastungen/Elemente; Elementwahl zusätzlich.",
+          "Reflektierend (+2 Kategorien): Gerichtete Einwirkung zurückwerfen; kein Zusatzschaden bei Witterung/Erholung."
+        ]
+      },
+      "potenzierung": {
+        "basis": "IN, CH, KO",
+        "erschwernis": "5",
+        "kosten": "10",
+        "zauberdauer": "3 KR",
+        "reichweite": "Berührung",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Steigert eine körperliche/geistige Eigenschaft oder vorher gewählte Leistung, ohne Gestaltwechsel. Weitere Attribute nur mit Modifikator.",
+        "qualitaet": "Eigenschaft +QP für Proben/Berechnungen, keine dauerhafte Steigerung/Ressourcenänderung. Gewählte Leistung nach eigenem Spielwert.",
+        "modifikatoren": [
+          "Reflexsteigerung (+1 Kategorie): Zusätzlich +QP auf Kampfproben.",
+          "Mehrfachattribute (+1 Kategorie pro zusätzlichem Attribut): Steigert mehrere Attribute gleichzeitig"
+        ]
+      },
+      "metamorphose": {
+        "basis": "IN, CH, KO",
+        "erschwernis": "5",
+        "kosten": "10",
+        "zauberdauer": "3 KR",
+        "reichweite": "Berührung",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Bekannte Tiergestalt samt Sinnen/Bewegung/Waffen oder körperliche Funktionsänderung/Behinderung. Formen und Anpassung nach QP. Geistiger Zwang nicht enthalten.",
+        "qualitaet": "Tierform: geistige Attribute höchstens QP; Behinderungsstärke QP.",
+        "modifikatoren": [
+          "Verstärkt (+1-3 Kategorien): Komplexere Gestalt, bessere Werte/tiefere Funktionsänderung.",
+          "Teiländerung (-1 Kategorie): Nur ein Sinn, Körperteil oder eine Funktion.",
+          "Hybridform (+1 Kategorie): Menschliche/tierische Merkmale oder Funktionen kombinieren.",
+          "Größenänderung (+2 Kategorien): Körper oder Körperteile vergrößern/verkleinern.",
+          "Lähmung (+1 Kategorie): Bewegung betroffener Körperteile unterbinden."
+        ]
+      },
+      "fortbewegung": {
+        "basis": "IN, GE, GE",
+        "erschwernis": "5",
+        "kosten": "10",
+        "zauberdauer": "3 KR",
+        "reichweite": "Selbst",
+        "wirkungsdauer": "5 Min",
+        "wirkung": "Bewegung durch ein gewähltes Medium: fliegen, schwimmen, gleiten, Oberflächen/Feststoffe passieren. Teleportation nur mit Modifikator. Ggf. Orientierung und Erschöpfung.",
+        "qualitaet": "Geschwindigkeit, Manövrierfähigkeit und Traglast = QP.",
+        "modifikatoren": [
+          "Manövrierfähigkeit (+1 Kategorie): Präzise Bewegung, Ausrichtung und Ankunftshaltung.",
+          "Teleportation (+3 Kategorien): Ein Sprung, keine Rückkehr. Sichtbarer/bekannter/markierter Ort; Präzision QP. Reichweite ab Selbst separat: Sicht +3, bekannte Orte nah +4/fern +5.",
+          "Lastenteleportation (+4 Kategorien): Ein Sprung samt schwerer Last; Präzision QP, Zielorte/Reichweite wie Teleportation.",
+          "Verfolgungsteleportation (+5 Kategorien): Ein Sprung zur aktuellen Position eines bewegten Ziels; Präzision QP, Reichweite separat."
+        ]
+      },
+      "telekinese": {
+        "basis": "IN, GE, GE",
+        "erschwernis": "0",
+        "kosten": "5",
+        "zauberdauer": "1 KR",
+        "reichweite": "Nah",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Bewegt Ziele und betätigt Gegenstände, auch fein. Fixieren/Kleben/Versiegeln nur mit Funktionsmanipulation; kein Stoffumbau. Jeder Schadensangriff braucht neue Probe und volle Kosten.",
+        "qualitaet": "Kraft QP × 10 kg; Tempo QP m/Runde; Funktionsstärke/Mechanismenzahl QP.",
+        "modifikatoren": [
+          "Gewicht/Feinmotorik (+1 Kategorie): Schwerere Ziele oder präzisere Eingriffe.",
+          "Kraftvoll (+1 Kategorie): Schaden 1W6 + QP/2 oder Hindernis durchbrechen.",
+          "Sanft (+0 Kategorien): Kein Schaden.",
+          "Funktionsmanipulation (+1 Kategorie): Fixieren, kleben, versiegeln; Kohäsion/Mechanik verändern.",
+          "Komplexe Mechanismen (+3 Kategorien): Auch magische/komplizierte Vorrichtungen; Funktionsmanipulation enthalten."
+        ]
+      },
+      "sphaerenoeffnung": {
+        "basis": "IN, GE, GE",
+        "erschwernis": "25",
+        "kosten": "25",
+        "zauberdauer": "1 Min",
+        "reichweite": "Berührung",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Begehbarer Übergang Welt ↔ Limbus am berührten Ort. Keine anderen Sphären/Beschwörung, kein Kreis oder Korruptionsrisiko allein durch Öffnung. Kein Limbus-Schutz, sichere Orientierung oder beliebiger Fernzielort.",
+        "qualitaet": "Durchmesser QP m; Kräftekontrolle QP/3.",
+        "modifikatoren": [
+          "Kontrolliert (+3 Kategorien): Übergangskräfte/vorhandenen Sog gezielt steuern; erzeugt keinen Sog.",
+          "Sog (+2 Kategorien): Zieht nahe Wesen/lose Objekte in den Limbus; kein automatischer Zusatzschaden.",
+          "Einbahnstraße (+1 Kategorie): Nur gewählte Richtung; mit Sog in den Limbus."
+        ]
+      },
+      "elementare_manipulation": {
+        "basis": "KL, KK, KO",
+        "erschwernis": "0",
+        "kosten": "5",
+        "zauberdauer": "1 KR",
+        "reichweite": "Nah",
+        "wirkungsdauer": "1 Min",
+        "wirkung": "Erschafft/formt/lenkt ein Element, Licht oder lokale Kräfte. Ein Angriff je Zauber; Dauerschaden und tragfähige Bauten nur mit Modifikatoren. Nichtschädigende Form während der Dauer lenkbar.",
+        "qualitaet": "Kontrolle QP; Schaden 1W6 + QP/2; Bauten QP × QP m³, Stabilität QP.",
+        "modifikatoren": [
+          "Feinsteuerung (+1 Kategorie): Präzise Lenkung/Formung; keine Extra-Angriffe.",
+          "Elementarerschaffung (+2 Kategorien): Tragfähige Bauten für die Wirkungsdauer.",
+          "Komplex (+4 Kategorien): Komplexe/bewegliche Formen samt tragfähigen Bauten.",
+          "Verstärkt (+3 Kategorien): Störungsfeste Wirkung samt tragfähigen Bauten; kein Schadensbonus.",
+          "Durchschlagend (+1 Kategorie): Rüstung ignorieren; keine Extra-Ziele/-Angriffe.",
+          "Anhaltend (+2 Kategorien): Selbsttätige Wirkung/Schaden über QP Runden, höchstens Wirkungsdauer."
+        ]
+      },
+      "transmutation": {
+        "basis": "KL, KK, KO",
+        "erschwernis": "5",
+        "kosten": "10",
+        "zauberdauer": "1 Min",
+        "reichweite": "Berührung",
+        "wirkungsdauer": "Sofort",
+        "wirkung": "Formt, fügt, repariert oder reinigt unbelebte Materie einschließlich leichter Gift-/Seuchenreste. Bearbeitung bleibt bestehen; Stoff-/Zustandswechsel nur mit Modifikatoren. Keine Elementerschaffung.",
+        "qualitaet": "Form: QP m³; Reinigung: QP × 10 m²; Transformation: QP kg. Präzision/Komplexität/Reinigungsstärke QP.",
+        "modifikatoren": [
+          "Materialtransformation (+1 bis +5 Kategorien): Zustand/Temperatur/Bindung ändern. Stoff +1, Holz +2, Stein +3, Metall +4, gehärtete Legierungen +5.",
+          "Vollständige Transformation (+3 bis +7 Kategorien): Andere Stoffart. Stoff +3, Holz +4, Stein +5, Metall +6, gehärtete Legierungen +7.",
+          "Selektive Transformation (+2 bis +6 Kategorien): Zustand/Temperatur/Bindung einzelner Teile. Stoff +2, Holz +3, Stein +4, Metall +5, gehärtete Legierungen +6.",
+          "Temperaturkontrolle (+2 bis +6 Kategorien): Zustand/Bindung mit präziser Hitze/Kälte ändern. Stoff +2, Holz +3, Stein +4, Metall +5, gehärtete Legierungen +6.",
+          "Materialfusion (+1 Kategorie): Materialien nahtlos verbinden.",
+          "Tiefenwirkung (+1 Kategorie): Innere Schichten/Einschlüsse erreichen.",
+          "Magische Kontamination (+2 Kategorien): Magische Verunreinigung entfernen/trennen; kein Zauberbann.",
+          "Restaurierung (+1 Kategorie): Ursprüngliche Farben/Oberflächen/Details herstellen.",
+          "Selektive Bearbeitung (+1 Kategorie): Nur gewählte Teile/Schäden/Verunreinigungen; kein Stoff-/Zustandswechsel. In Selektive Transformation enthalten."
+        ]
+      },
+      "elementarbeschwoerung": {
+        "basis": "MU, CH, CH",
+        "erschwernis": "10",
+        "kosten": "20",
+        "zauberdauer": "1 Min",
+        "reichweite": "Nah",
+        "wirkungsdauer": "1 Std",
+        "wirkung": "Ruft Elementar für einen benannten Dienst. Ohne Bindung eigenständig, darf naturwidrige Aufträge ablehnen. Kontrolle nur mit Bindung; längere/mächtigere Dienste separat.",
+        "qualitaet": "Bereitschaft: QP 1–2 einfache/sichere Bitte; 3–5 klarer Auftrag; 6+ riskante Dienste. Keine Kontrolle/Dauertreue durch QP.",
+        "modifikatoren": [
+          "Verstärkt (+3 Kategorien/Stufe): Mächtigeres Wesen (niedere Diener → Dschinne → Elementarherren)",
+          "Bindung (+2 Kategorien): Wesen ist vollständig kontrolliert",
+          "Mehrfachbeschwörung (+2 Kategorien): Ruft mehrere schwächere Wesen gleichzeitig"
+        ]
+      },
+      "daemonenbeschwoerung": {
+        "basis": "MU, CH, CH",
+        "erschwernis": "10",
+        "kosten": "20",
+        "zauberdauer": "1 Min",
+        "reichweite": "Berührung",
+        "wirkungsdauer": "1 Std",
+        "wirkung": "Ruft niederen Dämon in vorbereiteten Ritualkreis, zunächst unkontrolliert. Nekromantie nur mit Thargunitoth-Ausbildung und berührten Leichnamen/Knochen. Bindung/Kontrolle nur für Wirkungsdauer, Verlängerung separat.",
+        "qualitaet": "Dämonenmacht QP, Kontrolle QP/2; Untote: Anzahl QP/2, Stärke QP/3.",
+        "modifikatoren": [
+          "Gehörnter Dämon (+3 Kategorien/Horn): Mächtigerer Dämon.",
+          "Bindung (+2 Kategorien): Dämon/Untoter sofort gebunden.",
+          "Pakt (+4 Kategorien): Dienstvertrag über Monate/Jahre, keine volle Kontrolle; auch für Untote.",
+          "Schutzkreis (-1 Kategorie): Dämon/Untoter kann Kreis nicht verlassen.",
+          "Permanenz (+4 Kategorien): Dauerbindung/-belebung bis Bannung; 2 AsP permanent. Bindung und permanente Dauer enthalten."
+        ]
+      },
+      "geisterbeschwoerung": {
+        "basis": "MU, CH, CH",
+        "erschwernis": "0",
+        "kosten": "15",
+        "zauberdauer": "1 Min",
+        "reichweite": "Nah",
+        "wirkungsdauer": "1 Std",
+        "wirkung": "Ruft Geist/Kobold, keine Dämonen/Elementare; kein allgemeines Korruptionsrisiko. Nach Ablauf nur freiwilliger Verbleib. Vertreiben durch Bann.",
+        "qualitaet": "Macht des Geistes + Bereitschaft zur Kooperation = QP.",
+        "modifikatoren": [
+          "Spezifischer Geist (+1 Kategorie): Ruft einen bestimmten, bekannten Geist",
+          "Mehrfachbeschwörung (+2 Kategorien): Ruft mehrere schwächere Geister gleichzeitig",
+          "Bindung (+2 Kategorien): Geist ist sofort an den Beschwörer gebunden",
+          "Unsichtbar (+1 Kategorie): Geist bleibt für andere unsichtbar"
+        ]
+      }
+    }
+    selectable_items:
+      field_id: "selected"
+      add_label: "-- Zauber hinzufügen --"
+      remove_label: "Entfernen"
     include_in_ap_when:
       logic: "or"
       rules:
         - { field: "Kopfzeile-character-race", operator: "equals", value: "Elf" }
         - { field: "Kopfzeile-character-profession", operator: "in", values: ["Magier", "Magiedilettant"] }
     groups:
-      - id: antimagie
-        label: "Antimagie"
+      - id: metamagie
+        label: "Metamagie"
         basis: [KL, IN, CH]
         items:
           - {id: magischer_schutz, label: "Magischer Schutz", value: 0}
-          - {id: zauberbann, label: "Zauberbann", value: 0}
           - {id: magieresistenz, label: "Magieresistenz", value: 0}
+          - {id: bann, label: "Bann", value: 0}
+          - {id: artefaktbindung, label: "Artefaktbindung", value: 0}
+          - {id: zauberumformung, label: "Zauberumformung", value: 0}
 
-      - id: beherrschung
-        label: "Beherrschung"
-        basis: [MU, CH, KO]
+      - id: geistmagie
+        label: "Geistmagie"
+        basis: [MU, IN, CH]
         items:
-          - {id: geisteskontrolle, label: "Geisteskontrolle", value: 0}
-          - {id: gefuehle_kontrollieren, label: "Gefühle kontrollieren", value: 0}
-          - {id: verwirrung, label: "Verwirrung", value: 0}
-          - {id: laehmung, label: "Lähmung", value: 0}
-          - {id: schlaf, label: "Schlaf", value: 0}
-          - {id: wahrheitszwang, label: "Wahrheitszwang", value: 0}
+          - {id: einfluss, label: "Einfluss", value: 0}
+          - {id: bewusstseinstruebung, label: "Bewusstseinstrübung", value: 0}
+          - {id: zwang, label: "Zwang", value: 0}
+          - {id: gedankenlesen, label: "Gedankenlesen", value: 0}
+          - {id: geistiger_kontakt, label: "Geistiger Kontakt", value: 0}
 
-      - id: beschwoerung_daemonischer_maechte
-        label: "Beschwörung dämonischer Mächte"
-        basis: [MU, MU, CH]
-        items:
-          - {id: daemonenbeschwoerung, label: "Dämonenbeschwörung", value: 0}
-          - {id: geisterbann, label: "Geisterbann", value: 0}
-          - {id: geisterbeschwoerung, label: "Geisterbeschwörung", value: 0}
-          - {id: Untotenbeschwoerung, label: "Untotenbeschwörung", value: 0}
-          - {id: sphaerenriss, label: "Sphärenriss", value: 0}
-
-      - id: beschwoerung_elementarer_kraefte
-        label: "Beschwörung elementarer Kräfte"
-        basis: [KL, CH, CH]
-        items:
-          - {id: elementarbeschwoerung, label: "Elementarbeschwörung", value: 0}
-          - {id: elementarkontrolle, label: "Elementarkontrolle", value: 0}
-          - {id: elementarerschaffung, label: "Elementarerschaffung", value: 0}
-          - {id: elementarschutz, label: "Elementarschutz", value: 0}
-          - {id: elementarangriff, label: "Elementarangriff", value: 0}
-          - {id: elementarsicht, label: "Elementarsicht", value: 0}
-
-      - id: bewegung
-        label: "Bewegung"
-        basis: [IN, GE, GE]
-        items:
-          - {id: bewegung_durch_medium, label: "Bewegung durch Medium", value: 0}
-          - {id: telekinese, label: "Telekinese", value: 0}
-          - {id: ausdauer_steigerung, label: "Ausdauersteigerung", value: 0}
-          - {id: spurenverwischung, label: "Spurenverwischung", value: 0}
-          - {id: anziehung_abstossung, label: "Anziehung/Abstoßung", value: 0}
-          - {id: teleportation, label: "Teleportation", value: 0}
-
-
-      - id: heilung
-        label: "Heilung"
-        basis: [IN, CH, KO]
-        items:
-          - {id: wundheilung, label: "Wundheilung", value: 0}
-          - {id: gifheilung, label: "Giftheilung", value: 0}
-          - {id: krankheitsheilung, label: "Krankheitsheilung", value: 0}
-          - {id: regeneration, label: "Regeneration", value: 0}
-          - {id: geistheilung, label: "Geistheilung", value: 0}
-          - {id: schutz_umwelt, label: "Schutz (Umwelt)", value: 0}
-
-      - id: hellsicht
-        label: "Hellsicht"
+      - id: erkenntnismagie
+        label: "Erkenntnismagie"
         basis: [KL, IN, IN]
         items:
-          - {id: magieerkennung, label: "Magieerkennen", value: 0}
-          - {id: sinnesverstaerkung, label: "Sinnverstärken", value: 0}
-          - {id: fernwahrnehmung, label: "Fernwahrnehmung", value: 0}
-          - {id: gedanken_gedaechtnis_lesung, label: "Telepathie", value: 0}
-          - {id: wesens_eigenschaft, label: "Wesenserkennung", value: 0}
+          - {id: wahrnehmung, label: "Wahrnehmung", value: 0}
+          - {id: analyse, label: "Analyse", value: 0}
 
-      - id: illusion
-        label: "Illusion"
+      - id: illusionsmagie
+        label: "Illusionsmagie"
         basis: [IN, CH, GE]
         items:
-          - {id: sinnesillusion, label: "Sinnesillusion", value: 0}
-          - {id: gestaltsillusion, label: "Gestaltsillusion", value: 0}
-          - {id: unsichtbarkeit, label: "Unsichtbarkeit", value: 0}
-          - {id: doppelgaenger, label: "Doppelgänger", value: 0}
-          - {id: raumillusion, label: "Raumillusion", value: 0} 
-      
-      - id: metamagie
-        label: "Metamagie"
-        basis: [KL, KL, IN]
-        items:
-          - {id: umkehr, label: "Umkehr", value: 0}
-          - {id: artefaktbindung, label: "Artefaktbindung", value: 0}
+          - {id: illusion, label: "Illusion", value: 0}
+          - {id: maskierung, label: "Maskierung", value: 0}
+          - {id: zeichensetzung, label: "Zeichensetzung", value: 0}
 
-      - id: verwandlung_lebewesen
-        label: "Verwandlung (Lebewesen)"
-        basis: [MU, KK, KO]
+      - id: lebensmagie
+        label: "Lebensmagie"
+        basis: [IN, CH, KO]
         items:
-          - {id: tierverwandlung, label: "Tierverwandlung", value: 0}
-          - {id: attribute, label: "Attribute", value: 0}
-          - {id: behinderung, label: "Behinderung", value: 0}
-      
-      - id: verstaendigung
-        label: "Verständigung"
-        basis: [KL, IN, CH]
-        items:
-          - {id: zauberschrift, label: "Zauberschrift", value: 0}
-          - {id: sinnenteilen, label: "Sinnenteilen", value: 0}
-          - {id: ruf_klang, label: "Ruf/Klang", value: 0}
-          - {id: fernbotschaft, label: "Fernbotschaft", value: 0}
-          - {id: objekt_befragen, label: "Objekt befragen", value: 0}
-          - {id: geistbund, label: "Geistbund", value: 0}
+          - {id: heilung, label: "Heilung", value: 0}
+          - {id: vitalitaet, label: "Vitalität", value: 0}
+          - {id: potenzierung, label: "Potenzierung", value: 0}
+          - {id: metamorphose, label: "Metamorphose", value: 0}
 
-      - id: verwandlung_unbelebt
-        label: "Verwandlung (Unbelebt)"
+      - id: bewegungsmagie
+        label: "Bewegungsmagie"
+        basis: [IN, GE, GE]
+        items:
+          - {id: fortbewegung, label: "Fortbewegung", value: 0}
+          - {id: telekinese, label: "Telekinese", value: 0}
+          - {id: sphaerenoeffnung, label: "Limbusöffnung", value: 0}
+
+      - id: stoffmagie
+        label: "Stoffmagie"
         basis: [KL, KK, KO]
         items:
-          - {id: materialtransformation, label: "Materialtransformation", value: 0}
-          - {id: funktionsmanipulation, label: "Funktionsmanipulation", value: 0}
-          - {id: formgebung_umformung, label: "Formgebung/Umformung", value: 0}
-          - {id: reinigung_entgiftung_objekte, label: "Reinigung/Entgiftung (Objekte)", value: 0}
+          - {id: elementare_manipulation, label: "Elementare Manipulation", value: 0}
+          - {id: transmutation, label: "Transmutation", value: 0}
+
+      - id: beschwoerung
+        label: "Beschwörung"
+        basis: [MU, CH, CH]
+        items:
+          - {id: elementarbeschwoerung, label: "Elementarbeschwörung", value: 0}
+          - {id: daemonenbeschwoerung, label: "Dämonenbeschwörung", value: 0}
+          - {id: geisterbeschwoerung, label: "Geisterbeschwörung", value: 0}
 
   - id: gottheit
     label: "Gottheit"

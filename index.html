@@ -106,6 +106,7 @@
             <div class="nav-buttons">
                 <button class="nav-btn" onclick="loadMode('rulebook')">Regelwerk</button>
                 <button class="nav-btn" onclick="loadMode('generator')">Charaktergenerator</button>
+                <button id="cheatsheetBtn" class="nav-btn" onclick="loadMode('cheatsheet')">Cheatsheet</button>
             </div>
         </div>
     </div>
@@ -145,7 +146,7 @@
         function loadRulebook(system) {
             showLoading();
 
-            const rulebook = system === 'ars' ? 'ars_magica' : 'simple_dsa';
+            const rulebook = system === 'ars' ? 'ars_magica' : 'simple_dsa2';
             const frame = document.createElement('iframe');
             frame.title = system === 'ars' ? 'Ars Magica-Regelwerk' : 'Simple-DSA-Regelwerk';
             document.getElementById('contentArea').replaceChildren(frame);
@@ -199,9 +200,18 @@
 
         function loadMode(mode) {
             const system = selectedSystem();
-            setActiveButton(mode === 'rulebook' ? 'Regelwerk' : 'Charaktergenerator');
+            if (mode === 'cheatsheet' && system !== 'dsa') {
+                showHome();
+                return;
+            }
+            setActiveButton(mode === 'rulebook' ? 'Regelwerk' : mode === 'cheatsheet' ? 'Cheatsheet' : 'Charaktergenerator');
             if (mode === 'rulebook') {
                 loadRulebook(system);
+            } else if (mode === 'cheatsheet') {
+                const frame = document.createElement('iframe');
+                frame.src = 'simple_dsa_cheatsheet.html';
+                frame.title = 'Simple-DSA-Cheatsheet';
+                document.getElementById('contentArea').replaceChildren(frame);
             } else {
                 loadCharacterGenerator(system);
             }
@@ -228,12 +238,15 @@
             const select = document.getElementById('systemSelect');
             if (select) {
                 select.addEventListener('change', () => {
+                    document.getElementById('cheatsheetBtn').hidden = select.value !== 'dsa';
                     const active = document.querySelector('.nav-btn.active');
                     if (!active) return;
                     if (active.textContent === 'Regelwerk') {
                         loadMode('rulebook');
                     } else if (active.textContent === 'Charaktergenerator') {
                         loadMode('generator');
+                    } else if (active.textContent === 'Cheatsheet') {
+                        showHome();
                     }
                 });
             }

@@ -233,12 +233,61 @@ test('legacy full definitions preserve historical cost overrides and exclusions'
   assert.equal(r.run('deprecatedEntries.reduce((sum, e) => sum + deprecatedApCost(e), 0)'), 51);
 });
 
-test('unknown costs are flagged, obsolete zero values omitted and reset clears deprecated entries', () => {
+test('legacy characters load and save only positive numeric values', () => {
+  const config = JSON.parse(JSON.stringify(definitions));
+  config.sections[2].items[0].fields = [
+    { id: 'amount', type: 'number', value: 9 },
+    { id: 'note', type: 'text', value: '' }
+  ];
+  const r = runtime(config);
+  r.load({ sections: [
+    { id: 'Eigenschaften', items: [{ id: 'A', value: 0 }, { id: 'B', value: -2 }] },
+    { id: 'Skills', groups: [{ id: 'new', items: [{ id: 'retained', value: -3 }] }] },
+    { id: 'Flat', items: [{ id: 'known', value: 5, fields: [
+      { id: 'amount', type: 'number', value: -4 },
+      { id: 'note', type: 'text', value: 'Legacy note' }
+    ] }] },
+    { id: 'Unknown', items: [
+      { id: 'zero', value: 0 },
+      { id: 'negative', value: -2 },
+      { id: 'positive', value: 3 }
+    ] }
+  ] });
+
+  assert.equal(r.run('state.values.A'), 10);
+  assert.equal(r.run('state.attributes.A'), 10);
+  assert.equal(r.run('state.values.B'), 6);
+  assert.equal(r.run("state.values['Skills-new-retained']"), 0);
+  assert.equal(r.run('state.values.known'), 5);
+  assert.equal(r.run("state.values[generateKey(sections[2], sections[2].items[0], 'amount')]"), 9);
+  assert.equal(r.run("state.values[generateKey(sections[2], sections[2].items[0], 'note')]"), 'Legacy note');
+  assert.deepEqual(r.json('deprecatedEntries.map(entry => entry.item.id)'), ['positive']);
+
+  r.run("state.values['Skills-new-retained'] = -1; state.values.known = -2; state.values[generateKey(sections[2], sections[2].items[0], 'amount')] = -3");
+  const saved = r.json('buildSave()');
+  const numericValues = saved.sections.flatMap(section => [
+    ...(section.items || []),
+    ...(section.groups || []).flatMap(group => group.items || [])
+  ]).flatMap(item => [item.value, ...(item.fields || []).map(field => field.value)])
+    .filter(value => typeof value === 'number');
+  assert(numericValues.every(value => value > 0));
+  assert.deepEqual(saved.sections.find(section => section.id === 'Unknown').items.map(item => item.id), ['positive']);
+
+  const compact = runtime();
+  compact.load({ save_format: 'character_state_v2', zero_values_omitted: true, sections: [{
+    id: 'Skills', groups: [{ id: 'old', items: [
+      { id: 'zero', value: 0 },
+      { id: 'negative', value: -2 }
+    ] }]
+  }] });
+  assert.equal(compact.run('deprecatedEntries.length'), 0);
+});
+
+test('legacy unknown items without positive values are ignored', () => {
   const r = runtime();
   r.load({ sections: [{ id: 'Unknown', items: [{ id: 'zero', value: 0 }] }] });
-  assert.equal(r.run('deprecatedEntries.length'), 1);
-  assert.equal(r.run('deprecatedEntries[0].costKnown'), false);
-  assert.deepEqual(r.json('buildSave()').sections.find(s => s.id === 'Unknown').items, []);
+  assert.equal(r.run('deprecatedEntries.length'), 0);
+  assert.equal(r.json('buildSave()').sections.some(section => section.id === 'Unknown'), false);
   r.reset();
   assert.equal(r.run('deprecatedEntries.length'), 0);
 });
@@ -276,14 +325,15 @@ test('flat dynamic bases keep precedence and new saves carry labels and cost rul
   assert.deepEqual(section.groups[0].items[0].basis, ['B', 'B', 'B']);
 });
 
-test('zero values are omitted and restored without replacing them with configuration defaults', () => {
-  const r = runtime();
+test('zero values are omitted and v2 saves restore them without configuration defaults', () => {
+  const config = JSON.parse(JSON.stringify(definitions));
+  config.sections[2].items[0].fields = [
+    { id: 'amount', type: 'number', value: 9 },
+    { id: 'note', type: 'text', value: '' }
+  ];
+  const r = runtime(config);
   r.run(`
     state.values.A = 0; state.attributes.A = 0;
-    sections[2].items[0].fields = [
-      { id: 'amount', type: 'number', value: 9 },
-      { id: 'note', type: 'text', value: '' }
-    ];
     state.values[generateKey(sections[2], sections[2].items[0], 'amount')] = 0;
     state.values[generateKey(sections[2], sections[2].items[0], 'note')] = 'Keep me';
   `);
@@ -299,7 +349,7 @@ test('zero values are omitted and restored without replacing them with configura
   assert.equal('value' in item, false);
   assert.equal('value' in item.fields[0], false);
   assert.equal(item.fields[1].value, 'Keep me');
-  assert.equal(r.run('deprecatedEntries[0].item.fields[0].value'), 0);
+  assert.equal(r.run('deprecatedEntries.length'), 0);
   r.reset();
   r.load(saved);
   assert.equal(r.run('state.values.A'), 0);
@@ -308,7 +358,7 @@ test('zero values are omitted and restored without replacing them with configura
   assert.equal(r.run('state.values.known'), 0);
   assert.equal(r.run("state.values[generateKey(sections[2], sections[2].items[0], 'amount')]"), 0);
   assert.equal(r.run("state.values[generateKey(sections[2], sections[2].items[0], 'note')]"), 'Keep me');
-  assert.deepEqual(r.json('buildSave()').sections.find(s => s.id === 'Skills').items[0].fields[1].value, 'Old note');
+  assert.deepEqual(r.json('buildSave()').sections.find(s => s.id === 'Flat').items[0].fields[1].value, 'Keep me');
 });
 
 test('repeatable zero-valued rows retain their identities and do not inherit template values', () => {

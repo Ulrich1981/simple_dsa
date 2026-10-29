@@ -3,6 +3,7 @@
 let defs = null; // definitions.yaml
 let ui   = null; // layout.yaml
 let attributeSectionId = 'Eigenschaften';
+let deprecatedEntries = [];
 
 const state = {
   ap_total: 0,
@@ -53,6 +54,22 @@ function makeNumInput(val,on,allowedTextValues=[]){ const i=document.createEleme
 function isNumericFieldType(type){ return type === 'number' || type === 'input.number_text'; }
 function normalizeFieldValue(type, value){ return isNumericFieldType(type) ? parseNum(value ?? 0) : (value ?? ''); }
 function formatComputedDisplay(main, bracket){ return `${main} (${bracket})`; }
+function hasPositiveProgressionValue(sec, value){
+  const raw = String(value ?? '').trim();
+  return parseNum(value) > 0 || (raw !== '' && (sec?.allowed_text_values || []).some(item => String(item).toUpperCase() === raw.toUpperCase()));
+}
+function hasPositiveItemValues(sec, item, currentItem = null){
+  if (hasPositiveProgressionValue(sec, item?.value)) return true;
+  return (item?.fields || []).some(field => {
+    const currentField = (currentItem?.fields || []).find(candidate => candidate.id === field.id);
+    const type = field.type || currentField?.type || 'number';
+    return isNumericFieldType(type) && parseNum(field.value ?? 0) > 0;
+  });
+}
+function shouldApplyLegacyFieldValue(type, value){
+  if (isNumericFieldType(type)) return parseNum(value) > 0;
+  return value !== undefined && value !== null && value !== '';
+}
 
 function getStateNumberByKey(stateKey, fallback = 0){
   return parseNum(state.values[stateKey] ?? fallback);
@@ -503,12 +520,21 @@ function clearInvalidDynamicSelectValues(){
     });
   });
 }
+function layoutTableColumns(areas = []){
+  return areas.flatMap(area => [
+    ...(area.tabelle?.columns || []), ...layoutTableColumns(area.bereiche)
+  ]);
+}
+
 function getSectionColumns(sectionId, grouped = false){
   const pages = ui?.Seiten || [];
   for (const page of pages) {
     for (const ref of (page.bereiche || [])) {
       if (ref.ref !== sectionId) continue;
-      return grouped ? (get(ref, 'gruppen.columns', []) || []) : (get(ref, 'tabelle.columns', []) || []);
+      const columns = layoutTableColumns([ref]);
+      return grouped
+        ? (get(ref, 'gruppen.columns', null) || columns)
+        : columns;
     }
   }
   return [];
@@ -589,7 +615,9 @@ function computeBasisAndTotal(sec, it, valueKeyPrefix = null){
   const dynamicBasis = sec.basis_by_state
     ? sec.basis_by_state.mapping?.[String(state.values[sec.basis_by_state.field] ?? '')]
     : null;
-  const basis = group ? basisFrom(group.basis || []) : basisFrom(dynamicBasis || itemBasis);
+  const basis = group
+    ? basisFrom(it.basis?.length ? it.basis : (group.basis || []))
+    : basisFrom(dynamicBasis || itemBasis);
   const calcId = it.overrides?.calc_id || sec.calc_id;
   const valueKey = valueKeyPrefix
     ? generateKey(sec, it, 'value', valueKeyPrefix)
@@ -604,7 +632,7 @@ function computeBasisAndTotal(sec, it, valueKeyPrefix = null){
 
 function basisFormulaText(sec, it, valueKeyPrefix = null){
   const group = findGroupByValueKeyPrefix(sec, valueKeyPrefix);
-  const basisList = group ? (group.basis || []) : ((Array.isArray(it.basis) && it.basis.length) ? it.basis : (sec.basis || []));
+  const basisList = it.basis?.length ? it.basis : (group?.basis || sec.basis || []);
   if (!basisList.length) return '-';
   return `${basisList.join(' + ')} / 2`;
 }
@@ -799,6 +827,26 @@ function isAttributeSection(sec){
   return !!sec && sec.id === attributeSectionId;
 }
 
+function itemFields(sec, it){
+  const fields = (it.fields || []).map(field => ({ ...field, type: field.type || 'number', value: field.value ?? '' }));
+  const selectedField = sec.selectable_items?.field_id;
+  if (selectedField && !fields.some(field => field.id === selectedField)) {
+    fields.push({ id: selectedField, type: 'text', value: '' });
+  }
+  return fields.length ? fields : undefined;
+}
+
+function isItemSelected(sec, it, valueKeyPrefix = null){
+  const fieldId = sec.selectable_items?.field_id;
+  return Boolean(fieldId && state.values[generateKey(sec, it, fieldId, valueKeyPrefix)]) ||
+    parseNum(state.values[generateKey(sec, it, 'value', valueKeyPrefix)]) > 0;
+}
+
+function setItemSelected(sec, it, selected, valueKeyPrefix = null){
+  state.values[generateKey(sec, it, sec.selectable_items.field_id, valueKeyPrefix)] = selected ? 'yes' : '';
+  if (!selected) state.values[generateKey(sec, it, 'value', valueKeyPrefix)] = 0;
+}
+
 function normalize(defs){
   sections = (defs.sections || []).map(sec => ({
     id: sec.id,
@@ -812,6 +860,8 @@ function normalize(defs){
     allowed_text_values: sec.allowed_text_values || [],
     exclude_from_ap: !!sec.exclude_from_ap,
     include_in_ap_when: sec.include_in_ap_when || null,
+    selectable_items: sec.selectable_items || null,
+    item_details: sec.item_details || {},
     repeatable_rows: sec.repeatable_rows || null,
     repeatable_template: (() => {
       const cfg = sec.repeatable_rows || null;
@@ -824,14 +874,7 @@ function normalize(defs){
       id: it.id, label: it.label || '',
       basis: it.basis || [],
       value: normalizeProgressionValue(sec, it.value ?? 0),
-	  fields: Array.isArray(it.fields)
-        ? it.fields.map(f => ({
-            ...f,
-            id: f.id,
-            type: f.type || 'number',
-            value: f.value ?? ''
-          }))
-        : undefined,
+	  fields: itemFields(sec, it),
       overrides: {
         ...(it.calc_id ? { calc_id: it.calc_id } : {}),
         ...(typeof it.cost_per_increment !== 'undefined' ? { cost_per_increment: it.cost_per_increment } : {})
@@ -847,14 +890,7 @@ function normalize(defs){
         id: it.id, label: it.label || '',
         basis: it.basis || [],
         value: parseNum(it.value ?? 0),
-        fields: Array.isArray(it.fields)
-          ? it.fields.map(f => ({
-              ...f,
-              id: f.id,
-              type: f.type || 'number',
-              value: f.value ?? ''
-            }))
-          : undefined,
+        fields: itemFields(sec, it),
         overrides: {
           ...(it.calc_id ? { calc_id: it.calc_id } : {}),
           ...(typeof it.cost_per_increment !== 'undefined' ? { cost_per_increment: it.cost_per_increment } : {})
@@ -870,8 +906,18 @@ function normalize(defs){
 
 // state init
 function init(defText, layoutText){
+  deprecatedEntries = [];
   defs = jsyaml.load(defText);
   ui   = jsyaml.load(layoutText);
+
+  Object.entries({
+    '--sheet-width': get(ui, 'Einstellungen.print.content_width', '1600px'),
+    '--base-font-size': get(ui, 'Einstellungen.typography.base_font_size', '8pt'),
+    '--base-line-height': get(ui, 'Einstellungen.typography.line_height', 1.2),
+    '--table-header-font-size': get(ui, 'Einstellungen.typography.table_header_font_size', '9pt'),
+    '--heading-font-size': get(ui, 'Einstellungen.typography.heading_font_size', '9.5pt'),
+    '--title-font-size': get(ui, 'Einstellungen.typography.title_font_size', '11pt')
+  }).forEach(([property, value]) => document.documentElement?.style.setProperty(property, String(value)));
 
   state.ap_total = parseNum(get(defs,'globals.ap_total',0));
 
@@ -948,14 +994,14 @@ function updateVisibility() {
     ui.Seiten.forEach(page => {
       const pageElement = document.querySelector(`[data-page-id="${page.id}"]`);
       if (pageElement) {
-        pageElement.style.display = pageVisible(page, currentState) ? 'grid' : 'none';
+        pageElement.style.display = pageVisible(page, currentState) || pageElement.querySelector('.deprecated-entry') ? 'grid' : 'none';
       }
 
         (page.bereiche || []).forEach(secRef => {
             const sectionElement = document.querySelector(`[data-section-ref="${secRef.ref}"]`);
             if (sectionElement && secRef.visibility) {
                 const shouldShow = evaluateVisibilityRules(secRef.visibility, currentState);
-                sectionElement.style.display = shouldShow ? 'block' : 'none';
+                sectionElement.style.display = shouldShow || sectionElement.querySelector('.deprecated-entry') ? 'block' : 'none';
             }
 
           const section = sections.find(sec => sec.id === secRef.ref);
@@ -967,7 +1013,7 @@ function updateVisibility() {
             const shouldShow = group.show_if.rules
               ? evaluateVisibilityRules(group.show_if, currentState)
               : evaluateVisibilityRule(group.show_if, currentState);
-            groupElement.style.display = shouldShow ? '' : 'none';
+            groupElement.style.display = shouldShow || groupElement.querySelector('.deprecated-entry') ? '' : 'none';
           });
         });
     });
@@ -1033,6 +1079,21 @@ function evaluateVisibilityRule(rule, currentState) {
   }
 }
 
+function applyGrid(element, grid = {}, fallbackColumns = 1){
+  element.style.setProperty('--grid-gap', grid.gap || '12px');
+  element.style.setProperty('--grid-row-height', grid.row_height || 'auto');
+  element.style.setProperty('--grid-columns', grid.columns_percent?.length
+    ? grid.columns_percent.map(value => `${value}fr`).join(' ')
+    : grid.mode === 'flow' ? 'repeat(auto-fit, minmax(0, 1fr))'
+    : `repeat(${fallbackColumns}, minmax(0, 1fr))`);
+}
+
+function applyGridSpan(element, span = {}){
+  if (span.col_start) element.style.gridColumnStart = String(span.col_start);
+  if (span.col_span) element.style.gridColumnEnd = `span ${span.col_span}`;
+  if (span.row_span) element.style.gridRowEnd = `span ${span.row_span}`;
+}
+
 function render(){
   if (!ui || !ui.Seiten) return;
   
@@ -1043,9 +1104,7 @@ function render(){
     pageEl.className = 'page page-grid';
     pageEl.dataset.pageId = page.id || '';
 
-    // Seite: Grid konfigurieren
-    const gap = page.grid?.gap || '12px';
-    pageEl.style.setProperty('--grid-gap', gap);
+    applyGrid(pageEl, page.grid, 2);
 
 	if (page.page_break_before === 'always') {
 	  pageEl.classList.add('print-page-break-before');
@@ -1053,27 +1112,6 @@ function render(){
 	if (page.page_break_after === 'always') {
 	  pageEl.classList.add('print-page-break-after');
 	}
-
-    if (Array.isArray(page.grid?.columns_percent) && page.grid.columns_percent.length){
-      // Prozentwerte als fr verwenden, damit Grid+Gap nicht über 100% hinausläuft.
-      const cols = page.grid.columns_percent.map(x => `${x}fr`).join(' ');
-      pageEl.style.setProperty('--grid-columns', cols);
-    } else if (page.grid?.mode === 'flow'){
-      // Flow: nutzt auto-fit mit minmax, sodass Prozentbreiten pro Card funktionieren
-      // Für Flow lassen wir grid-template-columns als auto-fill/auto-fit steuern; die Breite pro Card setzen wir inline.
-      // Setze einen Default, z. B. 100% – wir überschreiben per Item-Breite
-      pageEl.style.setProperty('--grid-columns', 'repeat(auto-fit, minmax(0, 1fr))');
-    } else {
-      // Fallback: 2 Spalten
-      pageEl.style.setProperty('--grid-columns', 'repeat(2, minmax(0,1fr))');
-    }
-
-    // Row-Höhe steuerbar (z. B. "12rem") – optional
-    if (page.grid?.row_height) {
-      pageEl.style.setProperty('--grid-row-height', page.grid.row_height);
-    } else {
-      pageEl.style.setProperty('--grid-row-height', 'auto');
-    }
 
     // Bereiche rendern
     (page.bereiche || []).forEach(secRef => {
@@ -1086,10 +1124,7 @@ function render(){
       // Spaltenbreite/Span anwenden
       if (Array.isArray(page.grid?.columns_percent)) {
         // Rastermodus: nutze grid_span (col_start/col_span/row_span)
-        const span = secRef.grid_span || {};
-        if (span.col_start) area.style.gridColumnStart = String(span.col_start);
-        if (span.col_span)  area.style.gridColumnEnd   = `span ${span.col_span}`;
-        if (span.row_span)  area.style.gridRowEnd      = `span ${span.row_span}`;
+        applyGridSpan(area, secRef.grid_span);
       } else if (page.grid?.mode === 'flow') {
         // Flowmodus: Breite als Prozent setzen
         const pct = Math.max(1, Math.min(100, Number(secRef.width_percent || 100)));
@@ -1104,6 +1139,80 @@ function render(){
 
     els.root.appendChild(pageEl);
   });
+  renderDeprecatedEntries();
+}
+
+function renderDeprecatedEntries(){
+  deprecatedEntries.forEach(entry => {
+    let card = Array.from(els.root.querySelectorAll('[data-section-ref]'))
+      .find(node => node.dataset.sectionRef === entry.section.id);
+    if (!card) {
+      card = createDiv(undefined, 'card');
+      card.dataset.sectionRef = entry.section.id;
+      const heading = document.createElement('h2');
+      heading.textContent = entry.section.label || entry.section.id;
+      card.appendChild(heading);
+      els.root.appendChild(card);
+    }
+    let container = card;
+    if (entry.group) {
+      const groupRef = `${entry.section.id}-${entry.group.id}`;
+      container = Array.from(card.querySelectorAll('[data-group-ref]'))
+        .find(node => node.dataset.groupRef === groupRef);
+      if (!container) {
+        container = createDiv(undefined, 'group-card');
+        container.dataset.groupRef = groupRef;
+        const heading = document.createElement('h3');
+        heading.textContent = entry.group.label || entry.group.id;
+        container.appendChild(heading);
+        (card.querySelector('.group-grid') || card).appendChild(container);
+      }
+    }
+    let table = Array.from(container.children).find(node => node.classList.contains('deprecated-table'));
+    if (!table) {
+      table = createDiv(undefined, 'table-grid deprecated-table');
+      table.style.setProperty('--cols', 'minmax(12ch, 1fr) repeat(3, fit-content(8ch)) fit-content(8ch)');
+      ['Name', 'Basis', 'Wert', 'Gesamt'].forEach(label => table.appendChild(createDiv(label, 'header')));
+      table.appendChild(createDiv('', 'header print-hide'));
+      container.appendChild(table);
+    }
+    const row = createDiv(undefined, 'deprecated-entry');
+    const label = createDiv(`${entry.item.label || entry.item.id} — deprecated`, 'deprecated-label');
+    label.title = entry.costKnown
+      ? `AP: ${deprecatedApCost(entry)}. Dieser Eintrag ist nicht mehr definiert.`
+      : 'AP-Kosten unbekannt: In der Datei fehlt die Kostenregel. Bitte manuell prüfen.';
+    const basisList = entry.item.basis?.length ? entry.item.basis : entry.group?.basis || entry.section.basis || [];
+    const basis = basisList.length ? basisFrom(basisList) : null;
+    const value = entry.item.value ?? 0;
+    const totalValue = entry.calcId === 'value_only' || entry.calcId === 'level_cost'
+      ? value
+      : basis === null ? '—' : total(entry.calcId, basis, value);
+    row.append(label, createDiv(basis ?? '—'), createDiv(value), createDiv(totalValue));
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'print-hide';
+    remove.textContent = 'Löschen';
+    remove.setAttribute('aria-label', `${entry.item.label || entry.item.id} (deprecated) löschen`);
+    remove.addEventListener('click', () => removeDeprecatedEntry(entry));
+    row.appendChild(remove);
+    (entry.item.fields || []).forEach(field => {
+      row.appendChild(createDiv(`${field.label || field.id}: ${field.value ?? ''}`, 'deprecated-detail'));
+    });
+    if (!entry.costKnown) {
+      row.appendChild(createDiv(label.title, 'deprecated-detail'));
+    }
+    table.appendChild(row);
+  });
+}
+
+function removeDeprecatedEntry(entry){
+  deprecatedEntries = deprecatedEntries.filter(candidate => candidate !== entry);
+  render();
+  recalc();
+}
+
+function deprecatedApCost(entry){
+  return entry.excludeFromAp ? 0 : progressionApCost(entry.calcId, entry.item.value, entry.costCpi);
 }
 
 
@@ -1134,7 +1243,8 @@ function buildTable(items, sec, ref, opts = {}){
     baseOverride = null,
     valueKeyPrefix = null,
     columns: overrideColumns = null,
-    rowActions = null
+    rowActions = null,
+    data = null
   } = opts;
 
   // 1) Spalten-Konfiguration
@@ -1157,6 +1267,17 @@ function buildTable(items, sec, ref, opts = {}){
   // 2) Table-Grid
   const table = document.createElement('div');
   table.className = 'table-grid';
+  const fontSize = ref.tabelle?.font_size || ref.gruppen?.font_size;
+  if (fontSize) {
+    table.style.fontSize = fontSize;
+    table.style.setProperty('--table-font-size', fontSize);
+    table.style.setProperty('--table-header-font-size', fontSize);
+  }
+  const fieldsLayout = ref.tabelle?.layout === 'fields';
+  if (fieldsLayout) {
+    table.classList.add('table-fields');
+    table.style.setProperty('--field-columns', Math.max(1, parseNum(ref.spalten || 1)));
+  }
   const widthToCh = (width) => {
     const m = String(width || '').trim().match(/^(\d+(?:\.\d+)?)ch$/i);
     return m ? Number(m[1]) : null;
@@ -1179,16 +1300,18 @@ function buildTable(items, sec, ref, opts = {}){
     if (col.type === 'computed') return 'minmax(8ch, 1fr)';
     return 'minmax(7ch, 1fr)';
   });
-  const printColumnTemplate = columnDefs.join(' ');
-  if (rowActions) columnDefs.push('fit-content(8ch)');
+  if (rowActions) columnDefs.push('max-content');
   const columnTemplate = columnDefs.join(' ');
   table.style.setProperty('--cols', columnTemplate);
-  if (rowActions) table.style.setProperty('--cols-print', printColumnTemplate);
-  const push = node => table.appendChild(node);
+  if (fieldsLayout && columns.some(col => col.col_width)) table.style.setProperty('--field-cols', columnTemplate);
+  let cellContainer = table;
+  const push = node => cellContainer.appendChild(node);
 
   // 3) Header
-  for (const col of columns) push(createDiv(col.header || col.key, 'header'));
-  if (rowActions) push(createDiv(rowActions.header || '', 'header print-hide'));
+  if (!fieldsLayout) {
+    for (const col of columns) push(createDiv(col.header || col.key, 'header'));
+    if (rowActions) push(createDiv(rowActions.header || '', 'header print-hide'));
+  }
 
   // 4) Rows
   for (const it of items) {
@@ -1202,10 +1325,39 @@ function buildTable(items, sec, ref, opts = {}){
     for (const col of columns) {
     const t = col.type;
     const k = col.key;
+    const content = get(data || it, k, null);
+    cellContainer = table;
+    if (fieldsLayout) {
+      if (['label', 'heading', 'readonly_text', 'list'].includes(t) &&
+          (content === null || content === '' || (Array.isArray(content) && !content.length))) continue;
+      cellContainer = createDiv(undefined, `table-field ${col.class || ''}`.trim());
+      if (col.header) cellContainer.appendChild(createDiv(col.header, 'header'));
+      table.appendChild(cellContainer);
+    }
 
     switch (t) {
       case 'label': {
-        push(createDiv(it.label || ''));
+        const label = createDiv(content ?? '');
+        label.title = basisFormulaText(sec, it, valueKeyPrefix);
+        push(label);
+        break;
+      }
+
+      case 'heading': {
+        const heading = document.createElement('h3');
+        heading.textContent = content ?? '';
+        push(heading);
+        break;
+      }
+
+      case 'list': {
+        const list = document.createElement('ul');
+        (Array.isArray(content) ? content : []).forEach(text => {
+          const item = document.createElement('li');
+          item.textContent = text;
+          list.appendChild(item);
+        });
+        push(list);
         break;
       }
 
@@ -1289,12 +1441,23 @@ function buildTable(items, sec, ref, opts = {}){
             }
             select.appendChild(option);
           });
+          if (currentValue && !options.some(opt => String(opt.id) === currentValue)) {
+            const option = document.createElement('option');
+            option.value = currentValue;
+            option.textContent = `${currentValue} — deprecated`;
+            option.selected = true;
+            select.appendChild(option);
+            select.classList.add('deprecated-value');
+            select.title = 'Dieser gespeicherte Wert ist nicht mehr definiert (deprecated).';
+          }
 
           if (allowEmpty) {
             select.value = currentValue;
           }
           
           select.addEventListener('change', () => {
+            select.classList.remove('deprecated-value');
+            select.title = '';
             state.values[key] = select.value;
 
             // Generic hook: selecting an option can populate other fields in the same row.
@@ -1365,7 +1528,7 @@ function buildTable(items, sec, ref, opts = {}){
           cell.id = generateDisplayId('row-total', sec, it, 'value', valueKeyPrefix);
           push(cell);
         } else {
-          push(createDiv(it[k] ?? ''));
+          push(createDiv(content ?? ''));
         }
         break;
       }
@@ -1391,17 +1554,23 @@ function buildTable(items, sec, ref, opts = {}){
       }
 
       default: {
-        push(createDiv(it[k] ?? ''));
+        push(createDiv(content ?? ''));
         break;
       }
     }
   }
 
+    cellContainer = table;
     if (rowActions) {
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.textContent = rowActions.removeLabel || '-';
-      btn.className = 'print-hide';
+      btn.title = `${rowActions.removeLabel || '-'}: ${it.label || it.id}`;
+      btn.setAttribute('aria-label', btn.title);
+      btn.className = 'row-remove print-hide';
+      const icon = document.createElement('img');
+      icon.src = 'icons/trash-2.svg';
+      icon.alt = '';
+      btn.appendChild(icon);
       btn.disabled = typeof rowActions.canRemove === 'function' ? !rowActions.canRemove(it) : false;
       btn.addEventListener('click', () => {
         if (typeof rowActions.remove === 'function') rowActions.remove(it);
@@ -1466,6 +1635,73 @@ function renderDropdown(sec, ref) {
   return container;
 }
 
+function renderItemAreas(ref, context, container){
+  applyGrid(container, ref.grid);
+  (ref.bereiche || []).forEach(area => {
+    const node = createDiv(undefined, area.class);
+    applyGridSpan(node, area.grid_span);
+    if (area.tabelle) node.appendChild(buildTable([context.item], context.section, area, {
+      valueKeyPrefix: context.prefix, data: context.data,
+      rowActions: area.entfernen ? context.rowActions : null
+    }));
+    if (area.bereiche) {
+      node.classList.add('item-layout-grid');
+      renderItemAreas(area, context, node);
+    }
+    container.appendChild(node);
+  });
+}
+
+function renderSelectableItems(sec, ref, container){
+  const config = sec.selectable_items;
+  const entries = [
+    ...(sec.items || []).map(item => ({ item, prefix: null, group: null })),
+    ...(sec.groups || []).flatMap(group => group.items.map(item => ({ item, prefix: `${sec.id}-${group.id}`, group })))
+  ];
+  const select = document.createElement('select');
+  select.className = 'item-picker print-hide';
+  select.setAttribute('aria-label', config.add_label);
+  const empty = document.createElement('option');
+  empty.value = '';
+  empty.textContent = config.add_label;
+  select.appendChild(empty);
+  entries.filter(entry => !isItemSelected(sec, entry.item, entry.prefix)).forEach(entry => {
+    const option = document.createElement('option');
+    option.value = entry.item.id;
+    option.textContent = entry.group ? `${entry.group.label}: ${entry.item.label}` : entry.item.label;
+    select.appendChild(option);
+  });
+  select.disabled = select.options.length === 1;
+  select.addEventListener('change', () => {
+    const entry = entries.find(entry => entry.item.id === select.value);
+    if (!entry) return;
+    setItemSelected(sec, entry.item, true, entry.prefix);
+    render();
+    recalc();
+  });
+  container.appendChild(select);
+  const list = createDiv(undefined, 'selected-items');
+  list.style.setProperty('--item-columns', Math.max(1, Math.floor(parseNum(ref.spalten || 1))));
+  entries.filter(entry => isItemSelected(sec, entry.item, entry.prefix)).forEach(entry => {
+    const row = createDiv(undefined, 'selected-item item-layout-grid');
+    row.dataset.itemId = entry.item.id;
+    renderItemAreas(ref, {
+      ...entry, section: sec, ref,
+      data: { ...entry.item, group: entry.group, details: sec.item_details[entry.item.id] || {} },
+      rowActions: {
+        removeLabel: config.remove_label,
+        remove: item => {
+          setItemSelected(sec, item, false, entry.prefix);
+          render();
+          recalc();
+        }
+      }
+    }, row);
+    list.appendChild(row);
+  });
+  container.appendChild(list);
+}
+
 function renderSection(sec, ref){
   // Header und Card-Wrapper wie gehabt ...
   const card = document.createElement('div');
@@ -1478,6 +1714,11 @@ function renderSection(sec, ref){
     if (sec.basis?.length){ const hint=createDiv(`Basis aus (${sec.basis.join(' + ')}) / 2, gerundet`,'hint'); card.appendChild(hint); }
     const formulaHint = sectionFormulaHint(sec);
     if (formulaHint) card.appendChild(createDiv(formulaHint, 'hint'));
+  }
+
+  if (sec.selectable_items) {
+    renderSelectableItems(sec, ref, card);
+    return card;
   }
 
   const repeatableCfg = getRepeatableConfig(sec);
@@ -1542,6 +1783,7 @@ function renderSection(sec, ref){
   const groupCols = Math.max(
     1,
     Number(get(ref, 'gruppen.group_columns', null)) ||
+    Number(ref.spalten) ||
     (get(ref, 'gruppen.pair_columns', false) ? 2 : 1)
   );
 
@@ -1559,13 +1801,11 @@ function renderSection(sec, ref){
     const gh = document.createElement('h3');
     gh.textContent = gr.label;
     gbox.appendChild(gh);
-    if (gr.basis?.length){ const hint=createDiv(`Basis aus (${gr.basis.join(' + ')}) / 2, gerundet`,'hint'); gbox.appendChild(hint); }
+    if (gr.basis?.length && !(gr.items || []).some(it => it.basis?.length)){ const hint=createDiv(`Basis aus (${gr.basis.join(' + ')}) / 2, gerundet`,'hint'); gbox.appendChild(hint); }
 
-    const baseOverride = basisFrom(gr.basis || []);
     const valueKeyPrefix = `${sec.id}-${gr.id}`;
 
     const table = buildTable(gr.items || [], sec, ref, {
-      baseOverride,
       valueKeyPrefix,
       columns: groupColumns || [
         { key: 'label', type: 'label',            header: 'Name' },
@@ -1625,8 +1865,8 @@ sections.forEach(sec => {
     }
 
     const valueKeyPrefix = `${sec.id}-${gr.id}`;
-    const basis = basisFrom(gr.basis || []);
     (gr.items || []).forEach(it => {
+      const basis = computeBasisAndTotal(sec, it, valueKeyPrefix).basis;
       const valueKey = generateKey(sec, it, 'value', valueKeyPrefix);
       const value = parseNum(state.values[valueKey] ?? it.value ?? 0);
       const calcId = it.overrides?.calc_id || sec.calc_id;
@@ -1649,6 +1889,7 @@ sections.forEach(sec => {
 });
 
 
+  spent += deprecatedEntries.reduce((sum, entry) => sum + deprecatedApCost(entry), 0);
   const remaining = Math.max(0, state.ap_total - spent);
   let ap = els.apTotalBox.querySelector('input.ap');
   if (!ap){
@@ -1771,12 +2012,16 @@ async function saveSav(){
 function buildSave(){
   const out = {
     save_format: 'character_state_v2',
+    zero_values_omitted: true,
     ap_total: state.ap_total,
     sections: []
   };
 
   sections.forEach(sec => {
-    const secOut = { id: sec.id };
+    const secOut = {
+      id: sec.id, label: sec.label, calc_id: sec.calc_id,
+      cost_per_increment: sec.cost_cpi, exclude_from_ap: sec.exclude_from_ap
+    };
 
     if (typeof state.values[sec.id] !== 'undefined' && state.values[sec.id] !== '') {
       secOut.selected_value = state.values[sec.id];
@@ -1797,6 +2042,9 @@ function buildSave(){
       secOut.items = sec.items.map(it => {
         const itemOut = {
           id: it.id,
+          label: it.label,
+          basis: it.basis,
+          ...it.overrides,
           value: normalizeProgressionValue(sec, state.values[generateKey(sec, it)] ?? it.value ?? 0)
         };
 
@@ -1824,9 +2072,15 @@ function buildSave(){
         const valueKeyPrefix = `${sec.id}-${gr.id}`;
         return {
           id: gr.id,
+          label: gr.label,
+          basis: gr.basis,
+          ...gr.overrides,
           items: (gr.items || []).map(it => {
             const itemOut = {
               id: it.id,
+              label: it.label,
+              basis: it.basis,
+              ...it.overrides,
               value: parseNum(state.values[generateKey(sec, it, 'value', valueKeyPrefix)] ?? it.value ?? 0)
             };
 
@@ -1854,62 +2108,154 @@ function buildSave(){
     out.sections.push(secOut);
   });
 
+  deprecatedEntries.forEach(entry => {
+    let sec = out.sections.find(candidate => candidate.id === entry.section.id);
+    if (!sec) {
+      sec = { ...entry.section, items: [], groups: [] };
+      out.sections.push(sec);
+    }
+    let target = sec;
+    if (entry.group) {
+      sec.groups ||= [];
+      target = sec.groups.find(group => group.id === entry.group.id);
+      if (!target) {
+        target = { ...entry.group, items: [] };
+        sec.groups.push(target);
+      }
+    }
+    target.items ||= [];
+    target.items.push({
+      ...JSON.parse(JSON.stringify(entry.item)),
+      ...(entry.costKnown ? { cost_per_increment: entry.costCpi } : {}),
+      calc_id: entry.calcId,
+      exclude_from_ap: entry.excludeFromAp
+    });
+  });
+  out.sections.forEach(sec => {
+    const compactFields = fields => (fields || []).forEach(field => {
+      if (isNumericFieldType(field.type || 'number') && parseNum(field.value ?? 0) <= 0) delete field.value;
+    });
+    const compactItems = items => (items || []).filter(item => {
+      compactFields(item.fields);
+      const sourceSection = sections.find(current => current.id === sec.id) || sec;
+      if (hasPositiveProgressionValue(sourceSection, item.value)) return true;
+      delete item.value;
+      return Boolean(item.fields?.length || getRepeatableConfig(sections.find(current => current.id === sec.id)));
+    });
+    compactFields(sec.fields);
+    sec.items = compactItems(sec.items);
+    (sec.groups || []).forEach(group => {
+      group.items = compactItems(group.items);
+    });
+  });
   return out;
 }
 
-function applySavedItemFields(currentSec, currentItem, savedItem, valueKeyPrefix = null){
+function findSavedItemTarget(currentSec, savedItem, savedGroup = null){
+  if (!currentSec) return null;
+  const group = savedGroup ? currentSec.groups?.find(gr => gr.id === savedGroup.id) : null;
+  const direct = (savedGroup ? group?.items : currentSec.items)?.find(it => it.id === savedItem.id);
+  if (direct) return { item: direct, group };
+  const matches = [];
+  (currentSec.items || []).forEach(item => {
+    if (item.id === savedItem.id) matches.push({ item, group: null });
+  });
+  (currentSec.groups || []).forEach(gr => (gr.items || []).forEach(item => {
+    if (item.id === savedItem.id) matches.push({ item, group: gr });
+  }));
+  return matches.length === 1 ? matches[0] : null;
+}
+
+function preserveDeprecatedItem(savedSec, savedGroup, savedItem, currentSec){
+  const currentGroup = currentSec?.groups?.find(group => group.id === savedGroup?.id);
+  const costCpi = savedItem.cost_per_increment ?? savedGroup?.cost_per_increment ??
+    savedSec.cost_per_increment ?? currentGroup?.overrides?.cost_per_increment ?? currentSec?.cost_cpi;
+  const { items, groups, ...section } = savedSec;
+  const { items: groupItems, ...group } = savedGroup || {};
+  deprecatedEntries.push({
+    section, group: savedGroup ? group : null,
+    item: JSON.parse(JSON.stringify(savedItem)),
+    costKnown: costCpi !== undefined || !!(savedItem.exclude_from_ap || savedSec.exclude_from_ap),
+    costCpi: parseNum(costCpi),
+    calcId: savedItem.calc_id || savedGroup?.calc_id || savedSec.calc_id || currentSec?.calc_id || 'base_plus_value',
+    excludeFromAp: savedItem.exclude_from_ap ?? savedSec.exclude_from_ap ?? currentSec?.exclude_from_ap ?? false
+  });
+}
+
+function applySavedItemFields(currentSec, currentItem, savedItem, valueKeyPrefix = null, positiveValuesOnly = false){
   (savedItem.fields || []).forEach(savedField => {
     const currentField = (currentItem.fields || []).find(field => field.id === savedField.id);
     const type = savedField.type || currentField?.type || 'number';
+    if (positiveValuesOnly && !shouldApplyLegacyFieldValue(type, savedField.value)) return;
     const key = generateKey(currentSec, savedItem, savedField.id, valueKeyPrefix);
     state.values[key] = normalizeFieldValue(type, savedField.value ?? '');
   });
 }
 
-function applySavedSectionData(currentSec, savedSec, preserveMissingValues){
-  if (typeof savedSec.selected_value !== 'undefined') {
+function applySavedSectionData(currentSec, savedSec, preserveMissingValues, positiveValuesOnly = false){
+  if (typeof savedSec.selected_value !== 'undefined' && (!positiveValuesOnly || shouldApplyLegacyFieldValue('text', savedSec.selected_value))) {
     state.values[currentSec.id] = savedSec.selected_value;
   }
 
   (savedSec.fields || []).forEach(savedField => {
     const currentField = (currentSec.fields || []).find(field => field.id === savedField.id);
     const type = savedField.type || currentField?.type || 'number';
+    if (positiveValuesOnly && !shouldApplyLegacyFieldValue(type, savedField.value)) return;
     const key = generateKey(currentSec, { id: savedField.id }, savedField.id);
     state.values[key] = normalizeFieldValue(type, savedField.value ?? '');
   });
 
-  if (Array.isArray(savedSec.items) && savedSec.items.length) {
-    restoreRepeatableItemsFromSave(currentSec, savedSec.items);
+  const savedItems = savedSec.items || [];
+  const repeatableItems = positiveValuesOnly
+    ? savedItems.filter(item => hasPositiveItemValues(currentSec, item, getRepeatableTemplateItem(currentSec)))
+    : savedItems;
+  if (Array.isArray(repeatableItems) && repeatableItems.length) {
+    restoreRepeatableItemsFromSave(currentSec, repeatableItems);
   }
 
-  (savedSec.items || []).forEach(savedItem => {
-    const currentItem = currentSec.items?.find(item => item.id === savedItem.id);
-    if (!currentItem) return;
+  savedItems.forEach(savedItem => {
+    const target = findSavedItemTarget(currentSec, savedItem);
+    if (!target) {
+      if (!hasPositiveItemValues(currentSec, savedItem)) return;
+      preserveDeprecatedItem(savedSec, null, savedItem, currentSec);
+      return;
+    }
+    const currentItem = target.item;
+    const prefix = target.group ? `${currentSec.id}-${target.group.id}` : null;
 
     const hasValue = typeof savedItem.value !== 'undefined';
-    if (hasValue || !preserveMissingValues) {
-      state.values[generateKey(currentSec, savedItem)] = normalizeProgressionValue(currentSec, savedItem.value ?? 0);
+    const shouldApplyValue = positiveValuesOnly
+      ? hasPositiveProgressionValue(currentSec, savedItem.value)
+      : hasValue || !preserveMissingValues;
+    if (shouldApplyValue) {
+      state.values[generateKey(currentSec, savedItem, 'value', prefix)] = normalizeProgressionValue(currentSec, savedItem.value ?? 0);
     }
     if (savedItem.label !== undefined) {
       currentItem.label = savedItem.label;
       state.values[generateKey(currentSec, savedItem, 'label')] = savedItem.label;
     }
-    if (isAttributeSection(currentSec) && (hasValue || !preserveMissingValues)) {
+    if (isAttributeSection(currentSec) && shouldApplyValue) {
       state.attributes[savedItem.id] = parseNum(savedItem.value ?? 0);
     }
-    applySavedItemFields(currentSec, currentItem, savedItem);
+    applySavedItemFields(currentSec, currentItem, savedItem, prefix, positiveValuesOnly);
   });
 
   (savedSec.groups || []).forEach(savedGroup => {
-    const currentGroup = currentSec.groups?.find(group => group.id === savedGroup.id);
-    if (!currentGroup) return;
-
-    const valueKeyPrefix = `${currentSec.id}-${savedGroup.id}`;
     (savedGroup.items || []).forEach(savedItem => {
-      const currentItem = currentGroup.items?.find(item => item.id === savedItem.id);
-      if (!currentItem) return;
+      const target = findSavedItemTarget(currentSec, savedItem, savedGroup);
+      if (!target) {
+        if (!hasPositiveItemValues(currentSec, savedItem)) return;
+        preserveDeprecatedItem(savedSec, savedGroup, savedItem, currentSec);
+        return;
+      }
+      const currentItem = target.item;
+      const valueKeyPrefix = target.group ? `${currentSec.id}-${target.group.id}` : null;
 
-      if (typeof savedItem.value !== 'undefined' || !preserveMissingValues) {
+      const hasValue = typeof savedItem.value !== 'undefined';
+      const shouldApplyValue = positiveValuesOnly
+        ? hasPositiveProgressionValue(currentSec, savedItem.value)
+        : hasValue || !preserveMissingValues;
+      if (shouldApplyValue) {
         const key = generateKey(currentSec, savedItem, 'value', valueKeyPrefix);
         state.values[key] = parseNum(savedItem.value ?? 0);
       }
@@ -1917,18 +2263,32 @@ function applySavedSectionData(currentSec, savedSec, preserveMissingValues){
         currentItem.label = savedItem.label;
         state.values[generateKey(currentSec, savedItem, 'label', valueKeyPrefix)] = savedItem.label;
       }
-      applySavedItemFields(currentSec, currentItem, savedItem, valueKeyPrefix);
+      applySavedItemFields(currentSec, currentItem, savedItem, valueKeyPrefix, positiveValuesOnly);
     });
   });
 }
 
 function applyCompactSaveData(saveData){
+  if (saveData.zero_values_omitted) {
+    sections.forEach(sec => {
+      (sec.items || []).forEach(item => {
+        state.values[generateKey(sec, item)] = 0;
+        if (isAttributeSection(sec)) state.attributes[item.id] = 0;
+      });
+      (sec.groups || []).forEach(group => {
+        (group.items || []).forEach(item => {
+          state.values[generateKey(sec, item, 'value', `${sec.id}-${group.id}`)] = 0;
+        });
+      });
+    });
+  }
   if (typeof saveData.ap_total !== 'undefined') {
     state.ap_total = parseNum(saveData.ap_total);
   }
   (saveData.sections || []).forEach(savedSec => {
     const currentSec = sections.find(sec => sec.id === savedSec.id);
-    if (currentSec) applySavedSectionData(currentSec, savedSec, true);
+    if (currentSec) applySavedSectionData(currentSec, savedSec, !saveData.zero_values_omitted);
+    else preserveDeprecatedSection(savedSec);
   });
 }
 
@@ -1938,15 +2298,26 @@ function applySaveData(saveData){
     return;
   }
 
-  if (saveData.globals && saveData.globals.ap_total !== undefined) {
+  if (saveData.globals && parseNum(saveData.globals.ap_total) > 0) {
     state.ap_total = parseNum(saveData.globals.ap_total);
   }
   (saveData.sections || []).forEach(savedSec => {
     const currentSec = sections.find(sec => sec.id === savedSec.id);
-    if (currentSec) applySavedSectionData(currentSec, savedSec, false);
+    if (currentSec) applySavedSectionData(currentSec, savedSec, true, true);
+    else preserveDeprecatedSection(savedSec);
   });
 }
 
+function preserveDeprecatedSection(savedSec){
+  (savedSec.items || []).forEach(item => {
+    if (hasPositiveItemValues(savedSec, item)) preserveDeprecatedItem(savedSec, null, item, null);
+  });
+  (savedSec.groups || []).forEach(group => {
+    (group.items || []).forEach(item => {
+      if (hasPositiveItemValues(savedSec, item)) preserveDeprecatedItem(savedSec, group, item, null);
+    });
+  });
+}
 
 // Boot
 function boot(){

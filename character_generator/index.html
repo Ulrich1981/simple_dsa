@@ -11,6 +11,11 @@
     <div class="toolbar">
       <button id="printBtn">Drucken</button>
       <button id="saveBtn">Speichern</button>
+      <span class="zoom-controls" role="group" aria-label="Bogenansicht skalieren">
+        <button id="zoomOutBtn" type="button" aria-label="Bogen verkleinern" title="Bogen verkleinern">-</button>
+        <span id="zoomLevel" aria-live="polite">100%</span>
+        <button id="zoomInBtn" type="button" aria-label="Bogen vergrößern" title="Bogen vergrößern">+</button>
+      </span>
       <input id="fileInput" type="file" accept=".sav,.yaml,.yml">
       <span id="sampleCharacterControls" hidden>
         <select id="sampleCharacterSelect" aria-label="Beispielcharakter auswählen">
@@ -74,6 +79,26 @@
       await loadScript(cfg.defs);
       await loadScript(cfg.layout);
       await loadScript('app.js');
+
+      const form = document.getElementById('characterForm');
+      const zoomOutBtn = document.getElementById('zoomOutBtn');
+      const zoomInBtn = document.getElementById('zoomInBtn');
+      const zoomLevel = document.getElementById('zoomLevel');
+      let zoom = 1;
+      const fitToWidth = () => {
+        const width = form.offsetWidth;
+        if (width) document.documentElement.style.setProperty('--view-scale', String(document.documentElement.clientWidth / width * zoom));
+        zoomLevel.textContent = `${Math.round(zoom * 100)}%`;
+        zoomOutBtn.disabled = zoom <= 0.5;
+        zoomInBtn.disabled = zoom >= 1;
+      };
+      zoomOutBtn.addEventListener('click', () => { zoom = Math.max(0.5, Math.round((zoom - 0.1) * 10) / 10); fitToWidth(); });
+      zoomInBtn.addEventListener('click', () => { zoom = Math.min(1, Math.round((zoom + 0.1) * 10) / 10); fitToWidth(); });
+      const resizeObserver = new ResizeObserver(fitToWidth);
+      resizeObserver.observe(form);
+      resizeObserver.observe(document.documentElement);
+      window.addEventListener('resize', fitToWidth);
+      fitToWidth();
     }
 
     boot().catch(err => {
