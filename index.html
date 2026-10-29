@@ -146,7 +146,7 @@
         function loadRulebook(system) {
             showLoading();
 
-            const rulebook = system === 'ars' ? 'ars_magica' : 'simple_dsa2';
+            const rulebook = system === 'ars' ? 'ars_magica' : 'simple_dsa';
             const frame = document.createElement('iframe');
             frame.title = system === 'ars' ? 'Ars Magica-Regelwerk' : 'Simple-DSA-Regelwerk';
             document.getElementById('contentArea').replaceChildren(frame);
